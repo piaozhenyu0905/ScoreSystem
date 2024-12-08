@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.assessment.mapper.EvaluateMapper">
+
+    <resultMap id="SelfEvaluatVO" type="com.system.assessment.vo.SelfEvaluatorVO">
+        <result column="username" property="username"></result>
+        <result column="name" property="name"></result>
+        <result column="evaluator" property="evaluator"></result>
+        <result column="department" property="department"></result>
+        <result column="evaluate_type" property="type" typeHandler="com.system.assessment.constants.handler.RelationTypeHandler"></result>
+
+    </resultMap>
+
+    <resultMap id="SelfEvaluatedVO" type="com.system.assessment.vo.SelfEvaluatedVO">
+        <result column="username" property="username"></result>
+        <result column="name" property="name"></result>
+        <result column="evaluated_user" property="evaluatedUser"></result>
+        <result column="department" property="department"></result>
+        <result column="evaluate_type" property="type" typeHandler="com.system.assessment.constants.handler.RelationTypeHandler"></result>
+    </resultMap>
+
+
+    <resultMap id="EvaluateProcess" type="com.system.assessment.pojo.EvaluateProcess">
+        <result column="end_date" property="endDate"></result>
+        <result column="epoch" property="epoch"></result>
+        <result column="evaluate_step" property="evaluateStep"></result>
+    </resultMap>
+
+    <resultMap id="AverageSum" type="com.system.assessment.pojo.AverageSum">
+        <result column="weight" property="weight"></result>
+        <result column="type" property="type"></result>
+        <result column="content" property="content"></result>
+        <collection property="averageList" ofType="com.system.assessment.vo.ScoreVO">
+            <result column="average_score" property="score"/>
+            <result column="dimension_id" property="dimensionId"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="AllStaff" type="com.system.assessment.vo.AllStaff">
+        <result column="id" property="userId"></result>
+        <result column="name" property="name"></result>
+        <result column="work_num" property="workNum"></result>
+        <result column="department" property="department"></result>
+    </resultMap>
+
+    <resultMap id="Etable" type="com.system.assessment.pojo.EvaluateTable">
+        <result column="meanings" property="meanings"></result>
+        <result column="principles" property="principles"></result>
+        <result column="opening_remarks" property="openingRemarks"></result>
+        <result column="title" property="title"></result>
+    </resultMap>
+
+    <resultMap id="EvaluateStep" type="com.system.assessment.pojo.EvaluateProcess">
+        <result column="evaluate_step" property="evaluateStep"></result>
+        <result column="start_date" property="startDate"></result>
+        <result column="end_date" property="endDate"></result>
+        <result column="description" property="description"></result>
+        <result column="enable" property="enable"></result>
+    </resultMap>
+
+
+    <select id="findSelfEvaluator" resultMap="SelfEvaluatVO">
+        select u.username, u.name, u.department, er.evaluate_type, er.evaluator
+        from evaluate_relations as er
+        left join user as u on u.id = er.evaluator
+        where er.evaluated_user = #{userId} and er.enable = 1
+    </select>
+
+    <select id="findSelfEvaluated" resultMap="SelfEvaluatedVO">
+        select u.username, u.name, u.department, er.evaluate_type, er.evaluated_user
+        from evaluate_relations as er
+                 left join user as u on u.id = er.evaluated_user
+        where er.evaluator = #{userId} and er.enable = 1
+    </select>
+
+    <select id="findSelfEvaluatedList" resultMap="SelfEvaluatedVO">
+        select u.username, u.name, u.department, er.evaluate_type, er.evaluated_user
+        from evaluate_relations as er
+                 left join user as u on u.id = er.evaluated_user
+        where er.evaluator = #{userId} and er.enable = 1 and er.evaluate_type = 0
+    </select>
+
+
+
+    <select id="findProcessId" resultType="int">
+        select id
+        from evaluation_process
+        where epoch = #{epoch} and evaluate_step = #{evaluateStep}
+    </select>
+
+
+    <select id="findNewEpoch" resultType="int">
+        select MAX(epoch)
+        from evaluation_process
+    </select>
+
+    <select id="findEvaluateStep" resultMap="EvaluateStep">
+        select evaluate_step, start_date, end_date, description, enable
+        from evaluation_process
+        where epoch = #{epoch}
+        ORDER BY evaluate_step
+    </select>
+
+
+    <select id="findAll" resultMap="AllStaff">
+        SELECT id, name, department, work_num
+        FROM user
+        where is_delete = 0
+        ORDER BY
+            CASE
+                WHEN department = #{department} THEN 0
+                ELSE 1
+                END,
+        department ASC
+    </select>
+
+
+    <select id="findAverageSum" resultMap="AverageSum">
+        SELECT dimension_id, average_score, weight, type, content
+        FROM average_sum
+        where epoch = #{epoch} and type = #{type} and content = #{content}
+    </select>
+
+    <select id="findNewestEnableProcess" resultType="int">
+        SELECT evaluate_step
+        FROM evaluation_process
+        where enable = 1
+        ORDER BY epoch DESC
+        limit 1
+    </select>
+
+
+
+    <select id="findEndDate" resultType="java.time.LocalDate">
+        SELECT end_date
+        FROM evaluation_process
+        where epoch = #{epoch} and evaluate_step = 2
+    </select>
+
+
+    <select id="findExtra" resultType="int">
+        SELECT extra
+        FROM evaluation_process
+        where epoch = #{epoch} and evaluate_step = #{step}
+    </select>
+
+    <select id="findNewEvaluateProcess" resultMap="EvaluateProcess">
+        SELECT evaluate_step, end_date, epoch
+        FROM evaluation_process
+        where enable = 1
+        ORDER BY epoch DESC
+            limit 1
+    </select>
+
+    <select id="evaluateTableInfo" resultMap="Etable">
+        select meanings, principles, opening_remarks, title
+        from evaluate_table
+    </select>
+
+    <insert id="addNewEvaluateStep" parameterType="com.system.assessment.vo.ProcessStepVO" >
+        INSERT INTO evaluation_process (evaluate_step, epoch, end_date, start_date, description, enable, extra) VALUES
+        (#{evaluateProcess.evaluateStep},
+         #{evaluateProcess.epoch},
+         #{evaluateProcess.endDate},
+         #{evaluateProcess.startDate},
+         #{evaluateProcess.description},
+         #{evaluateProcess.enable},
+         #{evaluateProcess.extra})
+    </insert>
+
+    <insert id="insertAverageSum" parameterType="com.system.assessment.pojo.AverageSumTable" >
+        INSERT INTO average_sum (dimension_id, average_score, weight, type, epoch, content) VALUES
+        (#{averageSum.dimensionId},
+         #{averageSum.averageScore},
+         #{averageSum.weight},
+         #{averageSum.type},
+         #{averageSum.epoch},
+         #{averageSum.content})
+    </insert>
+
+    <insert id="addScore" parameterType="com.system.assessment.pojo.Score" >
+        INSERT INTO scores (dimension_id, score, todo_id, weight, description) VALUES
+        (#{score.dimensionId},
+         #{score.score},
+         #{score.todoId},
+         #{score.weight},
+         #{score.description})
+    </insert>
+
+    <update id="updateTableInfo">
+        UPDATE evaluate_table
+        SET meanings = #{evaluateTable.meanings},
+            principles = #{evaluateTable.principles},
+            opening_remarks = #{evaluateTable.openingRemarks},
+            title = #{evaluateTable.title}
+    </update>
+
+    <update id="setEnableBefore">
+        UPDATE evaluation_process
+        SET enable = #{enable}
+    </update>
+
+
+    <update id="updateEvaluateStep">
+        UPDATE evaluation_process
+        SET start_date = #{evaluateProcess.startDate},
+            end_date = #{evaluateProcess.endDate}
+        where epoch = #{evaluateProcess.epoch} and evaluate_step = #{evaluateProcess.evaluateStep}
+    </update>
+
+
+    <update id="gotoNewProcess">
+        UPDATE evaluation_process
+        SET enable = 1
+        where epoch = #{epoch} and evaluate_step = #{step}
+    </update>
+
+    <update id="endOldProcess">
+        UPDATE evaluation_process
+        SET enable = 0
+        where epoch = #{epoch} and evaluate_step = #{step}
+    </update>
+
+
+    <update id="setVisible">
+        UPDATE evaluation_process
+        SET extra = 1
+        where epoch = #{epoch} and evaluate_step = #{step}
+    </update>
+
+    <update id="updateAverageScore">
+        UPDATE average_sum
+        SET weight = #{weight}
+        where epoch = #{epoch} and type = #{type} and content = #{content}
+    </update>
+
+    <delete id="deleteAverageSum">
+        delete from average_sum
+        where epoch = #{epoch} and type = #{type} and content = #{content}
+    </delete>
+
+</mapper>

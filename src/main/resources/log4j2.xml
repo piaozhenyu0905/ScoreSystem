@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout charset="UTF-8" pattern="[%-5p] %d %c - %m%n" />
+        </Console>
+
+        <RollingFile name="runtimeFile" fileName="./logs/pjcm.log" filePattern="./logs/pjcm-%d{yyyy-MM-dd}.log"
+                     append="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS Z}\t%level\t%class\t%line\t%thread\t%msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <!-- 自动清理日志的配置 -->
+            <DefaultRolloverStrategy>
+                <Delete basePath="./logs">
+                    <!-- glob 项为需要自动清理日志的pattern -->
+                    <IfFileName glob="*.log"/>
+                    <!-- 30d 表示自动清理掉30天以前的日志文件 -->
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="errorFile" fileName="./logs/errors.log" filePattern="./logs/errors-%d{yyyy-MM-dd}.log"
+                     append="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS Z}\t%level\t%class\t%line\t%thread\t%msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+        </RollingFile>
+
+        <!-- 错误日志的所有记录（集中日志）-->
+        <File name="allErrorsFile" fileName="./logs/errors-all.log" append="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS Z}\t%level\t%class\t%line\t%thread\t%msg%n"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <root level="info">
+            <AppenderRef ref="CONSOLE" />
+            <AppenderRef ref="runtimeFile" />
+            <AppenderRef ref="errorFile">
+                <Filters>
+                    <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+                </Filters>
+            </AppenderRef>
+        </root>
+        <logger name="com.system.assessment.exception.WebExceptionController">
+            <AppenderRef ref="errorFile" />
+        </logger>
+        <!-- 捕获所有级别的错误日志 -->
+        <logger name="org.springframework" level="error">
+            <AppenderRef ref="allErrorsFile" />
+        </logger>
+    </Loggers>
+</configuration>

@@ -1,0 +1,679 @@
+2024-11-20 11:35:11.166 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 10916 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-11-20 11:35:11.181 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 11:35:14.179 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 11:35:14.183 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 11:35:14.244 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 44ms. Found 0 repository interfaces.
+2024-11-20 11:35:14.831 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 11:35:15.720 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	92	main	Tomcat initialized with port(s): 80 (http)
+2024-11-20 11:35:15.751 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-11-20 11:35:15.752 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-11-20 11:35:15.752 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-11-20 11:35:15.755 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-11-20 11:35:15.755 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-11-20 11:35:15.755 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-11-20 11:35:15.846 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-11-20 11:35:15.999 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-11-20 11:35:15.999 +0800	INFO	org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext	284	main	Root WebApplicationContext: initialization completed in 4772 ms
+2024-11-20 11:35:17.445 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 11:35:17.446 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 11:35:17.503 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 11:35:17.756 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 11:35:18.587 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e6bd263, org.springframework.security.web.context.SecurityContextPersistenceFilter@240a2619, org.springframework.security.web.header.HeaderWriterFilter@1883871b, org.springframework.security.web.authentication.logout.LogoutFilter@314b7945, com.system.assessment.config.filter.LoginFilter@3408f695, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2049e582, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@539316bb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@21516c88, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@394a6d2b, org.springframework.security.web.session.SessionManagementFilter@52f9e8bb, org.springframework.security.web.access.ExceptionTranslationFilter@74431b9c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1753475d]
+2024-11-20 11:35:18.598 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 11:35:18.641 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 11:35:18.659 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 11:35:18.691 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 11:35:19.014 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-11-20 11:35:19.036 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	204	main	Tomcat started on port(s): 80 (http) with context path ''
+2024-11-20 11:35:19.039 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 8.505 seconds (JVM running for 12.19)
+2024-11-20 11:40:56.902 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20 11:40:56.902 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	525	http-nio-80-exec-1	Initializing Servlet 'dispatcherServlet'
+2024-11-20 11:40:56.908 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	547	http-nio-80-exec-1	Completed initialization in 6 ms
+2024-11-20 11:40:58.442 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-1	{dataSource-1} inited
+2024-11-20 11:41:12.502 +0800	ERROR	org.apache.juli.logging.DirectJDKLog	175	http-nio-80-exec-3	Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}' at line 1
+### The error may exist in com/system/assessment/mapper/EvaluateMapper.java (best guess)
+### The error may involve com.system.assessment.mapper.EvaluateMapper.findDepartmentById-Inline
+### The error occurred while setting parameters
+### SQL: select department from user where id = ?}
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}' at line 1
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}' at line 1] with root cause
+java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}' at line 1
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120) ~[mysql-connector-java-8.0.18.jar:8.0.18]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.18.jar:8.0.18]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.18.jar:8.0.18]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953) ~[mysql-connector-java-8.0.18.jar:8.0.18]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370) ~[mysql-connector-java-8.0.18.jar:8.0.18]
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:497) ~[druid-1.2.3.jar:1.2.3]
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:64) ~[mybatis-3.5.5.jar:3.5.5]
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79) ~[mybatis-3.5.5.jar:3.5.5]
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63) ~[mybatis-3.5.5.jar:3.5.5]
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325) ~[mybatis-3.5.5.jar:3.5.5]
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156) ~[mybatis-3.5.5.jar:3.5.5]
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109) ~[mybatis-3.5.5.jar:3.5.5]
+	at com.github.pagehelper.PageInterceptor.intercept(PageInterceptor.java:132) ~[pagehelper-5.3.0.jar:?]
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61) ~[mybatis-3.5.5.jar:3.5.5]
+	at com.sun.proxy.$Proxy145.query(Unknown Source) ~[?:?]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147) ~[mybatis-3.5.5.jar:3.5.5]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140) ~[mybatis-3.5.5.jar:3.5.5]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:76) ~[mybatis-3.5.5.jar:3.5.5]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_301]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_301]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_301]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_301]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426) ~[mybatis-spring-2.0.5.jar:2.0.5]
+	at com.sun.proxy.$Proxy96.selectOne(Unknown Source) ~[?:?]
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:159) ~[mybatis-spring-2.0.5.jar:2.0.5]
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:87) ~[mybatis-3.5.5.jar:3.5.5]
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:152) ~[mybatis-3.5.5.jar:3.5.5]
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:85) ~[mybatis-3.5.5.jar:3.5.5]
+	at com.sun.proxy.$Proxy104.findDepartmentById(Unknown Source) ~[?:?]
+	at com.system.assessment.service.Impl.EvaluateServiceImpl.findAll(EvaluateServiceImpl.java:46) ~[classes/:?]
+	at com.system.assessment.service.Impl.EvaluateServiceImpl$$FastClassBySpringCGLIB$$eefdae61.invoke(<generated>) ~[classes/:?]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:353) ~[spring-tx-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:99) ~[spring-tx-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at com.system.assessment.service.Impl.EvaluateServiceImpl$$EnhancerBySpringCGLIB$$cb014fbc.findAll(<generated>) ~[classes/:?]
+	at com.system.assessment.controller.EvaluateController.findAll(EvaluateController.java:66) ~[classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_301]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_301]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_301]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_301]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1579) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_301]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_301]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_301]
+2024-11-20 11:43:38.811 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 20952 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-11-20 11:43:38.817 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 11:43:39.479 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 11:43:39.482 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 11:43:39.514 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
+2024-11-20 11:43:39.745 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 11:43:39.945 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	92	main	Tomcat initialized with port(s): 80 (http)
+2024-11-20 11:43:39.951 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-11-20 11:43:39.952 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-11-20 11:43:39.953 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-11-20 11:43:39.954 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-11-20 11:43:39.954 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-11-20 11:43:39.955 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-11-20 11:43:39.959 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-11-20 11:43:40.051 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-11-20 11:43:40.052 +0800	INFO	org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext	284	main	Root WebApplicationContext: initialization completed in 1209 ms
+2024-11-20 11:43:40.674 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 11:43:40.675 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 11:43:40.704 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 11:43:40.823 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 11:43:41.187 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5cf0673d, org.springframework.security.web.context.SecurityContextPersistenceFilter@64c25a62, org.springframework.security.web.header.HeaderWriterFilter@7aae1170, org.springframework.security.web.authentication.logout.LogoutFilter@4f26425b, com.system.assessment.config.filter.LoginFilter@630bf683, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4ebd6fd6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@66a82a13, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@59f45950, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@40c76f5a, org.springframework.security.web.session.SessionManagementFilter@163e8949, org.springframework.security.web.access.ExceptionTranslationFilter@58601e7a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4d43a1b7]
+2024-11-20 11:43:41.200 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 11:43:41.230 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 11:43:41.242 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 11:43:41.274 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 11:43:41.502 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-11-20 11:43:41.520 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	204	main	Tomcat started on port(s): 80 (http) with context path ''
+2024-11-20 11:43:41.522 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 2.954 seconds (JVM running for 5.27)
+2024-11-20 11:43:47.476 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20 11:43:47.476 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	525	http-nio-80-exec-1	Initializing Servlet 'dispatcherServlet'
+2024-11-20 11:43:47.480 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	547	http-nio-80-exec-1	Completed initialization in 4 ms
+2024-11-20 11:43:47.639 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-1	{dataSource-1} inited
+2024-11-20 11:48:00.990 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 32484 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-11-20 11:48:00.997 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 11:48:03.634 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 11:48:03.637 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 11:48:03.674 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 28ms. Found 0 repository interfaces.
+2024-11-20 11:48:03.967 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 11:48:04.502 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	92	main	Tomcat initialized with port(s): 80 (http)
+2024-11-20 11:48:04.509 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-11-20 11:48:04.509 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-11-20 11:48:04.510 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-11-20 11:48:04.512 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-11-20 11:48:04.512 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-11-20 11:48:04.512 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-11-20 11:48:04.518 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-11-20 11:48:04.657 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-11-20 11:48:04.658 +0800	INFO	org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext	284	main	Root WebApplicationContext: initialization completed in 3630 ms
+2024-11-20 11:48:05.816 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 11:48:05.817 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 11:48:05.844 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 11:48:06.072 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 11:48:06.417 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@11bfffb3, org.springframework.security.web.context.SecurityContextPersistenceFilter@59d6642a, org.springframework.security.web.header.HeaderWriterFilter@4aa22cc2, org.springframework.security.web.authentication.logout.LogoutFilter@3bd08435, com.system.assessment.config.filter.LoginFilter@2539cd1c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3d40498a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@27df5806, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4c5406b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6a7a1a0d, org.springframework.security.web.session.SessionManagementFilter@464aeb09, org.springframework.security.web.access.ExceptionTranslationFilter@32da97fd, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@11399548]
+2024-11-20 11:48:06.425 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 11:48:06.449 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 11:48:06.496 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 11:48:06.519 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 11:48:06.744 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-11-20 11:48:06.759 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	204	main	Tomcat started on port(s): 80 (http) with context path ''
+2024-11-20 11:48:06.761 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 6.135 seconds (JVM running for 8.507)
+2024-11-20 11:48:57.799 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20 11:48:57.799 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	525	http-nio-80-exec-1	Initializing Servlet 'dispatcherServlet'
+2024-11-20 11:48:57.804 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	547	http-nio-80-exec-1	Completed initialization in 5 ms
+2024-11-20 11:48:58.008 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-1	{dataSource-1} inited
+2024-11-20 11:50:38.327 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 33700 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-11-20 11:50:38.333 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 11:50:38.962 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 11:50:38.965 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 11:50:38.995 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 20ms. Found 0 repository interfaces.
+2024-11-20 11:50:39.227 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 11:50:39.425 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	92	main	Tomcat initialized with port(s): 80 (http)
+2024-11-20 11:50:39.432 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-11-20 11:50:39.433 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-11-20 11:50:39.433 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-11-20 11:50:39.434 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-11-20 11:50:39.435 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-11-20 11:50:39.435 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-11-20 11:50:39.440 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-11-20 11:50:39.533 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-11-20 11:50:39.533 +0800	INFO	org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext	284	main	Root WebApplicationContext: initialization completed in 1174 ms
+2024-11-20 11:50:40.134 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 11:50:40.135 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 11:50:40.157 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 11:50:40.275 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 11:50:40.620 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@538b3c88, org.springframework.security.web.context.SecurityContextPersistenceFilter@27358a19, org.springframework.security.web.header.HeaderWriterFilter@65844c96, org.springframework.security.web.authentication.logout.LogoutFilter@6e00837f, com.system.assessment.config.filter.LoginFilter@65f40689, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1d17423f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@22865072, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@50a7c72b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@19b9f903, org.springframework.security.web.session.SessionManagementFilter@4e5c8ef3, org.springframework.security.web.access.ExceptionTranslationFilter@1b0e031b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@54a056e4]
+2024-11-20 11:50:40.627 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 11:50:40.651 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 11:50:40.662 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 11:50:40.683 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 11:50:40.874 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-11-20 11:50:40.889 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	204	main	Tomcat started on port(s): 80 (http) with context path ''
+2024-11-20 11:50:40.891 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 2.808 seconds (JVM running for 4.862)
+2024-11-20 11:50:50.174 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20 11:50:50.174 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	525	http-nio-80-exec-1	Initializing Servlet 'dispatcherServlet'
+2024-11-20 11:50:50.179 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	547	http-nio-80-exec-1	Completed initialization in 5 ms
+2024-11-20 11:50:50.324 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-1	{dataSource-1} inited
+2024-11-20 11:55:01.692 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 8096 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-11-20 11:55:01.699 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 11:55:02.520 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 11:55:02.523 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 11:55:02.551 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 19ms. Found 0 repository interfaces.
+2024-11-20 11:55:02.786 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 11:55:02.983 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	92	main	Tomcat initialized with port(s): 80 (http)
+2024-11-20 11:55:02.989 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-11-20 11:55:02.990 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-11-20 11:55:02.991 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-11-20 11:55:02.992 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-11-20 11:55:02.992 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-11-20 11:55:02.993 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-11-20 11:55:02.997 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-11-20 11:55:03.094 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-11-20 11:55:03.094 +0800	INFO	org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext	284	main	Root WebApplicationContext: initialization completed in 1369 ms
+2024-11-20 11:55:03.738 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 11:55:03.739 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 11:55:03.767 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 11:55:03.903 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 11:55:04.266 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@58164e9a, org.springframework.security.web.context.SecurityContextPersistenceFilter@2c99c8d, org.springframework.security.web.header.HeaderWriterFilter@64440065, org.springframework.security.web.authentication.logout.LogoutFilter@c0c8f96, com.system.assessment.config.filter.LoginFilter@53c99b09, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@28e94c2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@365cef67, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@45984654, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@11bfffb3, org.springframework.security.web.session.SessionManagementFilter@2049e582, org.springframework.security.web.access.ExceptionTranslationFilter@314b7945, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@675ec28b]
+2024-11-20 11:55:04.273 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 11:55:04.300 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 11:55:04.312 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 11:55:04.335 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 11:55:04.536 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-11-20 11:55:04.552 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	204	main	Tomcat started on port(s): 80 (http) with context path ''
+2024-11-20 11:55:04.554 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 3.108 seconds (JVM running for 5.355)
+2024-11-20 11:56:00.954 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20 11:56:00.954 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	525	http-nio-80-exec-1	Initializing Servlet 'dispatcherServlet'
+2024-11-20 11:56:00.958 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	547	http-nio-80-exec-1	Completed initialization in 4 ms
+2024-11-20 11:56:01.104 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-1	{dataSource-1} inited
+2024-11-20 11:57:52.489 +0800	WARN	com.alibaba.druid.pool.DruidAbstractDataSource	1489	http-nio-80-exec-2	discard long time none received connection. , jdbcUrl : jdbc:mysql://localhost/company_score?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false, version : 1.2.3, lastPacketReceivedIdleMillis : 104146
+2024-11-20 12:14:59.177 +0800	WARN	com.alibaba.druid.pool.DruidAbstractDataSource	1489	http-nio-80-exec-8	discard long time none received connection. , jdbcUrl : jdbc:mysql://localhost/company_score?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false, version : 1.2.3, lastPacketReceivedIdleMillis : 1013675
+2024-11-20 12:39:37.188 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 34640 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-11-20 12:39:37.194 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 12:39:37.896 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 12:39:37.899 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 12:39:37.928 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 20ms. Found 0 repository interfaces.
+2024-11-20 12:39:38.154 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 12:39:38.338 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	92	main	Tomcat initialized with port(s): 80 (http)
+2024-11-20 12:39:38.344 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-11-20 12:39:38.345 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-11-20 12:39:38.345 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-11-20 12:39:38.347 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-11-20 12:39:38.347 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-11-20 12:39:38.347 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-11-20 12:39:38.352 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-11-20 12:39:38.484 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-11-20 12:39:38.484 +0800	INFO	org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext	284	main	Root WebApplicationContext: initialization completed in 1262 ms
+2024-11-20 12:39:39.168 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 12:39:39.169 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 12:39:39.194 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 12:39:39.319 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 12:39:39.702 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@a457c2b, org.springframework.security.web.context.SecurityContextPersistenceFilter@32da97fd, org.springframework.security.web.header.HeaderWriterFilter@e01a26b, org.springframework.security.web.authentication.logout.LogoutFilter@7308c820, com.system.assessment.config.filter.LoginFilter@1d858300, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5170bc02, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4aa22cc2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@52d7ab79, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@16a6dc21, org.springframework.security.web.session.SessionManagementFilter@5cce40d7, org.springframework.security.web.access.ExceptionTranslationFilter@65d9e72a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@163e8949]
+2024-11-20 12:39:39.710 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 12:39:39.734 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 12:39:39.747 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 12:39:39.769 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 12:39:39.966 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-11-20 12:39:39.983 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	204	main	Tomcat started on port(s): 80 (http) with context path ''
+2024-11-20 12:39:39.985 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 3.057 seconds (JVM running for 5.53)
+2024-11-20 12:39:44.675 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20 12:39:44.676 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	525	http-nio-80-exec-1	Initializing Servlet 'dispatcherServlet'
+2024-11-20 12:39:44.682 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	547	http-nio-80-exec-1	Completed initialization in 6 ms
+2024-11-20 12:39:44.837 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-1	{dataSource-1} inited
+2024-11-20 12:40:29.140 +0800	ERROR	org.apache.juli.logging.DirectJDKLog	175	http-nio-80-exec-3	Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is com.system.assessment.exception.CustomException: 您已和小4建立了评估关系，请重新选择!] with root cause
+com.system.assessment.exception.CustomException: 您已和小4建立了评估关系，请重新选择!
+	at com.system.assessment.service.Impl.RelationshipServiceImpl.addSelfEvaluated(RelationshipServiceImpl.java:226) ~[classes/:?]
+	at com.system.assessment.service.Impl.RelationshipServiceImpl$$FastClassBySpringCGLIB$$2cf750e2.invoke(<generated>) ~[classes/:?]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:353) ~[spring-tx-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:99) ~[spring-tx-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689) ~[spring-aop-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at com.system.assessment.service.Impl.RelationshipServiceImpl$$EnhancerBySpringCGLIB$$934a77f3.addSelfEvaluated(<generated>) ~[classes/:?]
+	at com.system.assessment.controller.RelationshipController.addSelfEvaluated(RelationshipController.java:44) ~[classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_301]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_301]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_301]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_301]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1579) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_301]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_301]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_301]
+2024-11-20 12:42:55.363 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 11284 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-11-20 12:42:55.369 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 12:42:56.102 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 12:42:56.105 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 12:42:56.136 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
+2024-11-20 12:42:56.372 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 12:42:56.597 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	92	main	Tomcat initialized with port(s): 80 (http)
+2024-11-20 12:42:56.604 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-11-20 12:42:56.605 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-11-20 12:42:56.605 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-11-20 12:42:56.606 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-11-20 12:42:56.606 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-11-20 12:42:56.607 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-11-20 12:42:56.612 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-11-20 12:42:56.705 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-11-20 12:42:56.705 +0800	INFO	org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext	284	main	Root WebApplicationContext: initialization completed in 1309 ms
+2024-11-20 12:42:57.461 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 12:42:57.462 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 12:42:57.487 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 12:42:57.614 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 12:42:57.981 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8f39224, org.springframework.security.web.context.SecurityContextPersistenceFilter@570b2057, org.springframework.security.web.header.HeaderWriterFilter@675ec28b, org.springframework.security.web.authentication.logout.LogoutFilter@615e83ac, com.system.assessment.config.filter.LoginFilter@2e463f4, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@9be7319, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@16a6dc21, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@184afb78, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7f642bf, org.springframework.security.web.session.SessionManagementFilter@610fbe1c, org.springframework.security.web.access.ExceptionTranslationFilter@43e8f1c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@75ad30c1]
+2024-11-20 12:42:57.988 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 12:42:58.013 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 12:42:58.025 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 12:42:58.050 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 12:42:58.253 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-11-20 12:42:58.271 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	204	main	Tomcat started on port(s): 80 (http) with context path ''
+2024-11-20 12:42:58.273 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 3.162 seconds (JVM running for 5.5)
+2024-11-20 12:43:02.433 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20 12:43:02.434 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	525	http-nio-80-exec-1	Initializing Servlet 'dispatcherServlet'
+2024-11-20 12:43:02.440 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	547	http-nio-80-exec-1	Completed initialization in 6 ms
+2024-11-20 12:43:02.590 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-1	{dataSource-1} inited
+2024-11-20 12:43:04.970 +0800	ERROR	com.system.assessment.exception.WebExceptionController	62	http-nio-80-exec-3	全局异常处理器将handleAllExceptions异常抛出,信息为com.system.assessment.exception.CustomException: 参数校验不通过：您已和小4建立了评估关系，请重新选择!
+2024-11-20 12:44:11.381 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 23268 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-11-20 12:44:11.388 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 12:44:12.081 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 12:44:12.083 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 12:44:12.111 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 19ms. Found 0 repository interfaces.
+2024-11-20 12:44:12.349 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 12:44:12.525 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	92	main	Tomcat initialized with port(s): 80 (http)
+2024-11-20 12:44:12.531 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-11-20 12:44:12.532 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-11-20 12:44:12.532 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-11-20 12:44:12.534 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-11-20 12:44:12.534 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-11-20 12:44:12.534 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-11-20 12:44:12.538 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-11-20 12:44:12.676 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-11-20 12:44:12.676 +0800	INFO	org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext	284	main	Root WebApplicationContext: initialization completed in 1260 ms
+2024-11-20 12:44:13.348 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 12:44:13.349 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 12:44:13.373 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 12:44:13.501 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 12:44:13.884 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6a6da47a, org.springframework.security.web.context.SecurityContextPersistenceFilter@46d0f89c, org.springframework.security.web.header.HeaderWriterFilter@66a82a13, org.springframework.security.web.authentication.logout.LogoutFilter@7404ddca, com.system.assessment.config.filter.LoginFilter@659f226a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1c68d0db, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@a457c2b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@76e6c070, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@8f39224, org.springframework.security.web.session.SessionManagementFilter@11399548, org.springframework.security.web.access.ExceptionTranslationFilter@64c25a62, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2df3545d]
+2024-11-20 12:44:13.906 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 12:44:13.933 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 12:44:13.945 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 12:44:13.966 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 12:44:14.157 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-11-20 12:44:14.173 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	204	main	Tomcat started on port(s): 80 (http) with context path ''
+2024-11-20 12:44:14.175 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 3.059 seconds (JVM running for 5.362)
+2024-11-20 12:44:39.036 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20 12:44:39.036 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	525	http-nio-80-exec-1	Initializing Servlet 'dispatcherServlet'
+2024-11-20 12:44:39.043 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	547	http-nio-80-exec-1	Completed initialization in 7 ms
+2024-11-20 12:44:39.187 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-1	{dataSource-1} inited
+2024-11-20 12:44:42.788 +0800	ERROR	com.system.assessment.exception.WebExceptionController	62	http-nio-80-exec-2	全局异常处理器将handleAllExceptions异常抛出,信息为com.system.assessment.exception.CustomException: 您已和小4建立了评估关系，请重新选择!
+2024-11-20 12:45:17.126 +0800	ERROR	com.system.assessment.exception.WebExceptionController	62	http-nio-80-exec-4	全局异常处理器将handleAllExceptions异常抛出,信息为com.system.assessment.exception.CustomException: 您已和小2建立了评估关系，请重新选择!
+2024-11-20 12:45:49.537 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 31472 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-11-20 12:45:49.544 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 12:45:50.313 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 12:45:50.316 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 12:45:50.348 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
+2024-11-20 12:45:50.684 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 12:45:50.971 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	92	main	Tomcat initialized with port(s): 80 (http)
+2024-11-20 12:45:50.979 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-11-20 12:45:50.979 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-11-20 12:45:50.980 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-11-20 12:45:50.982 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-11-20 12:45:50.982 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-11-20 12:45:50.982 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-11-20 12:45:50.987 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-11-20 12:45:51.094 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-11-20 12:45:51.094 +0800	INFO	org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext	284	main	Root WebApplicationContext: initialization completed in 1515 ms
+2024-11-20 12:45:51.847 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 12:45:51.848 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 12:45:51.877 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 12:45:52.024 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 12:45:52.487 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@23c00420, org.springframework.security.web.context.SecurityContextPersistenceFilter@3abadb65, org.springframework.security.web.header.HeaderWriterFilter@66456506, org.springframework.security.web.authentication.logout.LogoutFilter@8585cdd, com.system.assessment.config.filter.LoginFilter@3b96f8b0, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1325f967, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@46a97805, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@58e5fbe5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@22f046b, org.springframework.security.web.session.SessionManagementFilter@1ed52f44, org.springframework.security.web.access.ExceptionTranslationFilter@6f430ea8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7fa85a55]
+2024-11-20 12:45:52.496 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 12:45:52.526 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 12:45:52.540 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 12:45:52.566 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 12:45:52.794 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-11-20 12:45:52.812 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	204	main	Tomcat started on port(s): 80 (http) with context path ''
+2024-11-20 12:45:52.814 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 3.598 seconds (JVM running for 6.252)
+2024-11-20 12:45:58.745 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20 12:45:58.746 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	525	http-nio-80-exec-1	Initializing Servlet 'dispatcherServlet'
+2024-11-20 12:45:58.753 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	547	http-nio-80-exec-1	Completed initialization in 7 ms
+2024-11-20 12:45:58.921 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-1	{dataSource-1} inited
+2024-11-20 12:47:32.435 +0800	ERROR	com.system.assessment.exception.WebExceptionController	62	http-nio-80-exec-2	全局异常处理器将handleAllExceptions异常抛出,信息为com.system.assessment.exception.CustomException: 您已和小3建立了评估关系，请重新选择!
+2024-11-20 12:47:32.702 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	208	SpringContextShutdownHook	Shutting down ExecutorService 'taskScheduler'
+2024-11-20 12:47:32.833 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	208	SpringContextShutdownHook	Shutting down ExecutorService 'emailExecutor'
+2024-11-20 12:47:32.836 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-1} closing ...
+2024-11-20 12:47:32.846 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2104	SpringContextShutdownHook	{dataSource-1} closed
+2024-11-20 12:48:20.472 +0800	INFO	org.springframework.test.context.support.AbstractTestContextBootstrapper	308	main	Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.system.assessment.ScoreApplicationTests], using SpringBootContextLoader
+2024-11-20 12:48:20.480 +0800	INFO	org.springframework.test.context.support.AbstractContextLoader	264	main	Could not detect default resource locations for test class [com.system.assessment.ScoreApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+2024-11-20 12:48:20.481 +0800	INFO	org.springframework.test.context.support.AnnotationConfigContextLoaderUtils	83	main	Could not detect default configuration classes for test class [com.system.assessment.ScoreApplicationTests]: ScoreApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-11-20 12:48:20.581 +0800	INFO	org.springframework.boot.test.context.SpringBootTestContextBootstrapper	235	main	Found @SpringBootConfiguration com.system.assessment.ScoreApplication for test class com.system.assessment.ScoreApplicationTests
+2024-11-20 12:48:20.648 +0800	INFO	org.springframework.test.context.support.AbstractTestContextBootstrapper	248	main	Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener]
+2024-11-20 12:48:20.712 +0800	INFO	org.springframework.test.context.support.AbstractTestContextBootstrapper	177	main	Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@6e6d5d29, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5c530d1e, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6c25e6c4, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@85e6769, org.springframework.test.context.support.DirtiesContextTestExecutionListener@c5ee75e, org.springframework.test.context.transaction.TransactionalTestExecutionListener@48a12036, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@bf1ec20, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@70efb718, org.springframework.test.context.event.EventPublishingTestExecutionListener@b70da4c, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@4a11eb84, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@4e858e0a, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@435fb7b5, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4e70a728, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@b7838a9, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@696f0212]
+2024-11-20 12:48:21.103 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 24292 (started by LENOVO in E:\ScoreSystem)
+2024-11-20 12:48:21.105 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 12:48:22.242 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 12:48:22.245 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 12:48:22.280 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 24ms. Found 0 repository interfaces.
+2024-11-20 12:48:22.835 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 12:48:24.150 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 12:48:24.159 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 12:48:24.228 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 12:48:24.675 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 12:48:25.642 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1b19712f, org.springframework.security.web.context.SecurityContextPersistenceFilter@51141f64, org.springframework.security.web.header.HeaderWriterFilter@192f5f39, org.springframework.security.web.authentication.logout.LogoutFilter@12be4f83, com.system.assessment.config.filter.LoginFilter@37b01ce2, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@389008d1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@35ceec81, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@37c87fcc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@714c74eb, org.springframework.security.web.session.SessionManagementFilter@2965dd88, org.springframework.security.web.access.ExceptionTranslationFilter@4fc3529, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@aedc426]
+2024-11-20 12:48:25.677 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 12:48:25.715 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 12:48:25.741 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 12:48:25.768 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 12:48:26.146 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 5.391 seconds (JVM running for 7.952)
+2024-11-20 12:48:26.566 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	208	SpringContextShutdownHook	Shutting down ExecutorService 'taskScheduler'
+2024-11-20 12:48:26.584 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	208	SpringContextShutdownHook	Shutting down ExecutorService 'emailExecutor'
+2024-11-20 12:48:26.587 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...
+2024-11-20 12:49:33.776 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 27180 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-11-20 12:49:33.782 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 12:49:34.514 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 12:49:34.516 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 12:49:34.545 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 19ms. Found 0 repository interfaces.
+2024-11-20 12:49:34.810 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 12:49:34.989 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	92	main	Tomcat initialized with port(s): 80 (http)
+2024-11-20 12:49:34.996 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-11-20 12:49:34.996 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-11-20 12:49:34.997 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-11-20 12:49:34.998 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-11-20 12:49:34.998 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-11-20 12:49:34.998 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-11-20 12:49:35.003 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-11-20 12:49:35.137 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-11-20 12:49:35.137 +0800	INFO	org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext	284	main	Root WebApplicationContext: initialization completed in 1328 ms
+2024-11-20 12:49:35.772 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 12:49:35.773 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 12:49:35.797 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 12:49:35.923 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 12:49:36.375 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@12cd129c, org.springframework.security.web.context.SecurityContextPersistenceFilter@c212536, org.springframework.security.web.header.HeaderWriterFilter@65859b44, org.springframework.security.web.authentication.logout.LogoutFilter@54c11750, com.system.assessment.config.filter.LoginFilter@32d5279, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6e8f2094, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1b0e031b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@563317c1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1a717d79, org.springframework.security.web.session.SessionManagementFilter@49653791, org.springframework.security.web.access.ExceptionTranslationFilter@78479f2b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3dea226b]
+2024-11-20 12:49:36.382 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 12:49:36.409 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 12:49:36.422 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 12:49:36.444 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 12:49:36.637 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-11-20 12:49:36.652 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	204	main	Tomcat started on port(s): 80 (http) with context path ''
+2024-11-20 12:49:36.654 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 3.138 seconds (JVM running for 5.242)
+2024-11-20 12:49:41.763 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20 12:49:41.763 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	525	http-nio-80-exec-1	Initializing Servlet 'dispatcherServlet'
+2024-11-20 12:49:41.771 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	547	http-nio-80-exec-1	Completed initialization in 8 ms
+2024-11-20 12:49:41.923 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-1	{dataSource-1} inited
+2024-11-20 12:51:51.887 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 30888 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-11-20 12:51:51.893 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 12:51:52.563 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 12:51:52.566 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 12:51:52.601 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
+2024-11-20 12:51:52.837 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 12:51:53.037 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	92	main	Tomcat initialized with port(s): 80 (http)
+2024-11-20 12:51:53.044 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-11-20 12:51:53.044 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-11-20 12:51:53.045 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-11-20 12:51:53.046 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-11-20 12:51:53.046 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-11-20 12:51:53.046 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-11-20 12:51:53.051 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-11-20 12:51:53.142 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-11-20 12:51:53.143 +0800	INFO	org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext	284	main	Root WebApplicationContext: initialization completed in 1222 ms
+2024-11-20 12:51:53.781 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 12:51:53.782 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 12:51:53.807 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 12:51:53.934 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 12:51:54.291 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@43e3a390, org.springframework.security.web.context.SecurityContextPersistenceFilter@16a6dc21, org.springframework.security.web.header.HeaderWriterFilter@610fbe1c, org.springframework.security.web.authentication.logout.LogoutFilter@4e50ae56, com.system.assessment.config.filter.LoginFilter@36ab3814, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@42730828, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@59f45950, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4f26425b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@44aa91e2, org.springframework.security.web.session.SessionManagementFilter@570b2057, org.springframework.security.web.access.ExceptionTranslationFilter@675ec28b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6b9697ae]
+2024-11-20 12:51:54.298 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 12:51:54.322 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 12:51:54.334 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 12:51:54.356 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 12:51:54.546 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-11-20 12:51:54.561 +0800	INFO	org.springframework.boot.web.embedded.tomcat.TomcatWebServer	204	main	Tomcat started on port(s): 80 (http) with context path ''
+2024-11-20 12:51:54.563 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 2.921 seconds (JVM running for 5.155)
+2024-11-20 12:52:00.962 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20 12:52:00.963 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	525	http-nio-80-exec-1	Initializing Servlet 'dispatcherServlet'
+2024-11-20 12:52:00.967 +0800	INFO	org.springframework.web.servlet.FrameworkServlet	547	http-nio-80-exec-1	Completed initialization in 4 ms
+2024-11-20 12:52:01.116 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-1	{dataSource-1} inited
+2024-11-20 16:39:01.351 +0800	INFO	org.springframework.test.context.support.AbstractTestContextBootstrapper	308	main	Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.system.assessment.ScoreApplicationTests], using SpringBootContextLoader
+2024-11-20 16:39:01.364 +0800	INFO	org.springframework.test.context.support.AbstractContextLoader	264	main	Could not detect default resource locations for test class [com.system.assessment.ScoreApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+2024-11-20 16:39:01.365 +0800	INFO	org.springframework.test.context.support.AnnotationConfigContextLoaderUtils	83	main	Could not detect default configuration classes for test class [com.system.assessment.ScoreApplicationTests]: ScoreApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-11-20 16:39:01.494 +0800	INFO	org.springframework.boot.test.context.SpringBootTestContextBootstrapper	235	main	Found @SpringBootConfiguration com.system.assessment.ScoreApplication for test class com.system.assessment.ScoreApplicationTests
+2024-11-20 16:39:01.563 +0800	INFO	org.springframework.test.context.support.AbstractTestContextBootstrapper	248	main	Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener]
+2024-11-20 16:39:01.591 +0800	INFO	org.springframework.test.context.support.AbstractTestContextBootstrapper	177	main	Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@6e6d5d29, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5c530d1e, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6c25e6c4, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@85e6769, org.springframework.test.context.support.DirtiesContextTestExecutionListener@c5ee75e, org.springframework.test.context.transaction.TransactionalTestExecutionListener@48a12036, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@bf1ec20, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@70efb718, org.springframework.test.context.event.EventPublishingTestExecutionListener@b70da4c, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@4a11eb84, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@4e858e0a, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@435fb7b5, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4e70a728, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@b7838a9, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@696f0212]
+2024-11-20 16:39:01.898 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 36896 (started by LENOVO in E:\ScoreSystem)
+2024-11-20 16:39:01.900 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 16:39:07.290 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 16:39:07.342 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 16:39:07.475 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 46ms. Found 0 repository interfaces.
+2024-11-20 16:39:09.007 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 16:39:13.719 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 16:39:13.726 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 16:39:13.965 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 16:39:15.786 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 16:39:19.824 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@510e4d79, org.springframework.security.web.context.SecurityContextPersistenceFilter@35ceec81, org.springframework.security.web.header.HeaderWriterFilter@2965dd88, org.springframework.security.web.authentication.logout.LogoutFilter@389008d1, com.system.assessment.config.filter.LoginFilter@37b01ce2, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@11adab6d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7c8df667, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@78f5cbc5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2f0cab82, org.springframework.security.web.session.SessionManagementFilter@51141f64, org.springframework.security.web.access.ExceptionTranslationFilter@192f5f39, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5788722f]
+2024-11-20 16:39:19.890 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 16:39:19.932 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 16:39:20.072 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 16:39:20.133 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 16:39:20.824 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 19.191 seconds (JVM running for 22.53)
+2024-11-20 16:39:21.498 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	208	SpringContextShutdownHook	Shutting down ExecutorService 'taskScheduler'
+2024-11-20 16:39:21.726 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	208	SpringContextShutdownHook	Shutting down ExecutorService 'emailExecutor'
+2024-11-20 16:39:21.728 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...
+2024-11-20 21:32:47.729 +0800	INFO	org.springframework.test.context.support.AbstractTestContextBootstrapper	308	main	Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.system.assessment.ScoreApplicationTests], using SpringBootContextLoader
+2024-11-20 21:32:47.736 +0800	INFO	org.springframework.test.context.support.AbstractContextLoader	264	main	Could not detect default resource locations for test class [com.system.assessment.ScoreApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+2024-11-20 21:32:47.737 +0800	INFO	org.springframework.test.context.support.AnnotationConfigContextLoaderUtils	83	main	Could not detect default configuration classes for test class [com.system.assessment.ScoreApplicationTests]: ScoreApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-11-20 21:32:47.820 +0800	INFO	org.springframework.boot.test.context.SpringBootTestContextBootstrapper	235	main	Found @SpringBootConfiguration com.system.assessment.ScoreApplication for test class com.system.assessment.ScoreApplicationTests
+2024-11-20 21:32:47.887 +0800	INFO	org.springframework.test.context.support.AbstractTestContextBootstrapper	248	main	Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener]
+2024-11-20 21:32:47.911 +0800	INFO	org.springframework.test.context.support.AbstractTestContextBootstrapper	177	main	Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5c530d1e, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@6c25e6c4, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@85e6769, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@c5ee75e, org.springframework.test.context.support.DirtiesContextTestExecutionListener@48a12036, org.springframework.test.context.transaction.TransactionalTestExecutionListener@bf1ec20, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@70efb718, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@b70da4c, org.springframework.test.context.event.EventPublishingTestExecutionListener@4a11eb84, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@4e858e0a, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@435fb7b5, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4e70a728, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@b7838a9, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@696f0212, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@5733f295]
+2024-11-20 21:32:48.174 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 12724 (started by LENOVO in E:\ScoreSystem)
+2024-11-20 21:32:48.177 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-11-20 21:32:49.110 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	244	main	Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-11-20 21:32:49.114 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	126	main	Bootstrapping Spring Data repositories in DEFAULT mode.
+2024-11-20 21:32:49.146 +0800	INFO	org.springframework.data.repository.config.RepositoryConfigurationDelegate	182	main	Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
+2024-11-20 21:32:49.561 +0800	INFO	org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker	330	main	Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-11-20 21:32:52.719 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService
+2024-11-20 21:32:52.727 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'emailExecutor'
+2024-11-20 21:32:52.872 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-11-20 21:32:56.343 +0800	INFO	org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping	54	main	Adding welcome page: class path resource [static/index.html]
+2024-11-20 21:32:59.613 +0800	INFO	org.springframework.security.web.DefaultSecurityFilterChain	43	main	Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6d35ff7b, org.springframework.security.web.context.SecurityContextPersistenceFilter@d13379e, org.springframework.security.web.header.HeaderWriterFilter@3221588e, org.springframework.security.web.authentication.logout.LogoutFilter@11bfd751, com.system.assessment.config.filter.LoginFilter@1a88c4f5, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2152fde5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@498e41a4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@70697478, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4ef31221, org.springframework.security.web.session.SessionManagementFilter@32c0fecc, org.springframework.security.web.access.ExceptionTranslationFilter@4cd5fc46, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@654b899f]
+2024-11-20 21:32:59.661 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	171	main	Initializing ExecutorService 'taskScheduler'
+2024-11-20 21:32:59.830 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-11-20 21:33:03.071 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-11-20 21:33:07.074 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-11-20 21:33:15.368 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 27.423 seconds (JVM running for 30.029)
+2024-11-20 21:33:28.512 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	208	SpringContextShutdownHook	Shutting down ExecutorService 'taskScheduler'
+2024-11-20 21:33:28.614 +0800	INFO	org.springframework.scheduling.concurrent.ExecutorConfigurationSupport	208	SpringContextShutdownHook	Shutting down ExecutorService 'emailExecutor'
+2024-11-20 21:33:28.617 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...

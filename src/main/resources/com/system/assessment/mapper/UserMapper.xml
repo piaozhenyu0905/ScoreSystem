@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.assessment.mapper.UserMapper">
+
+    <resultMap id="User" type="com.system.assessment.pojo.User">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="username" property="username"></result>
+        <result column="work_num" property="workNum"></result>
+        <result column="password" property="password"></result>
+        <result column="department" property="department"></result>
+        <result column="phone_number" property="phoneNumber"></result>
+        <result column="email" property="email"></result>
+        <result column="hire_date" property="hireDate"></result>
+        <result column="role" property="role" ></result>
+        <result column="residence" property="residence" ></result>
+        <result column="lxyz" property="lxyz" ></result>
+        <result column="business_type" property="businessType" typeHandler="com.system.assessment.constants.handler.BusinessTypeHandler"></result>
+        <result column="supervisor_name_1" property="supervisorName1"></result>
+        <result column="supervisor_name_2" property="supervisorName2"></result>
+        <result column="supervisor_name_3" property="supervisorName3"></result>
+        <result column="supervisor_name_4" property="supervisorName4"></result>
+        <result column="supervisor_1" property="supervisor1"></result>
+        <result column="supervisor_2" property="supervisor2"></result>
+        <result column="supervisor_3" property="supervisor3"></result>
+        <result column="supervisor_4" property="supervisor4"></result>
+        <result column="is_delete" property="isDelete"></result>
+    </resultMap>
+
+    <resultMap id="UserVO" type="com.system.assessment.vo.UserVO">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="username" property="username"></result>
+        <result column="work_num" property="workNum"></result>
+        <result column="password" property="password"></result>
+        <result column="department" property="department"></result>
+        <result column="phone_number" property="phoneNumber"></result>
+        <result column="email" property="email"></result>
+        <result column="hire_date" property="hireDate"></result>
+        <result column="role" property="role" ></result>
+        <result column="residence" property="residence" ></result>
+        <result column="lxyz" property="lxyz" ></result>
+        <result column="business_type" property="businessType" typeHandler="com.system.assessment.constants.handler.BusinessTypeHandler"></result>
+        <result column="supervisor_name_1" property="supervisorName1"></result>
+        <result column="supervisor_name_2" property="supervisorName2"></result>
+        <result column="supervisor_name_3" property="supervisorName3"></result>
+        <result column="supervisor_name_4" property="supervisorName4"></result>
+        <result column="supervisor_1" property="supervisor1"></result>
+        <result column="supervisor_2" property="supervisor2"></result>
+        <result column="supervisor_3" property="supervisor3"></result>
+        <result column="supervisor_4" property="supervisor4"></result>
+    </resultMap>
+
+
+    <select id="findBasicInfoBySelfId" resultMap="User">
+        select u.id,
+               u.name,
+               u.username,
+               u.work_num,
+               u.department,
+               u.phone_number,
+               u.email,
+               u.hire_date,
+               u.role,
+               u1.name as supervisor_name_1,
+               u2.name as supervisor_name_2,
+               u3.name as supervisor_name_3,
+               u4.name as supervisor_name_4,
+               u.supervisor_1,
+               u.supervisor_2,
+               u.supervisor_3,
+               u.supervisor_4,
+               u.residence,
+               u.lxyz,
+               u.business_type,
+               u.is_delete
+        from user as u
+        left join user as u1 on u.supervisor_1 = u1.id
+        left join user as u2 on u.supervisor_2 = u2.id
+        left join user as u3 on u.supervisor_3 = u3.id
+        left join user as u4 on u.supervisor_4 = u4.id
+        where u.id = #{userId}
+    </select>
+
+    <select id="findPassword" resultType="string">
+        select password
+        from user
+        where id = #{userId}
+    </select>
+
+
+    <select id="findRoleById" resultMap="User">
+        select role, department
+        from user
+        where id = #{id}
+    </select>
+
+    <select id="findBasicInfos" resultMap="UserVO">
+        select u.id,
+                u.name,
+                u.username,
+                u.work_num,
+                u.department,
+                u.phone_number,
+                u.email,
+                u.hire_date,
+                u.role,
+                u.password,
+                u1.name as supervisor_name_1,
+                u2.name as supervisor_name_2,
+                u3.name as supervisor_name_3,
+                u4.name as supervisor_name_4,
+                u.supervisor_1,
+                u.supervisor_2,
+                u.supervisor_3,
+                u.supervisor_4,
+                u.residence,
+                u.lxyz,
+                u.business_type
+        from user as u
+        left join user as u1 on u.supervisor_1 = u1.id
+        left join user as u2 on u.supervisor_2 = u2.id
+        left join user as u3 on u.supervisor_3 = u3.id
+        left join user as u4 on u.supervisor_4 = u4.id
+        <where>
+            u.is_delete = 0
+            <if test="selectVo.username != null and selectVo.username != ''">
+                AND u.username like concat('%',#{selectVo.username},'%')
+            </if>
+            <if test="selectVo.role != null">
+                AND u.role = #{selectVo.role}
+            </if>
+            <if test="selectVo.department != null and selectVo.department != ''">
+                AND u.department like concat('%',#{selectVo.department},'%')
+            </if>
+            <if test="selectVo.workNum != null and selectVo.workNum != ''">
+                AND u.work_num like concat('%',#{selectVo.workNum},'%')
+            </if>
+        </where>
+    </select>
+
+
+    <update id="updatePassword">
+        UPDATE user
+        SET password = #{newPassword}
+        WHERE id = #{userId}
+    </update>
+
+
+    <update id="updateSupervisor">
+        UPDATE user
+        SET
+            supervisor_1 = IF(supervisor_1 = #{id}, 0, supervisor_1),
+            supervisor_2 = IF(supervisor_2 = #{id}, 0, supervisor_2),
+            supervisor_3 = IF(supervisor_3 = #{id}, 0, supervisor_3),
+            supervisor_4 = IF(supervisor_4 = #{id}, 0, supervisor_4)
+    </update>
+
+
+    <update id="updateFirstLogin">
+        UPDATE user
+        SET is_first_login = 0
+        where id = #{id}
+    </update>
+
+    <update id="updateUserInfoInit">
+        UPDATE user
+        <set>
+            <if test = "user.name != null">
+                name = #{user.name},
+            </if>
+            <if test = "user.email != null">
+                email = #{user.email},
+            </if>
+            <if test="user.workNum != null">
+                work_num = #{user.workNum},
+            </if>
+            <if test="user.department != null">
+                department = #{user.department},
+            </if>
+            <if test="user.phoneNumber != null">
+                phone_number = #{user.phoneNumber},
+            </if>
+            <if test="user.hireDate != null">
+                hire_date = #{user.hireDate},
+            </if>
+            <if test="user.lxyz != null">
+                lxyz = #{user.lxyz},
+            </if>
+            <if test="user.businessType != null">
+                business_type = #{user.businessType,typeHandler=com.system.assessment.constants.handler.BusinessTypeHandler},
+            </if>
+            <if test="user.role != null">
+                role = #{user.role},
+            </if>
+            <if test="user.password != null">
+                password = #{user.password},
+            </if>
+            <if test="user.residence != null">
+                residence = #{user.residence},
+            </if>
+            <if test="user.supervisorName1 != null">
+                supervisor_name_1 = #{user.supervisorName1},
+            </if>
+            <if test="user.supervisorName2 != null">
+                supervisor_name_2 = #{user.supervisorName2},
+            </if>
+            <if test="user.supervisorName3 != null">
+                supervisor_name_3 = #{user.supervisorName3},
+            </if>
+            <if test="user.supervisorName4 != null">
+                supervisor_name_4 = #{user.supervisorName4},
+            </if>
+            supervisor_1 = #{user.supervisor1},
+            supervisor_2 = #{user.supervisor2},
+            supervisor_3 = #{user.supervisor3},
+            supervisor_4 = #{user.supervisor4},
+            is_delete = #{user.isDelete}
+        </set>
+        WHERE id = #{user.id}
+    </update>
+
+    <update id="updateUserInfo">
+        UPDATE user
+        <set>
+            <if test = "user.name != null">
+                name = #{user.name},
+            </if>
+            <if test = "user.email != null">
+                email = #{user.email},
+            </if>
+            <if test="user.workNum != null">
+                work_num = #{user.workNum},
+            </if>
+            <if test="user.department != null">
+                department = #{user.department},
+            </if>
+            <if test="user.phoneNumber != null">
+                phone_number = #{user.phoneNumber},
+            </if>
+            <if test="user.hireDate != null">
+                hire_date = #{user.hireDate},
+            </if>
+            <if test="user.lxyz != null">
+                lxyz = #{user.lxyz},
+            </if>
+            <if test="user.businessType != null">
+                business_type = #{user.businessType,typeHandler=com.system.assessment.constants.handler.BusinessTypeHandler},
+            </if>
+            <if test="user.role != null">
+                role = #{user.role},
+            </if>
+            <if test="user.password != null">
+                password = #{user.password},
+            </if>
+            <if test="user.residence != null">
+                residence = #{user.residence},
+            </if>
+            <if test="user.supervisorName1 != null">
+                supervisor_name_1 = #{user.supervisorName1},
+            </if>
+            <if test="user.supervisorName2 != null">
+                supervisor_name_2 = #{user.supervisorName2},
+            </if>
+            <if test="user.supervisorName3 != null">
+                supervisor_name_3 = #{user.supervisorName3},
+            </if>
+            <if test="user.supervisorName4 != null">
+                supervisor_name_4 = #{user.supervisorName4},
+            </if>
+            supervisor_1 = #{user.supervisor1},
+            supervisor_2 = #{user.supervisor2},
+            supervisor_3 = #{user.supervisor3},
+            supervisor_4 = #{user.supervisor4}
+        </set>
+        WHERE id = #{user.id}
+    </update>
+
+
+    <insert id="addUsersByExcel" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (username, department, email, phone_number, password, supervisor_name_1, supervisor_name_2, supervisor_name_3, supervisor_name_4,  name, role, residence,
+                          lxyz, business_type, work_num,  hire_date, enabled, account_non_expired, account_non_locked, credentials_non_expired,
+                          supervisor_1, supervisor_2, supervisor_3, supervisor_4, resignation_date, is_delete, is_first_login) VALUES
+        <foreach collection="userList" item="user" separator=",">
+        (#{user.username},
+         #{user.department},
+         #{user.email},
+         #{user.phoneNumber},
+         '123456',
+         #{user.supervisorName1},
+         #{user.supervisorName2},
+         #{user.supervisorName3},
+         #{user.supervisorName4},
+         #{user.name},
+         #{user.role},
+         #{user.residence},
+         #{user.lxyz},
+         #{user.businessType,typeHandler=com.system.assessment.constants.handler.BusinessTypeHandler},
+         #{user.workNum},
+         #{user.hireDate},
+         #{user.enabled},
+         #{user.accountNonExpired},
+         #{user.accountNonLocked},
+         #{user.credentialsNonExpired},
+         #{user.supervisor1},
+         #{user.supervisor2},
+         #{user.supervisor3},
+         #{user.supervisor4},
+         #{user.resignationDate},
+         #{user.isDelete},
+         #{user.isFirstLogin})
+        </foreach>
+    </insert>
+
+    <update id="deleteUser">
+        update user
+        set is_delete = 1
+        where id = #{id}
+    </update>
+
+    <delete id="deleteClean">
+        delete from user
+        where is_delete = 1
+    </delete>
+
+
+    <insert id="addUser" parameterType="com.system.assessment.pojo.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (username, department, email, phone_number, password, supervisor_name_1, supervisor_name_2, supervisor_name_3, supervisor_name_4,  name, role, residence,
+                          lxyz, business_type, work_num, hire_date, enabled, account_non_expired, account_non_locked, credentials_non_expired,
+                          supervisor_1, supervisor_2, supervisor_3, supervisor_4, resignation_date, is_delete, is_first_login) VALUES
+        (#{user.username},
+         #{user.department},
+         #{user.email},
+         #{user.phoneNumber},
+         '00000000',
+         #{user.supervisorName1},
+         #{user.supervisorName2},
+         #{user.supervisorName3},
+         #{user.supervisorName4},
+         #{user.name},
+         #{user.role},
+         #{user.residence},
+         #{user.lxyz},
+         #{user.businessType,typeHandler=com.system.assessment.constants.handler.BusinessTypeHandler},
+         #{user.workNum},
+         #{user.hireDate},
+         #{user.enabled},
+         #{user.accountNonExpired},
+         #{user.accountNonLocked},
+         #{user.credentialsNonExpired},
+         #{user.supervisor1},
+         #{user.supervisor2},
+         #{user.supervisor3},
+         #{user.supervisor4},
+         #{user.resignationDate},
+         #{user.isDelete},
+         #{user.isFirstLogin})
+    </insert>
+
+</mapper>

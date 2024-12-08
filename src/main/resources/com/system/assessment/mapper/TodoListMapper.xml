@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.assessment.mapper.TodoListMapper">
+
+    <resultMap id="TodoList" type="com.system.assessment.vo.TodoListVO">
+        <result column="id" property="id"></result>
+        <result column="type" property="type" typeHandler="com.system.assessment.constants.handler.TaskTypeHandler"></result>
+        <result column="detail" property="detail"></result>
+        <result column="present_date" property="presentDate"></result>
+        <result column="operation" property="operation"></result>
+        <result column="department" property="department"></result>
+        <result column="evaluated_name" property="evaluatedName"></result>
+    </resultMap>
+
+
+    <resultMap id="ScoreDetail" type="com.system.assessment.vo.ScoreDetailVO">
+        <result property="userId" column="Uid"/>
+        <result property="evaluatorName" column="evaluator_name"/>
+        <result property="department" column="department"/>
+        <collection property="singleScore" ofType="com.system.assessment.vo.SingleScore">
+            <result property="singleConfidenceLevel" column="confidence_level"/>
+            <result column="id" property="todoId"/>
+            <result column="operation" property="operation"/>
+            <result property="enable" column="enable" />
+        </collection>
+    </resultMap>
+
+    <resultMap id="ScoreGettingDetail" type="com.system.assessment.vo.ScoreGettingDetailVO">
+        <result property="evaluatedId" column="evaluatedId"/>
+        <result property="evaluatedName" column="evaluated_name"/>
+        <result property="department" column="department"/>
+        <result property="lxyz" column="lxyz"/>
+        <result property="business" column="business_type" typeHandler="com.system.assessment.constants.handler.BusinessTypeHandler"/>
+        <collection property="singleScore" ofType="com.system.assessment.vo.SingleScoreWithSupervisor">
+            <result property="isSupervisor" column="is_supervisor"/>
+            <result property="singleConfidenceLevel" column="confidence_level"/>
+            <result column="id" property="todoId"/>
+            <result column="operation" property="operation"/>
+            <result property="enable" column="enable" />
+        </collection>
+    </resultMap>
+
+    <resultMap id="ScoreDetailCheck" type="com.system.assessment.vo.ScoreDetailIncludeEvaluated">
+        <result property="evaluatedName" column="evaluated_name"/>
+        <result property="department" column="department"/>
+        <collection property="singleScore" ofType="com.system.assessment.vo.ScoreVO">
+            <result column="dimension_id" property="dimensionId"/>
+            <result column="score" property="score"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="ScoreGettingDetailCheck" type="com.system.assessment.vo.ScoreGettingDetailIncludeEvaluated">
+        <result property="evaluatorName" column="evaluator_name"/>
+        <result property="department" column="department"/>
+        <result property="type" column="evaluate_type" typeHandler="com.system.assessment.constants.handler.RelationTypeHandler"/>
+        <collection property="singleScore" ofType="com.system.assessment.vo.ScoreVO">
+            <result column="dimension_id" property="dimensionId"/>
+            <result column="score" property="score"/>
+        </collection>
+    </resultMap>
+
+
+    <resultMap id="SingleScore" type="com.system.assessment.vo.SingleScore">
+        <result column="id" property="todoId"/>
+        <collection property="scores" ofType="com.system.assessment.vo.ScoreVO">
+            <result column="score" property="score"/>
+            <result column="dimension_id" property="dimensionId"/>
+        </collection>
+    </resultMap>
+
+
+    <resultMap id="ScoreResult" type="com.system.assessment.vo.ScoreResult">
+        <result property="evaluatedName" column="evaluated_name"/>
+        <result property="evaluatorName" column="evaluator_name"/>
+        <result property="department" column="department"/>
+        <result property="state" column="enable" typeHandler="com.system.assessment.constants.handler.ScoringOperationTypeHandler"/>
+        <collection property="temScores" ofType="com.system.assessment.vo.ScoreSimple">
+            <result column="score" property="score"/>
+            <result column="dimension_id" property="dimensionId"/>
+            <result column="todo_id" property="todoId"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="AssessmentMap" type="com.system.assessment.vo.AssessmentHistoryVO">
+        <result property="assessorId" column="evaluated_id"/>
+        <result property="assessorName" column="evaluated_name"/>
+        <result property="assessorTime" column="complete_time"/>
+        <result property="operation" column="operation"/>
+        <result property="enable" column="enable"/>
+        <result property="taskId" column="id"/>
+    </resultMap>
+
+
+    <!--根据用户名查询用户方法-->
+    <select id="findTodoList" resultMap="TodoList">
+        select tl.id, tl.type, tl.detail, tl.operation, tl.present_date, tl.evaluated_name, u.department
+        from todo_list as tl
+        left join user as u on tl.evaluated_id = u.id
+        where tl.owner_id = #{userId} and tl.operation = 0 and tl.epoch = #{epoch}
+        ORDER BY tl.present_date DESC
+    </select>
+
+
+    <select id="findTodoListIsExist" resultMap="TodoList">
+        select tl.id
+        from todo_list as tl
+        where tl.evaluator_id = #{evaluatorId} and tl.evaluated_id = #{evaluatedId} and tl.epoch = #{epoch} and tl.operation = 0
+    </select>
+
+
+    <select id="findTodoListById" resultType="int">
+        select tl.operation
+        from todo_list as tl
+        where tl.id = #{id}
+    </select>
+
+    <select id="findHistory" resultMap="AssessmentMap">
+        SELECT evaluated_id, evaluated_name, complete_time, operation, id, enable
+        from todo_list
+        where owner_id = #{id} and operation = 1
+        ORDER BY complete_time DESC
+    </select>
+
+    <select id="findScoreResult" resultMap="ScoreResult">
+        SELECT tl.evaluated_name, tl.evaluator_name, s.score, s.dimension_id, s.todo_id, u.department, tl.enable FROM todo_list as tl
+         left join scores as s on tl.id = s.todo_id
+         left join user as u on u.id = tl.evaluated_id
+         where tl.id = #{todoListId}
+         ORDER BY s.dimension_id
+    </select>
+
+
+
+    <select id="findAverageGettingNewRoundByCondition" resultMap="ScoreGettingDetail">
+        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation,
+        u.lxyz, u.business_type, tl.enable, tl.confidence_level,
+        CASE
+        WHEN (e1.supervisor_1 = e2.id
+        OR e1.supervisor_2 = e2.id
+        OR e1.supervisor_3 = e2.id
+        OR e1.supervisor_4 = e2.id) THEN 1
+        ELSE 0
+        END AS is_supervisor
+        FROM todo_list as tl
+        left join user as u on u.id = tl.evaluated_id
+        LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
+        LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
+        WHERE tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1
+        <choose>
+            <when test="type == 'lxyz'">
+                <choose>
+                    <when test="content == 0">
+                        AND (u.lxyz = 'IP'  OR u.lxyz = 'LP')
+                    </when>
+                    <when test="content == 1">
+                        AND (u.lxyz = '中坚'  OR u.lxyz = '精英')
+                    </when>
+                    <when test="content == 2">
+                        AND u.lxyz = '成长'
+                    </when>
+                </choose>
+            </when>
+            <when test="type == '业务'">
+                <choose>
+                    <when test="content == 0">
+                        AND u.business_type = 0
+                    </when>
+                    <when test="content == 1">
+                        AND u.business_type = 1
+                    </when>
+                </choose>
+            </when>
+        </choose>
+
+    </select>
+
+    <select id="findAverageGettingNewRoundBySecondAdmin" resultMap="ScoreGettingDetail">
+        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation,
+        u.lxyz, u.business_type, tl.enable, tl.confidence_level,
+        CASE
+        WHEN (e1.supervisor_1 = e2.id
+        OR e1.supervisor_2 = e2.id
+        OR e1.supervisor_3 = e2.id
+        OR e1.supervisor_4 = e2.id) THEN 1
+        ELSE 0
+        END AS is_supervisor
+        FROM todo_list as tl
+        left join user as u on u.id = tl.evaluated_id
+        LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
+        LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
+        <where>
+            <!--当前轮次， 分数被确认，操作为已完成评议-->
+            tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1 and (u.id = #{id} or (u.lxyz != #{lxyz} and u.department = #{department}))
+            <if test="condition.name != null and condition.name != ''">
+                AND tl.evaluated_name like concat('%',#{condition.name},'%')
+            </if>
+            <if test="condition.department != null and condition.department != ''">
+                AND u.department = #{condition.department}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAverageGettingNewRoundByFirstAdmin" resultMap="ScoreGettingDetail">
+        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation,
+        u.lxyz, u.business_type, tl.enable, tl.confidence_level,
+        CASE
+        WHEN (e1.supervisor_1 = e2.id
+        OR e1.supervisor_2 = e2.id
+        OR e1.supervisor_3 = e2.id
+        OR e1.supervisor_4 = e2.id) THEN 1
+        ELSE 0
+        END AS is_supervisor
+        FROM todo_list as tl
+        left join user as u on u.id = tl.evaluated_id
+        LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
+        LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
+        <where>
+            <!--当前轮次， 分数被确认，操作为已完成评议-->
+            tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1 and (u.id = #{id} or (u.lxyz != #{lxyz} and u.role != 1))
+            <if test="condition.name != null and condition.name != ''">
+                AND tl.evaluated_name like concat('%',#{condition.name},'%')
+            </if>
+            <if test="condition.department != null and condition.department != ''">
+                AND u.department = #{condition.department}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="findSingleGettingNewRound" resultMap="ScoreGettingDetail">
+        SELECT tl.evaluated_name, tl.id, tl.evaluated_id as evaluatedId, tl.operation,
+        tl.enable, tl.confidence_level,
+        CASE
+           WHEN (e1.supervisor_1 = e2.id
+               OR e1.supervisor_2 = e2.id
+               OR e1.supervisor_3 = e2.id
+               OR e1.supervisor_4 = e2.id) THEN 1
+           ELSE 0
+           END AS is_supervisor
+        FROM todo_list as tl
+        LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
+        LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
+        where tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1 and tl.evaluated_id = #{id}
+    </select>
+
+
+    <select id="findAverageGettingNewRound" resultMap="ScoreGettingDetail">
+        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation,
+               u.lxyz, u.business_type, tl.enable, tl.confidence_level,
+                CASE
+                WHEN (e1.supervisor_1 = e2.id
+                OR e1.supervisor_2 = e2.id
+                OR e1.supervisor_3 = e2.id
+                OR e1.supervisor_4 = e2.id) THEN 1
+                ELSE 0
+                END AS is_supervisor
+        FROM todo_list as tl
+        left join user as u on u.id = tl.evaluated_id
+        LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
+        LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
+        <where>
+            <!--当前轮次， 分数被确认，操作为已完成评议-->
+            tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1
+            <if test="condition.name != null and condition.name != ''">
+                AND tl.evaluated_name like concat('%',#{condition.name},'%')
+            </if>
+            <if test="condition.department != null and condition.department != ''">
+                AND u.department = #{condition.department}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="findAverageScoringNewRound" resultMap="ScoreDetail">
+        SELECT tl.evaluator_name,  u.department,  tl.confidence_level, tl.id, tl.evaluator_id as Uid, tl.operation,
+               tl.enable
+                FROM todo_list as tl
+                left join user as u on u.id = tl.evaluator_id
+        <where>
+            tl.epoch = #{epoch} and tl.enable in (0, 1) and tl.operation in (0, 1)
+            <if test="condition.name != null and condition.name != ''">
+                AND tl.evaluator_name like concat('%',#{condition.name},'%')
+            </if>
+            <if test="condition.department != null and condition.department != ''">
+                AND u.department = #{condition.department}
+            </if>
+            <if test="condition.state != null and condition.state != ''">
+                AND tl.enable = #{condition.state,typeHandler=com.system.assessment.constants.handler.ScoringOperationTypeHandler}
+            </if>
+        </where>
+    </select>
+
+    <select id="findScoringNewRoundIsNotEnable" resultMap="ScoreDetail">
+        SELECT tl.evaluator_name,  u.department,  tl.confidence_level, tl.id, tl.evaluator_id as Uid, tl.operation,
+        tl.enable
+        FROM todo_list as tl
+        left join user as u on u.id = tl.evaluator_id
+        <where>
+            tl.epoch = #{epoch} and tl.enable in (0, 1) and tl.operation in (0, 1)
+        </where>
+    </select>
+
+
+    <select id="findAverageScoringDetail" resultMap="ScoreDetailCheck">
+        SELECT tl.evaluated_name, u.department,  s.dimension_id, s.score
+        FROM todo_list as tl
+        left join user as u on u.id = tl.evaluated_id
+        left join scores as s on s.todo_id = tl.id
+        where tl.epoch = #{epoch} and tl.evaluator_id = #{id} and tl.operation = 1 and tl.enable in (0, 1)
+        ORDER BY s.dimension_id
+    </select>
+
+    <select id="findAverageGettingScoringDetail" resultMap="ScoreGettingDetailCheck">
+        SELECT tl.evaluator_name, s.dimension_id, s.score, er.evaluate_type
+        FROM todo_list as tl
+                 left join scores as s on s.todo_id = tl.id
+                 left join evaluate_relations as er on er.evaluator = tl.evaluator_id and er.evaluated_user = tl.evaluated_id
+        where tl.epoch = #{epoch} and tl.evaluated_id = #{id} and tl.operation = 1 and tl.enable = 1
+        ORDER BY s.dimension_id
+    </select>
+
+    <select id="findSingleScoreByTodoId" resultMap="SingleScore">
+        SELECT s.dimension_id, s.score, tl.id
+        FROM todo_list as tl
+        left join scores as s  on tl.id = s.todo_id
+        where tl.id = #{id}
+    </select>
+
+
+    <insert id="addTodoList" parameterType="com.system.assessment.pojo.TodoList">
+        INSERT INTO todo_list (type, detail,  present_date, operation, reject_reason, owner_id, complete_time,
+                               evaluator_id, evaluated_id, evaluator_name, evaluated_name, enable, epoch, confidence_level) VALUES
+            (#{todoList.type,typeHandler=com.system.assessment.constants.handler.TaskTypeHandler},
+            #{todoList.detail},
+            #{todoList.presentDate},
+            #{todoList.operation},
+            #{todoList.rejectReason},
+            #{todoList.ownerId},
+            #{todoList.completeTime},
+            #{todoList.evaluatorId},
+            #{todoList.evaluatedId},
+            #{todoList.evaluatorName},
+            #{todoList.evaluatedName},
+            #{todoList.enable},
+            #{todoList.epoch},
+            #{todoList.confidenceLevel})
+    </insert>
+
+    <update id="updateOperationAndCompleteTime">
+        UPDATE todo_list
+        SET operation = #{operation},
+            complete_time = #{completeTime}
+        where id = #{taskId}
+    </update>
+
+
+
+
+    <update id="confirmScoreSingle">
+        UPDATE todo_list
+        SET enable = 1
+        where evaluator_id = #{userId} and operation = 1 and enable = 0 and epoch = #{epoch}
+    </update>
+
+    <update id="confidenceLevel">
+        UPDATE todo_list
+        SET confidence_level = #{condition.confidenceLevel}
+        where evaluator_id = #{condition.userId} and operation = 1
+                and enable in (0, 1) and epoch = #{epoch}
+    </update>
+
+    <update id="reject">
+        UPDATE todo_list
+        SET enable = 2
+        where evaluator_id = #{id} and epoch = #{epoch} and operation = 1 and enable = 0
+    </update>
+
+    <update id="updateOperation">
+        UPDATE todo_list
+        SET operation = #{operation}
+        where id = #{taskId}
+    </update>
+
+
+    <update id="enableTaskById">
+        UPDATE todo_list
+        SET enable = 1
+        where epoch = #{epoch} and operation = 1 and enable = 0 and evaluator_id = #{id}
+    </update>
+
+    <update id="SetOperationInvalid">
+        UPDATE todo_list
+        SET operation = #{operation}
+        where epoch = #{epoch} and operation = 0
+    </update>
+
+
+    <delete id="deleteAverageTable" >
+        DELETE FROM average_sum
+        where epoch = #{epoch}
+    </delete>
+
+</mapper>

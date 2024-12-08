@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.assessment.mapper.UserDaoMapper">
+
+    <resultMap id="User" type="com.system.assessment.pojo.User">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="password" property="password"></result>
+        <result column="enabled" property="enabled"></result>
+        <result column="role" property="role"></result>
+        <result column="account_non_expired" property="accountNonExpired"></result>
+        <result column="account_non_locked" property="accountNonLocked"></result>
+        <result column="credentials_non_expired" property="credentialsNonExpired"></result>
+        <result column="is_first_login" property="isFirstLogin"></result>
+    </resultMap>
+
+    <!--根据用户名查询用户方法-->
+    <select id="loadUserByUsername" resultMap="User">
+        select id,
+               username,
+               password,
+               enabled,
+               role,
+               account_non_expired,
+               account_non_locked,
+               credentials_non_expired,
+               is_first_login
+        from user
+        where username = #{username} and is_delete = 0
+    </select>
+
+</mapper>

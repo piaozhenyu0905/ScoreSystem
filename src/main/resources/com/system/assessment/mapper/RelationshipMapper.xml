@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.assessment.mapper.RelationshipMapper">
+
+    <resultMap id="User" type="com.system.assessment.pojo.User">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="username" property="username"></result>
+        <result column="work_num" property="workNum"></result>
+        <result column="department" property="department"></result>
+        <result column="phone_number" property="phoneNumber"></result>
+        <result column="email" property="email"></result>
+        <result column="hire_date" property="hireDate"></result>
+        <result column="role" property="role" ></result>
+        <result column="residence" property="residence" ></result>
+        <result column="lxyz" property="lxyz" ></result>
+        <result column="business_type" property="businessType" typeHandler="com.system.assessment.constants.handler.BusinessTypeHandler"></result>
+        <result column="supervisor_name_1" property="supervisorName1"></result>
+        <result column="supervisor_name_2" property="supervisorName2"></result>
+        <result column="supervisor_name_3" property="supervisorName3"></result>
+        <result column="supervisor_name_4" property="supervisorName4"></result>
+    </resultMap>
+
+    <resultMap id="Evaluator" type="com.system.assessment.vo.RelationshipEvaluatorInfo">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="work_num" property="workNum"></result>
+        <result column="department" property="department"></result>
+    </resultMap>
+
+
+    <resultMap id="FindRelationship" type="com.system.assessment.vo.RelationshipCheckVO">
+        <result column="edName" property="evaluatedName"></result>
+        <result column="orName" property="evaluatorName"></result>
+        <result column="evaluator" property="evaluatorId"></result>
+        <result column="evaluated_user" property="evaluatedId"></result>
+        <result column="email" property="evaluatorEmail"></result>
+    </resultMap>
+
+    <select id="findAllUser" resultMap="User">
+        select u.name, u.id, u1.name as supervisor_name_1, u2.name as supervisor_name_2, u3.name as supervisor_name_3, u4.name as supervisor_name_4
+        from user as u
+        left join user as u1 on u.supervisor_1 = u1.id
+        left join user as u2 on u.supervisor_2 = u2.id
+        left join user as u3 on u.supervisor_3 = u3.id
+        left join user as u4 on u.supervisor_4 = u4.id
+        <where>
+            u.is_delete = 0
+            <if test="name != null and name != ''">
+                AND u.name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+
+    <select id="findEvaluatorById" resultMap="Evaluator">
+        select u.id, u.name, u.work_num, u.department
+        from evaluate_relations as er
+        left join user as u on er.evaluator = u.id
+        where er.evaluated_user = #{id} and er.evaluate_type = #{type} and er.enable = 1
+    </select>
+
+
+    <select id="findAllRelationship" resultMap="FindRelationship">
+        select er.evaluated_user, er.evaluator, us.name as orName, ua.name as edName, us.email
+        from evaluate_relations as er
+                 left join user as us on er.evaluator = us.id
+                 left join user as ua on er.evaluated_user = ua.id
+        where  er.enable = 1
+    </select>
+
+    <select id="findAllEvaluated" resultType="int">
+        select DISTINCT er.evaluated_user
+        from evaluate_relations as er
+        where  er.enable = 1
+    </select>
+
+
+    <select id="findRelationshipById" resultMap="FindRelationship">
+        select er.evaluated_user, er.evaluator, us.name as orName, ua.name as edName
+        from evaluate_relations as er
+             left join user as us on er.evaluator = us.id
+             left join user as ua on er.evaluated_user = ua.id
+        where er.evaluator = #{id} and er.enable = 1
+    </select>
+
+
+    <insert id="addRelationship" parameterType="com.system.assessment.pojo.EvaluateRelationship" >
+        INSERT INTO evaluate_relations (evaluated_user, evaluator,  evaluate_type,  epoch, enable) VALUES
+        (#{relationship.evaluatedUser},
+         #{relationship.evaluator},
+         #{relationship.evaluateType,typeHandler=com.system.assessment.constants.handler.RelationTypeHandler},
+         #{relationship.epoch},
+         #{relationship.enable})
+    </insert>
+
+
+    <update id="deleteRelationshipById" >
+        update  evaluate_relations
+        set enable = 0
+        WHERE evaluated_user = #{id} OR evaluator = #{id}
+    </update>
+
+    <update id="addRelationshipEpoch" >
+        update  evaluate_relations
+        set epoch = epoch + 1
+    </update>
+
+
+    <delete id="deleteFixedRelationship" >
+        DELETE from  evaluate_relations
+        WHERE evaluate_type = 1
+    </delete>
+
+    <delete id="deleteEvaluationMatrix" >
+        DELETE FROM evaluate_relations
+        WHERE evaluated_user = #{userId} and evaluator = #{evaluatorId} and evaluate_type = #{type}
+    </delete>
+
+
+    <delete id="deleteSelfRelationship" >
+        DELETE from evaluate_relations
+        WHERE evaluate_type = 0
+    </delete>
+
+</mapper>
