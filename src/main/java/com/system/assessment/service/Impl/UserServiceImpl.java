@@ -10,10 +10,7 @@ import com.system.assessment.mapper.UserMapper;
 import com.system.assessment.pojo.User;
 import com.system.assessment.service.UserService;
 import com.system.assessment.utils.AuthenticationUtil;
-import com.system.assessment.vo.PasswordUpdateVO;
-import com.system.assessment.vo.SupervisorVO;
-import com.system.assessment.vo.UserInfoSelectVO;
-import com.system.assessment.vo.UserVO;
+import com.system.assessment.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -36,6 +33,27 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public RelationshipMapper relationshipMapper;
+
+    @Autowired
+    public UserService userService;
+
+    @Override
+    public ArrayList<String> deleteUsers(DeleteUserVO deleteUserVO) {
+        ArrayList<String> errorList = new ArrayList<>();
+        for(int index = 0; index < deleteUserVO.getIds().size(); index++){
+            Integer id = deleteUserVO.getIds().get(index);
+            try {
+                userService.deleteUser(id);
+            }catch (Exception e){
+                User basicInfoBySelfId = findBasicInfoBySelfId(id);
+                String name = basicInfoBySelfId.getName();
+                errorList.add(name);
+                log.error(name +"删除失败!");
+            }
+        }
+
+        return errorList;
+    }
 
     @Override
     public Integer findRole(Integer id) {
@@ -300,6 +318,7 @@ public class UserServiceImpl implements UserService {
 
         //将跟该用户有关的从关系矩阵中删除
         relationshipMapper.deleteRelationshipById(userId);
+        //若该用户是某人的主管，则删去这种关系
         userMapper.updateSupervisor(userId);
         return userMapper.deleteUser(userId);
     }

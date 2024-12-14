@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public interface TodoService {
+
+    public void noticeAllNotCompleted();
+
     public Boolean isValued(long todoListId);
 
     public List<AssessmentHistoryVO> findHistory(Integer userId);

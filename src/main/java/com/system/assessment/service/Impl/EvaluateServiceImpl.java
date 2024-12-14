@@ -95,7 +95,7 @@ public class EvaluateServiceImpl implements EvaluateService {
             evaluateMapper.addScore(score);
         }
         //修改操作状态和时间
-        todoListMapper.updateOperationAndCompleteTime(todoListId,1, LocalDateTime.now());
+        todoListMapper.updateOperationAndCompleteTime(todoListId,OperationType.FINISHED.getCode(), LocalDateTime.now());
         return 1;
     }
 
@@ -105,11 +105,13 @@ public class EvaluateServiceImpl implements EvaluateService {
         Integer newEpoch = evaluateMapper.findNewEpoch();
 
         if(processStepVO.getIsNew()){
-            //先将之前的环节的enable设置为0
+            //1.先将之前的环节的enable设置为0
             evaluateMapper.setEnableBefore(0);
-            //删除自主评估人
+            //2.删除自主评估人
             relationshipMapper.deleteSelfRelationship();
-            //更新关系矩阵的epoch,令其+1
+            //3.删除enable=0的评估关系
+            relationshipMapper.deleteEvaluationMatrixEnableFalse();
+            //4.更新关系矩阵的epoch,令其+1
             relationshipMapper.addRelationshipEpoch();
             if(newEpoch == null){
                 newEpoch = 0;

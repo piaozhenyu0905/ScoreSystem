@@ -2,6 +2,8 @@ package com.system.assessment.service.Impl;
 
 import com.system.assessment.constants.*;
 import com.system.assessment.constants.Role;
+import com.system.assessment.exception.CustomException;
+import com.system.assessment.exception.CustomExceptionType;
 import com.system.assessment.mapper.EvaluateMapper;
 import com.system.assessment.mapper.RelationshipMapper;
 import com.system.assessment.mapper.TodoListMapper;
@@ -190,8 +192,16 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             averageScoringVO.setUserId(scoreDetailVO.getUserId());
             List<SingleScore> singleScoreList = scoreDetailVO.getSingleScore();
             averageScoringVO.setScoreList(sumScoreWorking(singleScoreList));
-            //默认一个人的当前轮次所有打分任务的确认是一致的。（除去驳回的，因为查询时不会将驳回的数据查出）
-            String enable = ScoringOperationType.getDescriptionByCode(singleScoreList.get(0).getEnable());
+            //只有全部都确认状态才是已确认，否则是未确认
+            Integer enableCode = 1;
+            for (int index = 0; index < singleScoreList.size(); index++){
+                SingleScore singleScore = singleScoreList.get(index);
+                if(singleScore.getEnable() != ScoringOperationType.Confirmed.getCode()){
+                    enableCode = 0;
+                    break;
+                }
+            }
+            String enable = ScoringOperationType.getDescriptionByCode(enableCode);
             averageScoringVO.setState(enable);
             postList.add(averageScoringVO);
         });
@@ -280,6 +290,19 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         return dataList.subList(fromIndex, toIndex);
     };
 
+    @Override
+    public ScoreProcessVO getScoreProcess() {
+        Integer newEpoch = evaluateMapper.findNewEpoch();
+        ScoreProcessVO scoreProcessVO = new ScoreProcessVO();
+        //1.计算所有该打分的人
+        Integer total = todoListMapper.sumTotalPeople(newEpoch);
+        //2.计算所有已完成打分的人
+        Integer notCompleted = todoListMapper.sumNotCompletedPeople(newEpoch);
+        scoreProcessVO.setTotalPeople(total);
+        scoreProcessVO.setCompletedPeople(total-notCompleted);
+        return scoreProcessVO;
+    }
+
     public List<ScoreDetailVO> filterData(List<ScoreDetailVO> scoreDetailList){
         if (scoreDetailList == null || scoreDetailList.isEmpty()){
             return  null;
@@ -294,7 +317,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             for(int i = 0; i < singleScoreList.size(); i++){
                 SingleScore singleScore = singleScoreList.get(i);
                 //该评议人的某个评议任务没有做完，则该评议人无法显示在“评分看板”上，从数据中过滤掉
-                if(singleScore.getOperation() != 1){
+                if(singleScore.getOperation() != OperationType.FINISHED.getCode()){
                     enable = false;
                     break;
                 }
@@ -305,10 +328,9 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             //设置置信度
             scoreSingleDetail.setConfidenceLevel(singleScoreList.get(0).getSingleConfidenceLevel());
             //该评议人的所有评议任务都打分完成，则保留在结果集
-            if(enable.equals(true)){
+            if(enable){
                 filterList.add(scoreSingleDetail);
             }
-            enable = true;
         }
 
         return filterList;
@@ -366,6 +388,56 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             todoList.setDetail(detail);
             todoListMapper.addTodoList(todoList);
         });
+
+        return 1;
+    }
+
+    @Override
+    @Transactional
+    public Integer reject(RejectVO rejectVO) {
+        Integer newEpoch = evaluateMapper.findNewEpoch();
+        List<Long> tasksToReject = rejectVO.getTasksToReject();
+        List<String> reasonsToReject = rejectVO.getReasonsToReject();
+        if(tasksToReject == null && reasonsToReject == null){
+            return 1;
+        }
+        if(tasksToReject.size() != reasonsToReject.size()){
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "参数传递有误!");
+        }
+        for (int index = 0; index < tasksToReject.size(); index++){
+            //1. 先执行驳回
+            Long taskId = tasksToReject.get(index);
+            String reason = reasonsToReject.get(index);
+            TaskEvaluateInfo taskEvaluateInfo = todoListMapper.findTaskEvaluateInfo(taskId);
+            todoListMapper.rejectSingle(reason, taskId, ScoringOperationType.Rejected.getCode());
+            //2. 生成新任务
+            Integer evaluatedId = taskEvaluateInfo.getEvaluatedId();
+            Integer evaluatorId = taskEvaluateInfo.getEvaluatorId();
+            String evaluatedName = taskEvaluateInfo.getEvaluatedName();
+            String evaluatorName = taskEvaluateInfo.getEvaluatorName();
+            Double confidenceLevel = taskEvaluateInfo.getConfidenceLevel();
+            TodoListVO todoListIsExist = todoListMapper.findTodoListIsExist(evaluatorId, evaluatedId, newEpoch);
+            if(todoListIsExist != null){
+                continue;
+            }
+            TodoList todoList = new TodoList();
+            todoList.setRejectReason(null);
+            todoList.setCompleteTime(null);
+            todoList.setOwnerId(evaluatorId);
+            todoList.setEvaluatedId(evaluatedId);
+            todoList.setEvaluatedName(evaluatedName);
+            todoList.setEvaluatorName(evaluatorName);
+            todoList.setEvaluatorId(evaluatorId);
+            todoList.setConfidenceLevel(confidenceLevel);
+            todoList.setEpoch(newEpoch);
+            todoList.setType(TaskType.SurroundingEvaluation.getDescription());
+            todoList.setPresentDate(LocalDateTime.now());
+            todoList.setEnable(0);
+            todoList.setOperation(0);
+            String detail = "请完成对" + evaluatedName +"的评议";
+            todoList.setDetail(detail);
+            todoListMapper.addTodoList(todoList);
+        }
 
         return 1;
     }
@@ -719,7 +791,6 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
 
         //4.进行分页
         List<AverageScoringVO> scoreResults = paginateList(orderedList, averageScoringConditionVO.getPageSize(), averageScoringConditionVO.getPageNum());
-
 
         return new DataListResult<>(orderedList.size(), scoreResults);
     }

@@ -1,6 +1,7 @@
 package com.system.assessment.service;
 
 import com.system.assessment.pojo.User;
+import com.system.assessment.vo.DeleteUserVO;
 import com.system.assessment.vo.PasswordUpdateVO;
 import com.system.assessment.vo.UserInfoSelectVO;
 import com.system.assessment.vo.UserVO;
@@ -10,11 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public interface UserService {
-
+    public ArrayList<String> deleteUsers(DeleteUserVO deleteUserVO);
 
     public Integer findRole(Integer id);
 

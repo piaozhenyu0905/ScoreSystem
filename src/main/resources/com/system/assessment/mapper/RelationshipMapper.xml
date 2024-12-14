@@ -77,6 +77,12 @@
         where  er.enable = 1
     </select>
 
+    <select id="findSingleRelationship" resultType="int">
+        select id
+        from evaluate_relations
+        where  epoch = #{epoch} and evaluated_user = #{evaluatedId} and evaluator = #{evaluatorId}
+    </select>
+
 
     <select id="findRelationshipById" resultMap="FindRelationship">
         select er.evaluated_user, er.evaluator, us.name as orName, ua.name as edName
@@ -119,6 +125,11 @@
         WHERE evaluated_user = #{userId} and evaluator = #{evaluatorId} and evaluate_type = #{type}
     </delete>
 
+
+    <delete id="deleteEvaluationMatrixEnableFalse" >
+        DELETE FROM evaluate_relations
+        WHERE enable = 0
+    </delete>
 
     <delete id="deleteSelfRelationship" >
         DELETE from evaluate_relations

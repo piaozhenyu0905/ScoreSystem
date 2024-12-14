@@ -4,6 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.system.assessment.mapper.TodoListMapper">
 
+    <resultMap id="UserVO" type="com.system.assessment.vo.UserVO">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="email" property="email"></result>
+    </resultMap>
+
+
     <resultMap id="TodoList" type="com.system.assessment.vo.TodoListVO">
         <result column="id" property="id"></result>
         <result column="type" property="type" typeHandler="com.system.assessment.constants.handler.TaskTypeHandler"></result>
@@ -44,6 +51,7 @@
 
     <resultMap id="ScoreDetailCheck" type="com.system.assessment.vo.ScoreDetailIncludeEvaluated">
         <result property="evaluatedName" column="evaluated_name"/>
+        <result property="taskId" column="id"/>
         <result property="department" column="department"/>
         <collection property="singleScore" ofType="com.system.assessment.vo.ScoreVO">
             <result column="dimension_id" property="dimensionId"/>
@@ -90,8 +98,45 @@
         <result property="operation" column="operation"/>
         <result property="enable" column="enable"/>
         <result property="taskId" column="id"/>
+        <result property="rejectReason" column="reject_reason"/>
     </resultMap>
 
+
+    <resultMap id="TaskEvaluateInfo" type="com.system.assessment.vo.TaskEvaluateInfo">
+        <result property="evaluatorName" column="evaluatorName"/>
+        <result property="evaluatedName" column="evaluatedName"/>
+        <result property="evaluatedId" column="evaluatedId"/>
+        <result property="evaluatorId" column="evaluatorId"/>
+        <result property="confidenceLevel" column="confidence_level"/>
+    </resultMap>
+
+    <select id="findAllNotCompleted" resultType="int">
+        select DISTINCT tl.owner_id
+        from todo_list as tl
+        left join user as u on tl.owner_id = u.id
+        where tl.epoch = #{epoch} and tl.operation = 0
+    </select>
+
+
+    <select id="findTaskEvaluateInfo" resultMap="TaskEvaluateInfo">
+        select u1.name as evaluatorName, u1.id as evaluatorId, u2.name as evaluatedName, u2.id as evaluatedId, tl.confidence_level
+        from todo_list as tl
+            left join user as u1 on tl.evaluator_id = u1.id
+            left join user as u2 on tl.evaluated_id = u2.id
+        where tl.id = #{id}
+    </select>
+
+    <select id="sumTotalPeople" resultType="int">
+        select COUNT(DISTINCT evaluator) as totalPeople
+        from evaluate_relations
+        where  enable = 1
+    </select>
+
+    <select id="sumNotCompletedPeople" resultType="int">
+        select COUNT(DISTINCT owner_id) as notCompletedPeople
+        from todo_list
+        where epoch = #{epoch} and operation in (0, 2)
+    </select>
 
     <!--根据用户名查询用户方法-->
     <select id="findTodoList" resultMap="TodoList">
@@ -117,9 +162,9 @@
     </select>
 
     <select id="findHistory" resultMap="AssessmentMap">
-        SELECT evaluated_id, evaluated_name, complete_time, operation, id, enable
+        SELECT evaluated_id, evaluated_name, complete_time, operation, id, enable, reject_reason
         from todo_list
-        where owner_id = #{id} and operation = 1
+        where owner_id = #{id} and operation in (1,3)
         ORDER BY complete_time DESC
     </select>
 
@@ -279,7 +324,7 @@
                 FROM todo_list as tl
                 left join user as u on u.id = tl.evaluator_id
         <where>
-            tl.epoch = #{epoch} and tl.enable in (0, 1) and tl.operation in (0, 1)
+            tl.epoch = #{epoch} and tl.enable in (0, 1) and tl.operation in (0, 1, 2)
             <if test="condition.name != null and condition.name != ''">
                 AND tl.evaluator_name like concat('%',#{condition.name},'%')
             </if>
@@ -304,7 +349,7 @@
 
 
     <select id="findAverageScoringDetail" resultMap="ScoreDetailCheck">
-        SELECT tl.evaluated_name, u.department,  s.dimension_id, s.score
+        SELECT tl.evaluated_name, u.department,  s.dimension_id, s.score, tl.id
         FROM todo_list as tl
         left join user as u on u.id = tl.evaluated_id
         left join scores as s on s.todo_id = tl.id
@@ -375,6 +420,28 @@
         UPDATE todo_list
         SET enable = 2
         where evaluator_id = #{id} and epoch = #{epoch} and operation = 1 and enable = 0
+    </update>
+
+
+    <update id="rejectSingle">
+        UPDATE todo_list
+        SET enable = #{enable},
+            reject_reason = #{reason}
+        where id = #{id}
+    </update>
+
+    <update id="setFinishedOperationToDeleted">
+        UPDATE todo_list
+        SET operation = #{operation}
+        where evaluator_id = #{evaluatorId} and evaluated_id = #{evaluatedId} and epoch = #{epoch}
+          and operation = 1
+    </update>
+
+    <update id="setUnFinishedOperationToDeleted">
+        UPDATE todo_list
+        SET operation = #{operation}
+        where evaluator_id = #{evaluatorId} and evaluated_id = #{evaluatedId} and epoch = #{epoch}
+          and operation = 0
     </update>
 
     <update id="updateOperation">

@@ -1,6 +1,7 @@
 package com.system.assessment.mapper;
 
 import com.system.assessment.pojo.TodoList;
+import com.system.assessment.pojo.User;
 import com.system.assessment.vo.*;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,6 +13,28 @@ import java.util.List;
 
 @Mapper
 public interface TodoListMapper {
+    public TaskEvaluateInfo findTaskEvaluateInfo(@Param("id")Long id);
+
+    public Integer rejectSingle(@Param("reason")String reason,
+                                 @Param("id")Long taskId,
+                                @Param("enable")Integer enable);
+
+    public List<Integer> findAllNotCompleted(@Param("epoch")Integer epoch);
+
+    public Integer sumTotalPeople(@Param("epoch")Integer epoch);
+
+    public Integer sumNotCompletedPeople(@Param("epoch")Integer epoch);
+
+    public Integer setFinishedOperationToDeleted(@Param("evaluatorId")Integer evaluatorId,
+                                         @Param("evaluatedId")Integer evaluatedId,
+                                         @Param("operation")Integer operation,
+                                         @Param("epoch")Integer epoch);
+
+    public Integer setUnFinishedOperationToDeleted(@Param("evaluatorId")Integer evaluatorId,
+                                                 @Param("evaluatedId")Integer evaluatedId,
+                                                 @Param("operation")Integer operation,
+                                                 @Param("epoch")Integer epoch);
+
     public Integer enableTaskById(@Param("epoch")Integer epoch,
                                   @Param("id")Integer id);
 

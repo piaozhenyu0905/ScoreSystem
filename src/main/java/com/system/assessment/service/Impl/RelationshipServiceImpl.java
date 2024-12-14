@@ -2,14 +2,18 @@ package com.system.assessment.service.Impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.system.assessment.constants.OperationType;
 import com.system.assessment.constants.RelationType;
+import com.system.assessment.constants.TaskType;
 import com.system.assessment.exception.CustomException;
 import com.system.assessment.exception.CustomExceptionType;
 import com.system.assessment.exception.ResponseResult;
 import com.system.assessment.mapper.EvaluateMapper;
 import com.system.assessment.mapper.RelationshipMapper;
+import com.system.assessment.mapper.TodoListMapper;
 import com.system.assessment.mapper.UserMapper;
 import com.system.assessment.pojo.EvaluateRelationship;
+import com.system.assessment.pojo.TodoList;
 import com.system.assessment.pojo.User;
 import com.system.assessment.service.RelationshipService;
 import com.system.assessment.vo.*;
@@ -23,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -37,6 +42,18 @@ public class RelationshipServiceImpl implements RelationshipService {
 
     @Autowired
     public UserMapper userMapper;
+
+    @Autowired
+    public TodoListMapper todoListMapper;
+
+    @Override
+    public Integer findSingleRelationship(Integer evaluatorId, Integer evaluatedId) {
+        Integer newEpoch = evaluateMapper.findNewEpoch();
+        if(newEpoch == null){
+            newEpoch = 1;
+        }
+        return relationshipMapper.findSingleRelationship(evaluatorId, evaluatedId ,newEpoch);
+    }
 
     @Override
     public Integer addFixedRelationship(String evaluatorName, String evaluatedName) {
@@ -187,7 +204,63 @@ public class RelationshipServiceImpl implements RelationshipService {
     }
 
     @Override
+    @Transactional
+    public Integer addEvaluationMatrixAtSecondStage(FixEvaluatedAddingVO fixEvaluatedAddingVO) {
+        Integer newEpoch = evaluateMapper.findNewEpoch();
+        Integer userId = fixEvaluatedAddingVO.getUserId();
+        for (int index = 0; index < fixEvaluatedAddingVO.getEvaluatorIds().size(); index++){
+            Integer evaluatorId = fixEvaluatedAddingVO.getEvaluatorIds().get(index);
+            //1.添加关系到矩阵
+            addEvaluationMatrix(userId, evaluatorId);
+            //2.添加新的打分任务
+            TodoListVO todoListIsExist = todoListMapper.findTodoListIsExist(evaluatorId, userId, newEpoch);
+            //2.1 系统中找不到对应关系的[未完成]的任务，则添加新任务
+            if(todoListIsExist == null){
+                //添加新任务
+                addNewTask(evaluatorId, userId, newEpoch);
+            }
+        }
+
+        return 1;
+    }
+
+    public Integer addNewTask(Integer evaluatorId, Integer evaluatedId, Integer epoch){
+        TodoList todoList = new TodoList();
+        todoList.setType(TaskType.SurroundingEvaluation.getDescription());
+        todoList.setPresentDate(LocalDateTime.now());
+        todoList.setOperation(OperationType.NOTFINISHED.getCode());
+        todoList.setRejectReason(null);
+        todoList.setOwnerId(evaluatorId);
+        todoList.setCompleteTime(null);
+        todoList.setEvaluatorId(evaluatorId);
+        todoList.setEvaluatedId(evaluatedId);
+        String evaluatedName = userMapper.findNameByUserId(evaluatedId);
+        String evaluatorName = userMapper.findNameByUserId(evaluatorId);
+        todoList.setEvaluatorName(evaluatorName);
+        todoList.setEvaluatedName(evaluatedName);
+        todoList.setEnable(0); //分数设置待确认状态
+        todoList.setEpoch(epoch);
+        todoList.setConfidenceLevel(1.0);
+        String Detail = "请完成对" + evaluatedName + "的周边评议";
+        todoList.setDetail(Detail);
+        todoListMapper.addTodoList(todoList);
+        return 1;
+    }
+
+    @Override
+    @Transactional
+    public Integer addEvaluationMatrix(FixEvaluatedAddingVO fixEvaluatedAddingVO) {
+        Integer userId = fixEvaluatedAddingVO.getUserId();
+        for (int index = 0; index < fixEvaluatedAddingVO.getEvaluatorIds().size(); index++){
+            Integer evaluatorId = fixEvaluatedAddingVO.getEvaluatorIds().get(index);
+            addEvaluationMatrix(userId, evaluatorId);
+        }
+        return 1;
+    }
+
+    @Override
     public Integer addEvaluationMatrix(Integer userId, Integer evaluatorId) {
+
         Integer newEpoch = evaluateMapper.findNewEpoch();
         if(newEpoch == null){
             newEpoch = 1;
@@ -204,6 +277,18 @@ public class RelationshipServiceImpl implements RelationshipService {
     @Override
     public Integer deleteEvaluationMatrix(Integer userId, Integer evaluatorId) {
         return relationshipMapper.deleteEvaluationMatrix(userId, evaluatorId, RelationType.fixed.getCode());
+    }
+
+    @Override
+    @Transactional
+    public Integer deleteEvaluationMatrixAtSecondStage(Integer userId, Integer evaluatorId) {
+        Integer newEpoch = evaluateMapper.findNewEpoch();
+        //1.删除关系
+        relationshipMapper.deleteEvaluationMatrix(userId, evaluatorId, RelationType.fixed.getCode());
+        //2.将打分标志置为“已删除”
+        todoListMapper.setFinishedOperationToDeleted(evaluatorId, userId, OperationType.FINISHEDANDDELETED.getCode(),newEpoch);
+        todoListMapper.setUnFinishedOperationToDeleted(evaluatorId, userId, OperationType.UNFINISHEDANDDELETED.getCode(),newEpoch);
+        return 1;
     }
 
     @Override
@@ -341,6 +426,23 @@ public class RelationshipServiceImpl implements RelationshipService {
             relationshipMapper.addRelationship(evaluateRelationship);
         }
 
+
+        return 1;
+    }
+
+    @Override
+    @Transactional
+    public Integer addSelfEvaluatedAtSecondStage(AddSelfEvaluatedVO addSelfEvaluatedVO) {
+        Integer newEpoch = evaluateMapper.findNewEpoch();
+        //1.添加自主评估人
+        addSelfEvaluated(addSelfEvaluatedVO);
+        Integer selfId = addSelfEvaluatedVO.getSelfId();
+        List<Integer> evaluatedIds = addSelfEvaluatedVO.getUserIds();
+        //2.添加新任务
+        for (int index = 0; index < evaluatedIds.size(); index++){
+            Integer evalutedId = evaluatedIds.get(index);
+            addNewTask(selfId, evalutedId, newEpoch);
+        }
 
         return 1;
     }

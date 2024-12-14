@@ -22,6 +22,8 @@ public class AssessmentHistoryVO {
     @JsonIgnore
     public Integer operation;
 
+    public String rejectReason;
+
     public Boolean isReject;
 
     public Long taskId;

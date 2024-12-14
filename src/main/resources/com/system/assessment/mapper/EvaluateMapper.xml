@@ -191,10 +191,20 @@
 
     <update id="updateTableInfo">
         UPDATE evaluate_table
-        SET meanings = #{evaluateTable.meanings},
-            principles = #{evaluateTable.principles},
-            opening_remarks = #{evaluateTable.openingRemarks},
-            title = #{evaluateTable.title}
+        <set>
+            <if test = "evaluateTable.meanings != null">
+                meanings = #{evaluateTable.meanings},
+            </if>
+            <if test = "evaluateTable.principles != null">
+                principles = #{evaluateTable.principles},
+            </if>
+            <if test = "evaluateTable.openingRemarks != null">
+                opening_remarks = #{evaluateTable.openingRemarks},
+            </if>
+            <if test = "evaluateTable.title != null">
+                title = #{evaluateTable.title},
+            </if>
+        </set>
     </update>
 
     <update id="setEnableBefore">

@@ -24,7 +24,7 @@ import java.util.List;
 @Slf4j
 public class EmailServiceImpl implements EmailService {
 
-    private String from = "hr_public@tengwei.com"; //正式提交时需要修改
+    private String from = "2339134840@qq.com"; //正式提交时需要修改
 
     @Autowired(required = false)
     private JavaMailSender mailSender;

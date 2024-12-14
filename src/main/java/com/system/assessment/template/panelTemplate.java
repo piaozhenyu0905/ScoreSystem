@@ -33,18 +33,18 @@ public class panelTemplate {
                 name, template);
     }
 
-    public static String htmlTemplate(String name, String template, Double totalScore, String lxyz, Double lxyzTotalScore, String business, Double businessTotalScore){
+    public static String htmlTemplate(String title, String name, String template, Double totalScore, String lxyz, Double lxyzTotalScore, String business, Double businessTotalScore){
         return String.format(
                 "<html>" +
                         "<body style=\"font-family: Arial, sans-serif;\">" +
-                        "<h2 style=\"color: #333; text-align: center;\">2024H1 个人成长评估报告</h2>" +
+                        "<h2 style=\"color: #333; text-align: center;\">%s</h2>" +
                         "<p><strong>尊敬的 %s:</strong></p>" +
                         "<p style=\"text-indent: 2em;\" >您好!</p>" +
                         "<p style=\"text-indent: 2em;\" >%s</p>" +
                         "<p style=\"text-indent: 2em;\" ><strong>您本次评估平均得分为 %.1f，公司%s类型的平均得分为 %.1f，公司%s类型的平均得分为 %.1f</strong>，详细的得分情况，请前往成长评估系统查看!</p>" +
                         "</body>" +
                         "</html>",
-                name, template, totalScore, lxyz, lxyzTotalScore, business, businessTotalScore);
+                title, name, template, totalScore, lxyz, lxyzTotalScore, business, businessTotalScore);
     }
 
 

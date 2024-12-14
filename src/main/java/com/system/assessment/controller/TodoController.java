@@ -30,6 +30,24 @@ public class TodoController {
     @Autowired
     public EvaluateService evaluateService;
 
+    @ApiOperation("一键提醒未打完分的人")
+    @RequestMapping(value = "/notice",method = RequestMethod.GET)
+    //已验证
+    public ResponseResult noticeAllNotCompleted(){
+
+        Integer newEnableProcess = evaluateService.findNewEnableProcess();
+        if(newEnableProcess == null){
+            newEnableProcess = 0;
+        }
+        if(!newEnableProcess.equals(ProcessType.Evaluation.getCode())){
+            return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "未处于打分环节!");
+        }
+        todoService.noticeAllNotCompleted();
+        return ResponseResult.success();
+    }
+
+
+
     @ApiOperation("我的代办-打分")
     @RequestMapping(value = "/todolist/tick",method = RequestMethod.POST)
     //已验证

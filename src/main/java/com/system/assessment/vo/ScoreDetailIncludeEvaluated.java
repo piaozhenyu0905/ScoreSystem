@@ -20,6 +20,8 @@ public class ScoreDetailIncludeEvaluated {
 
     private Double allScore; //总分
 
+    public Long taskId;
+
     public void postHandle(){
         if(singleScore != null && singleScore.size() != 0){
             scores = new ArrayList<>();

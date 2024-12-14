@@ -5,9 +5,9 @@ spring:
   datasource:
     druid:
       mysql:
-        url: jdbc:mysql://localhost/company_score?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false
+        url: jdbc:mysql://47.108.213.249/company_score?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false
         username: root
-        password: pzy123456.
+        password: newsroom
         driver-class-name: com.mysql.cj.jdbc.Driver
         hikari:
           maximum-pool-size: 50

@@ -34,6 +34,15 @@ public class ScoringBoardController {
     @Autowired
     public ScoringBoardService scoringBoardService;
 
+    @ApiOperation("打分进度")
+    @RequestMapping(value = "/score/process",method = RequestMethod.POST)
+    public ResponseResult getScoreProcess(){
+
+        ScoreProcessVO scoreProcess = scoringBoardService.getScoreProcess();
+        return ResponseResult.success(scoreProcess);
+    }
+
+
     @ApiOperation("评分看板-统计评估人群本轮次平均打分")
     @RequestMapping(value = "/average/score",method = RequestMethod.POST)
     public ResponseResult findAverageScoring(@RequestBody AverageScoringConditionVO averageScoringConditionVO){
@@ -65,7 +74,7 @@ public class ScoringBoardController {
         return ResponseResult.success();
     }
 
-    @ApiOperation("评分看板-确认得分")
+    @ApiOperation("评分看板-批量确认得分")
     @RequestMapping(value = "/confirm/score/many",method = RequestMethod.POST)
     public ResponseResult confirmScoreMany(@RequestBody ConfirmManyVO confirmManyVO){
         Integer newEnableProcess = evaluateService.findNewEnableProcess();
@@ -94,8 +103,8 @@ public class ScoringBoardController {
     }
 
     @ApiOperation("评分看板-驳回")
-    @RequestMapping(value = "/reject",method = RequestMethod.GET)
-    public ResponseResult reject(@RequestParam("id") Integer userId){
+    @RequestMapping(value = "/reject",method = RequestMethod.POST)
+    public ResponseResult reject(@RequestBody RejectVO rejectVO){
         Integer newEnableProcess = evaluateService.findNewEnableProcess();
         if(newEnableProcess == null){
             newEnableProcess = 0;
@@ -103,7 +112,7 @@ public class ScoringBoardController {
         if(!newEnableProcess.equals(ProcessType.Evaluation.getCode())){
             return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "该操作在当前环节无效!");
         }
-        scoringBoardService.reject(userId);
+        scoringBoardService.reject(rejectVO);
         return ResponseResult.success();
     }
 

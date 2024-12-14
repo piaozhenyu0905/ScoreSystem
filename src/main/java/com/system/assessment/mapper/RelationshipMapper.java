@@ -12,6 +12,13 @@ import java.util.List;
 
 @Mapper
 public interface RelationshipMapper {
+    public Integer findSingleRelationship(@Param("evaluatorId") Integer evaluatorId,
+                                          @Param("evaluatedId") Integer evaluatedId,
+                                          @Param("epoch") Integer epoch);
+
+    public Integer findSingleRelationshipInfo(@Param("evaluatorId") Integer evaluatorId,
+                                          @Param("evaluatedId") Integer evaluatedId,
+                                          @Param("epoch") Integer epoch);
 
     public List<Integer> findAllEvaluated();
 
@@ -28,6 +35,8 @@ public interface RelationshipMapper {
     public Integer deleteEvaluationMatrix(@Param("userId")Integer userId,
                                           @Param("evaluatorId")Integer evaluatorId,
                                           @Param("type")Integer type);
+
+    public Integer deleteEvaluationMatrixEnableFalse();
 
     public List<RelationshipEvaluatorInfo> findEvaluatorById(@Param("id")Integer id,
                                                              @Param("type")Integer type);

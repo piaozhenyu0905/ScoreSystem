@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public interface ScoringBoardService {
+
+    public ScoreProcessVO getScoreProcess();
+
     public List<ScoreDetailVO> filterData(List<ScoreDetailVO> scoreDetailList);
 
     public PanelScoreBoardVO  selfPanel(Integer userId);
@@ -24,6 +27,8 @@ public interface ScoringBoardService {
     public DataListResult getAverageScoreBoard(GetScoreConditionalVO getScoreConditionalVO);
 
     public Integer reject(Integer userId);
+
+    public Integer reject(RejectVO rejectVO);
 
     public Integer confidenceLevel(confidenceLevelVO confidenceLevelVO);
 

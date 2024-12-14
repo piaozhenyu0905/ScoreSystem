@@ -60,9 +60,45 @@ public class UserController {
         return ResponseResult.success(dataListResult);
     }
 
+    @ApiOperation("用户管理-管理员批量删除用户")
+    @DeleteMapping(value = "/delete/users")
+    public ResponseResult deleteUsers(@RequestBody DeleteUserVO deleteUserVO){
+        Integer selfId = AuthenticationUtil.getUserId();
+        List<Integer> ids = deleteUserVO.getIds();
+        if(ids == null || ids.size() == 0){
+            return ResponseResult.error(401,"请选择要删除的用户!");
+        }
+
+        for(int index = 0; index < ids.size(); index++){
+            Integer id = ids.get(index);
+            if(selfId.equals(id)){
+                return ResponseResult.error(401,"管理员无法删除自己!请重新选择要删除的用户!");
+            }
+        }
+
+        ArrayList<String> errorList = userService.deleteUsers(deleteUserVO);
+        if(errorList.size() == 0 ){
+            return ResponseResult.success();
+        }else {
+            String message = "";
+            for (int i = 0; i < errorList.size(); i++){
+                String name = errorList.get(i);
+                if(i != 0){
+                    message = message + "、" + name;
+                }else {
+                    message = name;
+                }
+
+            }
+            message = message + "删除失败!请重新尝试!";
+            return ResponseResult.error(401,message);
+        }
+
+    }
+
     @ApiOperation("用户管理-管理员删除用户")
     @DeleteMapping(value = "/delete/user")
-    public ResponseResult deleteUser(@RequestParam("id")Integer userId){
+    public ResponseResult deleteUser(@RequestParam("id") Integer userId){
         Integer selfId = AuthenticationUtil.getUserId();
         if(selfId.equals(userId)){
             return ResponseResult.error(401,"管理员无法删除自己!");

@@ -89,10 +89,8 @@ public class ProcessServiceImpl implements ProcessService {
     @Transactional
     public void ScoringOver() {
         Integer newEpoch = evaluateMapper.findNewEpoch();
-        //1.将所有未完成评议(operation=0)的任务置为无效(operation=2)
-        todoListMapper.SetOperationInvalid(newEpoch, OperationType.INVALUED.getCode());
 
-        // 将所有完成平移的未确认的都变成已确认
+        // 1.找出完成所有评议任务的人，将其未确认的任务都变成已确认
         List<ScoreDetailVO> scoringNewRoundIsNotEnable = todoListMapper.findScoringNewRoundIsNotEnable(newEpoch);
         List<ScoreDetailVO> filterList = scoringBoardService.filterData(scoringNewRoundIsNotEnable);
         if(filterList != null){
@@ -102,10 +100,13 @@ public class ProcessServiceImpl implements ProcessService {
             });
         }
 
-        //2.统计级联平均分，入库
+        //2.将所有未完成评议(operation=0)的任务置为无效(operation=2)
+        todoListMapper.SetOperationInvalid(newEpoch, OperationType.INVALUED.getCode());
+
+        //3.统计级联平均分，入库
         todoListMapper.deleteAverageTable(newEpoch);
         scoringBoardService.countAverageScoreByEpoch(newEpoch);
-        //3.进入下一步
+        //4.进入下一步
         processService.gotoNewStep(newEpoch);
     }
 
@@ -149,32 +150,9 @@ public class ProcessServiceImpl implements ProcessService {
             }
         });
         //3.邮件通知所有涉及的员工去完成
-        sendEmailToEvaluator(newEpoch, map);
+        asyncTask.sendEmailToEvaluator(newEpoch, map);
         // 4.进入下一个环节
         processService.gotoNewStep(newEpoch);
-    }
-
-    public void sendEmailToEvaluator(Integer epoch, Map<Integer, String> map){
-
-        LocalDate endDate = evaluateMapper.findEndDate(epoch);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日");
-
-        // 格式化LocalDate为String
-        String deadline = endDate.format(formatter);
-
-        List<String> emails = new ArrayList();
-        for (Integer evalutorId : map.keySet()) {
-            emails.add(map.get(evalutorId));
-        }
-        String subject = "评估关系矩阵发布";
-        String content = "你好！本轮评估关系矩阵已发布，周边评议环节已经开始, 请您在" + deadline + "前前往成长评估系统进行周边评议!";
-        sendManyMessage(emails, subject, content);
-    }
-
-
-    public void sendManyMessage(List<String> recipients, String subject, String content) {
-        recipients.forEach(to -> emailService.sendMessage(to, subject, content));
     }
 
 }
