@@ -42,6 +42,8 @@ public class  UserVO {
 
     private Integer supervisor4; //主管4 id
 
+    private Integer hr;
+
     private String supervisorName1; //主管1姓名
 
     private String supervisorName2; //主管2姓名
@@ -49,6 +51,10 @@ public class  UserVO {
     private String supervisorName3; //主管3姓名
 
     private String supervisorName4; //主管4姓名
+
+    private String hrName;
+
+    private Double weight;
 
     private String lxyz; //LXYZ类型
 

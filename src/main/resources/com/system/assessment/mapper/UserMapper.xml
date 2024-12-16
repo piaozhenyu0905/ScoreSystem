@@ -17,6 +17,7 @@
         <result column="role" property="role" ></result>
         <result column="residence" property="residence" ></result>
         <result column="lxyz" property="lxyz" ></result>
+        <result column="hr" property="hr"></result>
         <result column="business_type" property="businessType" typeHandler="com.system.assessment.constants.handler.BusinessTypeHandler"></result>
         <result column="supervisor_name_1" property="supervisorName1"></result>
         <result column="supervisor_name_2" property="supervisorName2"></result>
@@ -43,6 +44,7 @@
         <result column="residence" property="residence" ></result>
         <result column="lxyz" property="lxyz" ></result>
         <result column="business_type" property="businessType" typeHandler="com.system.assessment.constants.handler.BusinessTypeHandler"></result>
+        <result column="hr" property="hr"></result>
         <result column="supervisor_name_1" property="supervisorName1"></result>
         <result column="supervisor_name_2" property="supervisorName2"></result>
         <result column="supervisor_name_3" property="supervisorName3"></result>
@@ -72,6 +74,7 @@
                u.supervisor_2,
                u.supervisor_3,
                u.supervisor_4,
+               u.hr,
                u.residence,
                u.lxyz,
                u.business_type,
@@ -108,6 +111,7 @@
                 u.hire_date,
                 u.role,
                 u.password,
+                u.hr,
                 u1.name as supervisor_name_1,
                 u2.name as supervisor_name_2,
                 u3.name as supervisor_name_3,
@@ -158,6 +162,12 @@
             supervisor_4 = IF(supervisor_4 = #{id}, 0, supervisor_4)
     </update>
 
+
+    <update id="setWeight">
+        UPDATE user
+        SET weight = #{weight}
+        where is_delete = 0
+    </update>
 
     <update id="updateFirstLogin">
         UPDATE user
@@ -246,6 +256,9 @@
             <if test="user.lxyz != null">
                 lxyz = #{user.lxyz},
             </if>
+            <if test="user.hr != null">
+                hr = #{user.hr},
+            </if>
             <if test="user.businessType != null">
                 business_type = #{user.businessType,typeHandler=com.system.assessment.constants.handler.BusinessTypeHandler},
             </if>
@@ -329,7 +342,7 @@
     <insert id="addUser" parameterType="com.system.assessment.pojo.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user (username, department, email, phone_number, password, supervisor_name_1, supervisor_name_2, supervisor_name_3, supervisor_name_4,  name, role, residence,
                           lxyz, business_type, work_num, hire_date, enabled, account_non_expired, account_non_locked, credentials_non_expired,
-                          supervisor_1, supervisor_2, supervisor_3, supervisor_4, resignation_date, is_delete, is_first_login) VALUES
+                          supervisor_1, supervisor_2, supervisor_3, supervisor_4, resignation_date, is_delete, is_first_login, weight) VALUES
         (#{user.username},
          #{user.department},
          #{user.email},
@@ -356,7 +369,8 @@
          #{user.supervisor4},
          #{user.resignationDate},
          #{user.isDelete},
-         #{user.isFirstLogin})
+         #{user.isFirstLogin},
+         #{user.weight})
     </insert>
 
 </mapper>

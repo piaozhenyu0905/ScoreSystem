@@ -36,6 +36,7 @@
 
     <resultMap id="ScoreGettingDetail" type="com.system.assessment.vo.ScoreGettingDetailVO">
         <result property="evaluatedId" column="evaluatedId"/>
+        <result property="confidence" column="weight"/>
         <result property="evaluatedName" column="evaluated_name"/>
         <result property="department" column="department"/>
         <result property="lxyz" column="lxyz"/>
@@ -179,7 +180,7 @@
 
 
     <select id="findAverageGettingNewRoundByCondition" resultMap="ScoreGettingDetail">
-        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation,
+        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation, u.weight,
         u.lxyz, u.business_type, tl.enable, tl.confidence_level,
         CASE
         WHEN (e1.supervisor_1 = e2.id
@@ -222,7 +223,7 @@
     </select>
 
     <select id="findAverageGettingNewRoundBySecondAdmin" resultMap="ScoreGettingDetail">
-        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation,
+        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation, u.weight,
         u.lxyz, u.business_type, tl.enable, tl.confidence_level,
         CASE
         WHEN (e1.supervisor_1 = e2.id
@@ -248,7 +249,7 @@
     </select>
 
     <select id="findAverageGettingNewRoundByFirstAdmin" resultMap="ScoreGettingDetail">
-        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation,
+        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation, u.weight,
         u.lxyz, u.business_type, tl.enable, tl.confidence_level,
         CASE
         WHEN (e1.supervisor_1 = e2.id
@@ -275,7 +276,7 @@
 
 
     <select id="findSingleGettingNewRound" resultMap="ScoreGettingDetail">
-        SELECT tl.evaluated_name, tl.id, tl.evaluated_id as evaluatedId, tl.operation,
+        SELECT tl.evaluated_name, tl.id, tl.evaluated_id as evaluatedId, tl.operation, e1.weight,
         tl.enable, tl.confidence_level,
         CASE
            WHEN (e1.supervisor_1 = e2.id
@@ -292,7 +293,7 @@
 
 
     <select id="findAverageGettingNewRound" resultMap="ScoreGettingDetail">
-        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation,
+        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation, u.weight,
                u.lxyz, u.business_type, tl.enable, tl.confidence_level,
                 CASE
                 WHEN (e1.supervisor_1 = e2.id

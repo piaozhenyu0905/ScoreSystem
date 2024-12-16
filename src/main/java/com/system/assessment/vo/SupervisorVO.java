@@ -15,4 +15,6 @@ public class SupervisorVO {
     public String supervisorName3;
 
     public String supervisorName4;
+
+    public String hrName;
 }

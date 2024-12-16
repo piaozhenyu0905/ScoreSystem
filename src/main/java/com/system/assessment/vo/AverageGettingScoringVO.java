@@ -9,6 +9,8 @@ public class AverageGettingScoringVO {
 
     public Integer userId;
 
+    public Double confidence; //得分者的置信度
+
     public String evaluatedName;
 
     public String department;

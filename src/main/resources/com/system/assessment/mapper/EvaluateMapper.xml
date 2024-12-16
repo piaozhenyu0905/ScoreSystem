@@ -240,6 +240,13 @@
         where epoch = #{epoch} and evaluate_step = #{step}
     </update>
 
+
+    <update id="assessorConfidenceLevel">
+        UPDATE user
+        SET weight = #{confidenceLevel}
+        where id = #{userId}
+    </update>
+
     <update id="updateAverageScore">
         UPDATE average_sum
         SET weight = #{weight}

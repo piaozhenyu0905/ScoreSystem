@@ -113,6 +113,8 @@ public class EvaluateServiceImpl implements EvaluateService {
             relationshipMapper.deleteEvaluationMatrixEnableFalse();
             //4.更新关系矩阵的epoch,令其+1
             relationshipMapper.addRelationshipEpoch();
+            //5.将所有用户的置信度重置为1
+            userMapper.setWeight(1.0);
             if(newEpoch == null){
                 newEpoch = 0;
             }

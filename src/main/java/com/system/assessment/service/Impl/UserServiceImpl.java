@@ -149,10 +149,12 @@ public class UserServiceImpl implements UserService {
                         userVO.setSupervisorName2(getCellValue(row, columnIndexMap.get("主管2")));
                         userVO.setSupervisorName3(getCellValue(row, columnIndexMap.get("主管3")));
                         userVO.setSupervisorName4(getCellValue(row, columnIndexMap.get("主管4")));
+                        userVO.setHrName(getCellValue(row, columnIndexMap.get("HRBP")));
                         userVO.setSupervisor1(0);
                         userVO.setSupervisor2(0);
                         userVO.setSupervisor3(0);
                         userVO.setSupervisor4(0);
+                        userVO.setHr(0);
 
                         // 处理日期字段
                         userVO.setHireDate(getLocalDateValue(row, columnIndexMap.get("入职时间")));
@@ -188,6 +190,7 @@ public class UserServiceImpl implements UserService {
                         supervisorVO.setSupervisorName2(userVO.getSupervisorName2());
                         supervisorVO.setSupervisorName3(userVO.getSupervisorName3());
                         supervisorVO.setSupervisorName4(userVO.getSupervisorName4());
+                        supervisorVO.setHrName(userVO.getHrName());
                         supervisorList.add(supervisorVO);
 
                         userMapper.updateUserInfoInit(userVO);
@@ -204,11 +207,13 @@ public class UserServiceImpl implements UserService {
                         user.setSupervisorName2(getCellValue(row, columnIndexMap.get("主管2")));
                         user.setSupervisorName3(getCellValue(row, columnIndexMap.get("主管3")));
                         user.setSupervisorName4(getCellValue(row, columnIndexMap.get("主管4")));
+                        user.setHrName(getCellValue(row, columnIndexMap.get("HRBP")));
 
                         user.setSupervisor1(0);
                         user.setSupervisor2(0);
                         user.setSupervisor3(0);
                         user.setSupervisor4(0);
+                        user.setHr(0);
 
                         // 处理日期字段
                         user.setHireDate(getLocalDateValue(row, columnIndexMap.get("入职时间")));
@@ -236,6 +241,7 @@ public class UserServiceImpl implements UserService {
                         user.setRole(Role.getCodeByDescription(En2Zn(role)));
 
                         // 权限设置
+                        user.setWeight(1.0);
                         user.setIsFirstLogin(true); //设置是否为第一次登录，导入后默认为true
                         user.setAccountNonExpired(true);
                         user.setCredentialsNonExpired(true);
@@ -252,6 +258,7 @@ public class UserServiceImpl implements UserService {
                         supervisorVO.setSupervisorName2(user.getSupervisorName2());
                         supervisorVO.setSupervisorName3(user.getSupervisorName3());
                         supervisorVO.setSupervisorName4(user.getSupervisorName4());
+                        supervisorVO.setHrName(user.getHrName());
                         supervisorList.add(supervisorVO);
                     }
                 }
@@ -266,6 +273,7 @@ public class UserServiceImpl implements UserService {
                 String supervisorName2 = supervisorVO.getSupervisorName2();
                 String supervisorName3 = supervisorVO.getSupervisorName3();
                 String supervisorName4 = supervisorVO.getSupervisorName4();
+                String hrName = supervisorVO.getHrName();
 
                 User supervisor1 = userMapper.findValuedUserByName(supervisorName1);
                 if(supervisor1 != null){
@@ -283,6 +291,11 @@ public class UserServiceImpl implements UserService {
                 if(supervisor4 != null){
                     userMapper.updateSupervisor4ById(id, supervisor4.getId());
                 }
+                User hrNameUser = userMapper.findValuedUserByHrName(hrName);
+                if(hrNameUser != null){
+                    userMapper.updateHrById(id, hrNameUser.getId());
+                }
+
             }
 
             workbook.close();

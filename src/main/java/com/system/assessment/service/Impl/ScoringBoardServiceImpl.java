@@ -139,6 +139,22 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         return  scoreList;
     };
 
+    public AverageGettingScoringVO sumSingleGettingAverageByConfidence(ScoreGettingDetailVO scoreDetailVO){
+        if(scoreDetailVO == null){
+            return null;
+        }
+        AverageGettingScoringVO averageGettingScoringVO = new AverageGettingScoringVO();
+        averageGettingScoringVO.setDepartment(scoreDetailVO.getDepartment());
+        averageGettingScoringVO.setLxyz(scoreDetailVO.getLxyz());
+        averageGettingScoringVO.setEvaluatedName(scoreDetailVO.getEvaluatedName());
+        averageGettingScoringVO.setBusiness(scoreDetailVO.getBusiness());
+        averageGettingScoringVO.setUserId(scoreDetailVO.getEvaluatedId());
+        List<SingleScoreWithSupervisor> singleScoreList = scoreDetailVO.getSingleScore();
+        averageGettingScoringVO.setScoreList(sumGettingScore(singleScoreList));
+        averageGettingScoringVO.setTotalScore(sumTotalScore(averageGettingScoringVO.getScoreList())); //计算所有维度平均分的总分
+        return  averageGettingScoringVO;
+    }
+
     public AverageGettingScoringVO sumSingleGettingAverage(ScoreGettingDetailVO scoreDetailVO){
         if(scoreDetailVO == null){
             return null;
@@ -167,6 +183,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             averageGettingScoringVO.setLxyz(scoreDetailVO.getLxyz());
             averageGettingScoringVO.setEvaluatedName(scoreDetailVO.getEvaluatedName());
             averageGettingScoringVO.setBusiness(scoreDetailVO.getBusiness());
+            averageGettingScoringVO.setConfidence(scoreDetailVO.getConfidence());
             averageGettingScoringVO.setUserId(scoreDetailVO.getEvaluatedId());
             List<SingleScoreWithSupervisor> singleScoreList = scoreDetailVO.getSingleScore();
             averageGettingScoringVO.setScoreList(sumGettingScore(singleScoreList));
@@ -289,6 +306,13 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         // 返回指定范围的子列表
         return dataList.subList(fromIndex, toIndex);
     };
+
+    @Override
+    public void assessorConfidenceLevel(AssessorConfidenceLevelVO assessorConfidenceLevelVO) {
+        Double confidenceLevel = assessorConfidenceLevelVO.getConfidenceLevel();
+        Integer userId = assessorConfidenceLevelVO.getUserId();
+        evaluateMapper.assessorConfidenceLevel(confidenceLevel, userId);
+    }
 
     @Override
     public ScoreProcessVO getScoreProcess() {
@@ -499,6 +523,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         return totalScore;
     };
 
+
     @Override
     public PanelScoreBoardVO selfPanel(Integer userId) {
         PanelScoreBoardVO panelScoreBoardVO = new PanelScoreBoardVO();
@@ -522,10 +547,14 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         Double totalScore = averageGettingScoringVO == null ? 0.0 : averageGettingScoringVO.getTotalScore();
         List<Double> scoreList = averageGettingScoringVO == null ? new ArrayList<>(Collections.nCopies(Guideline.values().length, 0.0)) : averageGettingScoringVO.getScoreList();
 
+        Double confidence = singleGettingNewRound.getConfidence();
+        //2.1 总分和各维度得分都要乘以置信度
+        totalScore = totalScore * confidence;
+        scoreList.replaceAll(n -> n * confidence);
         panelScoreBoardVO.setTotalScore(totalScore);
         panelScoreBoardVO.setSelfList(scoreList);
 
-        //3.查lxyz类型的九维图
+        //3.查lxyz类型的九维图 （因存入数据库的级联平局分计算已经考虑了置信度，故下面的代码不做额外处理）
         AverageSum lxyzAverageSum;
         AverageSum businessAverageSum;
         if(lxyz.equals("LP") || lxyz.equals("IP")){
@@ -705,23 +734,27 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
     public void sumAverageScoreByCondition(List<AverageGettingScoringVO> scoreList, AverageScoreByCondition averageScoreByCondition){
          List<Double> resultList = new ArrayList<>(Collections.nCopies(Guideline.values().length, 0.0));
          Double totalScore = 0.0;
+         Double weightSum = 0.0;
          for(int index = 0; index < scoreList.size(); index++){
              AverageGettingScoringVO averageGettingScoringVO = scoreList.get(index);
              List<Double> scoreSingleList = averageGettingScoringVO.getScoreList();
+             Double confidence = averageGettingScoringVO.getConfidence(); //得分者的置信度
+             weightSum = weightSum + confidence;
              for(int idx = 0; idx < scoreSingleList.size(); idx++){
                  Double oldScore = resultList.get(idx);
-                 Double newScore = oldScore + scoreSingleList.get(idx);
+                 Double newScore = oldScore + scoreSingleList.get(idx) * confidence; //新得分 = 旧得分 + 分数 * 置信度
                  resultList.set(idx, newScore);
              }
-             totalScore += averageGettingScoringVO.getTotalScore();
          }
-
+        //加权平均计算
         for(int index = 0; index < resultList.size(); index++){
             Double rawAverage = resultList.get(index);
-            Double newAverage = rawAverage / scoreList.size();
-            resultList.set(index, MathUtils.transformer(newAverage));
+            Double newAverage = rawAverage / weightSum; // 总加权得分/总权重
+            Double transformerScore = MathUtils.transformer(newAverage);
+            resultList.set(index, transformerScore);
+            totalScore = totalScore + transformerScore;
         }
-        totalScore = totalScore / scoreList.size();
+
         totalScore = MathUtils.transformer(totalScore);
         averageScoreByCondition.setScoreList(resultList);
         averageScoreByCondition.setTotalScore(totalScore);

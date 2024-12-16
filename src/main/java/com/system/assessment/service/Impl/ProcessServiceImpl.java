@@ -104,10 +104,17 @@ public class ProcessServiceImpl implements ProcessService {
         todoListMapper.SetOperationInvalid(newEpoch, OperationType.INVALUED.getCode());
 
         //3.统计级联平均分，入库
-        todoListMapper.deleteAverageTable(newEpoch);
-        scoringBoardService.countAverageScoreByEpoch(newEpoch);
+        countAverageScoreByEpoch(newEpoch);
         //4.进入下一步
         processService.gotoNewStep(newEpoch);
+    }
+
+    @Override
+    public void countAverageScoreByEpoch(Integer epoch){
+        //1.删除当前epoch中所有统计的级联平均分
+        todoListMapper.deleteAverageTable(epoch);
+        //2.计算当前epoch中的级联平均分并入库
+        scoringBoardService.countAverageScoreByEpoch(epoch);
     }
 
     @Override

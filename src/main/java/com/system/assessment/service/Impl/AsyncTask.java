@@ -126,7 +126,7 @@ public class AsyncTask {
 
         for (int index = 0; index < allNotCompleted.size(); index++){
             UserVO userVO = allNotCompleted.get(index);
-            String content = "请您尽快前往成长评估系统进行评分，截至日期为" + deadline;
+            String content = "请您尽快前往成长评估系统进行评分";
             String subject = "评分提醒!";
             emailService.sendMessageHTML(userVO.getEmail(), subject, content);
             try {
@@ -152,7 +152,7 @@ public class AsyncTask {
             emails.add(map.get(evalutorId));
         }
         String subject = "评估关系矩阵发布";
-        String content = "你好！本轮评估关系矩阵已发布，周边评议环节已经开始, 请您在" + deadline + "前前往成长评估系统进行周边评议!";
+        String content = "你好！本轮评估关系矩阵已发布，周边评议环节已经开始, 请您尽快前往成长评估系统进行周边评议!";
         sendManyMessage(emails, subject, content);
     }
 

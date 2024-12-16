@@ -23,6 +23,8 @@ public class User implements UserDetails {
 
     private String username;
 
+    private Double weight;
+
     private String workNum;
 
     private String name;
@@ -45,6 +47,8 @@ public class User implements UserDetails {
 
     private Integer supervisor4; //主管4 id
 
+    private Integer hr;
+
     private String supervisorName1; //主管1姓名
 
     private String supervisorName2; //主管2姓名
@@ -52,6 +56,8 @@ public class User implements UserDetails {
     private String supervisorName3; //主管3姓名
 
     private String supervisorName4; //主管4姓名
+
+    private String hrName;
 
     private String lxyz; //LXYZ类型
 
@@ -98,6 +104,30 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getHr() {
+        return hr;
+    }
+
+    public void setHr(Integer hr) {
+        this.hr = hr;
+    }
+
+    public String getHrName() {
+        return hrName;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public void setHrName(String hrName) {
+        this.hrName = hrName;
     }
 
     @Override

@@ -127,6 +127,25 @@ public class ScoringBoardController {
         return true;
     }
 
+    @ApiOperation("得分看板-设置置信度")
+    @RequestMapping(value = "/assessorConfidenceLevel",method = RequestMethod.POST)
+    public ResponseResult assessorConfidenceLevel(@RequestBody AssessorConfidenceLevelVO assessorConfidenceLevelVO){
+        Integer newEnableProcess = evaluateService.findNewEnableProcess();
+        if(newEnableProcess == null){
+            newEnableProcess = 0;
+        }
+        if(!newEnableProcess.equals(ProcessType.ResultConsultation.getCode())
+                && !newEnableProcess.equals(ProcessType.ResultPublic.getCode())){
+            return ResponseResult.success();
+        }
+        if(!isVisible()){
+            return ResponseResult.success();
+        }
+
+        scoringBoardService.assessorConfidenceLevel(assessorConfidenceLevelVO);
+        return ResponseResult.success();
+    }
+
     @ApiOperation("得分看板-统计评估人本轮次平均打分")
     @RequestMapping(value = "/getBoard",method = RequestMethod.POST)
     public ResponseResult getAverageScoreBoard(@RequestBody GetScoreConditionalVO getScoreConditionalVO){

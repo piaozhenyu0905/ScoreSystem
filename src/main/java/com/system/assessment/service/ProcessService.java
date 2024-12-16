@@ -3,6 +3,7 @@ package com.system.assessment.service;
 import org.apache.ibatis.annotations.Param;
 
 public interface ProcessService {
+    public void countAverageScoreByEpoch(Integer epoch);
 
     public Integer findExtra(Integer epoch);
 

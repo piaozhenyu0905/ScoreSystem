@@ -13,6 +13,10 @@ import java.util.List;
 
 @Mapper
 public interface EvaluateMapper {
+
+    public Integer assessorConfidenceLevel(@Param("confidenceLevel")Double confidenceLevel,
+                                           @Param("userId")Integer userId);
+
     public Integer setVisible(@Param("epoch")Integer epoch,
                               @Param("step")Integer step);
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public interface ScoringBoardService {
+    public void assessorConfidenceLevel(AssessorConfidenceLevelVO assessorConfidenceLevelVO);
 
     public ScoreProcessVO getScoreProcess();
 

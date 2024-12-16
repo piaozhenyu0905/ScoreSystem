@@ -20,7 +20,7 @@ public class ScheduledTask {
     @Autowired
     public ProcessService processService;
 
-    @Scheduled(cron = "0 0 0 * * ?")
+//    @Scheduled(cron = "0 0 0 * * ?")
     public void ScheduledTasks() {
         EvaluateProcess newEvaluateProcess = evaluateMapper.findNewEvaluateProcess();
         if(newEvaluateProcess == null){

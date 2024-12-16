@@ -13,6 +13,8 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
+    public Integer setWeight(@Param("weight")Double weight);
+
     public Integer deleteClean();
 
     public Integer updateFirstLogin(@Param("id")Integer id);
@@ -38,6 +40,10 @@ public interface UserMapper {
     public Integer updateSupervisor4ById(@Param("id") Integer id,
                                          @Param("supervisor")Integer supervisor);
 
+    @Update("update  user set hr = #{hr} where id = #{id}")
+    public Integer updateHrById(@Param("id") Integer id,
+                                         @Param("hr")Integer hr);
+
     @Select("select distinct department from user")
     public List<String> findDepartment();
 
@@ -52,6 +58,9 @@ public interface UserMapper {
 
     @Select("select * from user where name = #{name} and is_delete = 0")
     public User findValuedUserByName(@Param("name") String name);
+
+    @Select("select * from user where name = #{name} and is_delete = 0")
+    public User findValuedUserByHrName(@Param("name") String name);
 
     public Integer deleteUser(@Param("id") Integer userId);
 

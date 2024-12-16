@@ -14,7 +14,9 @@ public class ScoreGettingDetailVO {
 
     private String business;
 
-    private String evaluatedName;   // 评估者的名字
+    private String evaluatedName;   // 被评估者的名字
+
+    public Double confidence; //置信度
 
     private List<SingleScoreWithSupervisor> singleScore; //单次打分
 }
