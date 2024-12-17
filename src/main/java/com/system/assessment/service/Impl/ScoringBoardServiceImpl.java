@@ -9,6 +9,8 @@ import com.system.assessment.mapper.RelationshipMapper;
 import com.system.assessment.mapper.TodoListMapper;
 import com.system.assessment.mapper.UserMapper;
 import com.system.assessment.pojo.*;
+import com.system.assessment.service.EmailService;
+import com.system.assessment.service.ProcessService;
 import com.system.assessment.service.ScoringBoardService;
 import com.system.assessment.service.TodoService;
 import com.system.assessment.utils.AuthenticationUtil;
@@ -37,6 +39,12 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
 
     @Autowired
     public UserMapper userMapper;
+
+    @Autowired
+    public EmailService emailService;
+
+    @Autowired
+    public ProcessService processService;
 
 
     public List<Double> sumScoreWorking(List<SingleScore> singleScoreList){
@@ -308,10 +316,13 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
     };
 
     @Override
+    @Transactional
     public void assessorConfidenceLevel(AssessorConfidenceLevelVO assessorConfidenceLevelVO) {
+        Integer newEpoch = evaluateMapper.findNewEpoch();
         Double confidenceLevel = assessorConfidenceLevelVO.getConfidenceLevel();
         Integer userId = assessorConfidenceLevelVO.getUserId();
         evaluateMapper.assessorConfidenceLevel(confidenceLevel, userId);
+        processService.countAverageScoreByEpoch(newEpoch);
     }
 
     @Override
@@ -416,6 +427,10 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         return 1;
     }
 
+    public void noticeReject(String to, String content, String title){
+        emailService.sendMessage(to, title, content);
+    };
+
     @Override
     @Transactional
     public Integer reject(RejectVO rejectVO) {
@@ -434,6 +449,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             String reason = reasonsToReject.get(index);
             TaskEvaluateInfo taskEvaluateInfo = todoListMapper.findTaskEvaluateInfo(taskId);
             todoListMapper.rejectSingle(reason, taskId, ScoringOperationType.Rejected.getCode());
+
             //2. 生成新任务
             Integer evaluatedId = taskEvaluateInfo.getEvaluatedId();
             Integer evaluatorId = taskEvaluateInfo.getEvaluatorId();
@@ -461,6 +477,26 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             String detail = "请完成对" + evaluatedName +"的评议";
             todoList.setDetail(detail);
             todoListMapper.addTodoList(todoList);
+        }
+        //根据任务id查找所属的被评估人（驳回的都是同一个人，所以取第一个就行）
+        TaskEvaluateInfo taskEvaluateInfo = todoListMapper.findTaskEvaluateInfo(tasksToReject.get(0));
+        String reason = reasonsToReject.get(0);
+        // 邮件提醒评估人和HRBP
+        Integer hrId = userMapper.findHrById(taskEvaluateInfo.getEvaluatedId());
+        if(hrId != null && hrId != 0){
+            String hrEmail = userMapper.findEmailById(hrId);
+            if(hrEmail != null && !hrEmail.equals("")){
+                String name = taskEvaluateInfo.getEvaluatedName();
+                String subject = "【驳回提醒】"+name+ "的打分已被驳回!";
+                String content = "你好！" + name + "在本轮的评估打分已被管理员驳回" + "。驳回理由如下:<"+reason +">。请您及时跟进其打分进度!";
+                noticeReject(hrEmail, subject, content);
+            }
+        }
+        String email = userMapper.findEmailById(taskEvaluateInfo.getEvaluatedId());
+        if(email != null && !email.equals("")){
+            String subject = "成长评估打分驳回提醒!";
+            String content = "你好！您在本轮的评估打分已被管理员驳回。"+ "驳回理由如下:<"+reason +">。请您重新完成打分任务！";
+            noticeReject(email, subject, content);
         }
 
         return 1;
@@ -543,14 +579,21 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             };
         }
         //2.计算平均值
+        Double totalScore;
+        List<Double> scoreList;
         AverageGettingScoringVO averageGettingScoringVO = sumSingleGettingAverage(singleGettingNewRound);
-        Double totalScore = averageGettingScoringVO == null ? 0.0 : averageGettingScoringVO.getTotalScore();
-        List<Double> scoreList = averageGettingScoringVO == null ? new ArrayList<>(Collections.nCopies(Guideline.values().length, 0.0)) : averageGettingScoringVO.getScoreList();
+        if(averageGettingScoringVO == null){
+            totalScore = 0.0;
+            scoreList = new ArrayList<>(Collections.nCopies(Guideline.values().length, 0.0));
+        }else {
+            totalScore =  averageGettingScoringVO.getTotalScore();
+            scoreList = averageGettingScoringVO.getScoreList();
+            Double confidence = singleGettingNewRound.getConfidence();
+            //2.1 总分和各维度得分都要乘以置信度
+            totalScore = totalScore * confidence;
+            scoreList.replaceAll(n -> n * confidence);
+        }
 
-        Double confidence = singleGettingNewRound.getConfidence();
-        //2.1 总分和各维度得分都要乘以置信度
-        totalScore = totalScore * confidence;
-        scoreList.replaceAll(n -> n * confidence);
         panelScoreBoardVO.setTotalScore(totalScore);
         panelScoreBoardVO.setSelfList(scoreList);
 

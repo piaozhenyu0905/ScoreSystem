@@ -20,7 +20,7 @@ import java.io.File;
 import java.util.List;
 
 
-@Service
+//@Service
 @Slf4j
 public class EmailServiceImpl implements EmailService {
 

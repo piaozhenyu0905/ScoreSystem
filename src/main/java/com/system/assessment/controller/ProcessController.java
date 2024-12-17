@@ -67,7 +67,7 @@ public class ProcessController {
         }else {
             return true;
         }
-    };
+    }
 
     @ApiOperation("查看最新的评估节点")
     @RequestMapping(value = "/find/step",method = RequestMethod.GET)

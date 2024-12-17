@@ -7,6 +7,7 @@
     <resultMap id="User" type="com.system.assessment.pojo.User">
         <id column="id" property="id"></id>
         <result column="name" property="name"></result>
+        <result column="hrName" property="hrName"></result>
         <result column="username" property="username"></result>
         <result column="work_num" property="workNum"></result>
         <result column="password" property="password"></result>
@@ -33,6 +34,7 @@
     <resultMap id="UserVO" type="com.system.assessment.vo.UserVO">
         <id column="id" property="id"></id>
         <result column="name" property="name"></result>
+        <result column="hrName" property="hrName"></result>
         <result column="username" property="username"></result>
         <result column="work_num" property="workNum"></result>
         <result column="password" property="password"></result>
@@ -70,6 +72,7 @@
                u2.name as supervisor_name_2,
                u3.name as supervisor_name_3,
                u4.name as supervisor_name_4,
+               u5.name as hrName,
                u.supervisor_1,
                u.supervisor_2,
                u.supervisor_3,
@@ -84,6 +87,7 @@
         left join user as u2 on u.supervisor_2 = u2.id
         left join user as u3 on u.supervisor_3 = u3.id
         left join user as u4 on u.supervisor_4 = u4.id
+        left join user as u5 on u.hr = u5.id
         where u.id = #{userId}
     </select>
 
@@ -116,6 +120,7 @@
                 u2.name as supervisor_name_2,
                 u3.name as supervisor_name_3,
                 u4.name as supervisor_name_4,
+                u5.name as hrName,
                 u.supervisor_1,
                 u.supervisor_2,
                 u.supervisor_3,
@@ -128,6 +133,7 @@
         left join user as u2 on u.supervisor_2 = u2.id
         left join user as u3 on u.supervisor_3 = u3.id
         left join user as u4 on u.supervisor_4 = u4.id
+        left join user as u5 on u.hr = u5.id
         <where>
             u.is_delete = 0
             <if test="selectVo.username != null and selectVo.username != ''">
@@ -160,6 +166,13 @@
             supervisor_2 = IF(supervisor_2 = #{id}, 0, supervisor_2),
             supervisor_3 = IF(supervisor_3 = #{id}, 0, supervisor_3),
             supervisor_4 = IF(supervisor_4 = #{id}, 0, supervisor_4)
+    </update>
+
+
+    <update id="updateHRBP">
+        UPDATE user
+        SET
+            hr = IF(hr = #{id}, 0, hr)
     </update>
 
 
@@ -286,7 +299,7 @@
             supervisor_1 = #{user.supervisor1},
             supervisor_2 = #{user.supervisor2},
             supervisor_3 = #{user.supervisor3},
-            supervisor_4 = #{user.supervisor4}
+            supervisor_4 = #{user.supervisor4},
         </set>
         WHERE id = #{user.id}
     </update>
@@ -342,7 +355,7 @@
     <insert id="addUser" parameterType="com.system.assessment.pojo.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user (username, department, email, phone_number, password, supervisor_name_1, supervisor_name_2, supervisor_name_3, supervisor_name_4,  name, role, residence,
                           lxyz, business_type, work_num, hire_date, enabled, account_non_expired, account_non_locked, credentials_non_expired,
-                          supervisor_1, supervisor_2, supervisor_3, supervisor_4, resignation_date, is_delete, is_first_login, weight) VALUES
+                          supervisor_1, supervisor_2, supervisor_3, supervisor_4, resignation_date, is_delete, is_first_login, weight, hr, hr_name) VALUES
         (#{user.username},
          #{user.department},
          #{user.email},
@@ -370,7 +383,9 @@
          #{user.resignationDate},
          #{user.isDelete},
          #{user.isFirstLogin},
-         #{user.weight})
+         #{user.weight},
+         #{user.hr},
+         #{user.hrName})
     </insert>
 
 </mapper>

@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
 
             // 动态获取表头的列索引
             for (Cell cell : headerRow) {
-                columnIndexMap.put(cell.getStringCellValue().trim().toLowerCase(), cell.getColumnIndex());
+                columnIndexMap.put(cell.getStringCellValue().trim(), cell.getColumnIndex());
             }
             //验证用户传入的表格是否符合用户导入的格式
             if(columnIndexMap.get("姓名") == null || columnIndexMap.get("系统角色") == null){
@@ -168,7 +168,7 @@ public class UserServiceImpl implements UserService {
                         }
                         userVO.setBusinessType(business);
 
-                        String lxyz = getCellValue(row, columnIndexMap.get("lxyz类型"));
+                        String lxyz = getCellValue(row, columnIndexMap.get("LXYZ类型"));
                         if(!LxyzIsValued(lxyz)){
                             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "表格填写错误!LXYZ类型只包含[IP]、[LP]、[中坚]、[精英]和[成长]五种!");
                         }
@@ -227,7 +227,7 @@ public class UserServiceImpl implements UserService {
                         }
                         user.setBusinessType(business);
 
-                        String lxyz = getCellValue(row, columnIndexMap.get("lxyz类型"));
+                        String lxyz = getCellValue(row, columnIndexMap.get("LXYZ类型"));
                         if(!LxyzIsValued(lxyz)){
                             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "表格填写错误!LXYZ类型只包含[IP]、[LP]、[中坚]、[精英]和[成长]五种!");
                         }
@@ -329,10 +329,12 @@ public class UserServiceImpl implements UserService {
             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "您暂无删除权限!");
         }
 
-        //将跟该用户有关的从关系矩阵中删除
+        //1.将跟该用户有关的从关系矩阵中删除
         relationshipMapper.deleteRelationshipById(userId);
-        //若该用户是某人的主管，则删去这种关系
+        //2.若该用户是某人的主管，则删去这种关系
         userMapper.updateSupervisor(userId);
+        //3.若该用户时某人的HRBP，则删除这种关系
+        userMapper.updateHRBP(userId);
         return userMapper.deleteUser(userId);
     }
 

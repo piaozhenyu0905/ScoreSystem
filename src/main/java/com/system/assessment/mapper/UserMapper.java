@@ -13,6 +13,12 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
+    @Select("select hr from user where id = #{id}")
+    public Integer findHrById(@Param("id")Integer id);
+
+    @Select("select email from user where id = #{id}")
+    public String findEmailById(@Param("id")Integer id);
+
     public Integer setWeight(@Param("weight")Double weight);
 
     public Integer deleteClean();
@@ -23,6 +29,8 @@ public interface UserMapper {
     public Integer findRole(@Param("id")Integer id);
 
     public Integer updateSupervisor(@Param("id")Integer id);
+
+    public Integer updateHRBP(@Param("id")Integer id);
 
     @Update("update  user set supervisor_1 = #{supervisor} where id = #{id}")
     public Integer updateSupervisor1ById(@Param("id") Integer id,

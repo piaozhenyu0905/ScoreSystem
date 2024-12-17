@@ -137,7 +137,8 @@ public class AsyncTask {
         }
     }
 
-    @Async("emailExecutor")
+
+//    @Async("emailExecutor")
     public void sendEmailToEvaluator(Integer epoch, Map<Integer, String> map){
 
         LocalDate endDate = evaluateMapper.findEndDate(epoch);
