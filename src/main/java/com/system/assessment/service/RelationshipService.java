@@ -11,8 +11,6 @@ import java.util.List;
 
 public interface RelationshipService {
 
-
-
     public Integer findSingleRelationship(Integer evaluatorId, Integer evaluatedId);
 
     public Integer addFixedRelationship(String evaluatorName, String evaluatedName);

@@ -80,7 +80,7 @@
     <select id="findSingleRelationship" resultType="int">
         select id
         from evaluate_relations
-        where  epoch = #{epoch} and evaluated_user = #{evaluatedId} and evaluator = #{evaluatorId}
+        where  epoch = #{epoch} and evaluated_user = #{evaluatedId} and evaluator = #{evaluatorId} and enable = 1
     </select>
 
 
@@ -120,7 +120,14 @@
         WHERE evaluate_type = 1
     </delete>
 
-    <delete id="deleteEvaluationMatrix" >
+    <update id="deleteEvaluationMatrix" >
+        UPDATE  evaluate_relations
+        set enable = 0
+        WHERE evaluated_user = #{userId} and evaluator = #{evaluatorId} and evaluate_type = #{type} and enable = 1
+    </update>
+
+
+    <delete id="deleteEvaluation" >
         DELETE FROM evaluate_relations
         WHERE evaluated_user = #{userId} and evaluator = #{evaluatorId} and evaluate_type = #{type}
     </delete>

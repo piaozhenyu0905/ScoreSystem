@@ -437,29 +437,35 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         Integer newEpoch = evaluateMapper.findNewEpoch();
         List<Long> tasksToReject = rejectVO.getTasksToReject();
         List<String> reasonsToReject = rejectVO.getReasonsToReject();
+
         if(tasksToReject == null && reasonsToReject == null){
             return 1;
         }
         if(tasksToReject.size() != reasonsToReject.size()){
             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "参数传递有误!");
         }
-        for (int index = 0; index < tasksToReject.size(); index++){
-            //1. 先执行驳回
-            Long taskId = tasksToReject.get(index);
-            String reason = reasonsToReject.get(index);
-            TaskEvaluateInfo taskEvaluateInfo = todoListMapper.findTaskEvaluateInfo(taskId);
-            todoListMapper.rejectSingle(reason, taskId, ScoringOperationType.Rejected.getCode());
 
-            //2. 生成新任务
-            Integer evaluatedId = taskEvaluateInfo.getEvaluatedId();
-            Integer evaluatorId = taskEvaluateInfo.getEvaluatorId();
-            String evaluatedName = taskEvaluateInfo.getEvaluatedName();
-            String evaluatorName = taskEvaluateInfo.getEvaluatorName();
-            Double confidenceLevel = taskEvaluateInfo.getConfidenceLevel();
+        //根据任务id查找所属的被评估人（驳回的都是同一个人，所以取第一个就行）
+        TaskEvaluateInfo taskEvaluateInfo = todoListMapper.findTaskEvaluateInfo(tasksToReject.get(0)); //根据任务id找到评议人和被评议人的信息
+        Integer userId = taskEvaluateInfo.getEvaluatorId(); //评议人Id
+        String reason = reasonsToReject.get(0);  //驳回理由
+
+        //1.将enable设置为2
+        todoListMapper.reject(userId, newEpoch);
+
+        //2.根据评议人的关系矩阵，生成新的评估任务
+        List<RelationshipCheckVO> relationships = relationshipMapper.findRelationshipById(userId);
+        relationships.forEach(relationship->{
+            String evaluatorName = relationship.getEvaluatorName();
+            String evaluatedName = relationship.getEvaluatedName();
+            Integer evaluatedId = relationship.getEvaluatedId();
+            Integer evaluatorId = relationship.getEvaluatorId();
+
             TodoListVO todoListIsExist = todoListMapper.findTodoListIsExist(evaluatorId, evaluatedId, newEpoch);
             if(todoListIsExist != null){
-                continue;
+                return;
             }
+
             TodoList todoList = new TodoList();
             todoList.setRejectReason(null);
             todoList.setCompleteTime(null);
@@ -468,7 +474,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             todoList.setEvaluatedName(evaluatedName);
             todoList.setEvaluatorName(evaluatorName);
             todoList.setEvaluatorId(evaluatorId);
-            todoList.setConfidenceLevel(confidenceLevel);
+            todoList.setConfidenceLevel(1.0);
             todoList.setEpoch(newEpoch);
             todoList.setType(TaskType.SurroundingEvaluation.getDescription());
             todoList.setPresentDate(LocalDateTime.now());
@@ -477,11 +483,9 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             String detail = "请完成对" + evaluatedName +"的评议";
             todoList.setDetail(detail);
             todoListMapper.addTodoList(todoList);
-        }
-        //根据任务id查找所属的被评估人（驳回的都是同一个人，所以取第一个就行）
-        TaskEvaluateInfo taskEvaluateInfo = todoListMapper.findTaskEvaluateInfo(tasksToReject.get(0));
-        String reason = reasonsToReject.get(0);
-        // 邮件提醒评估人和HRBP
+        });
+
+        // 3.邮件提醒被评估人的HRBP
         Integer hrId = userMapper.findHrById(taskEvaluateInfo.getEvaluatedId());
         if(hrId != null && hrId != 0){
             String hrEmail = userMapper.findEmailById(hrId);
@@ -492,7 +496,8 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
                 noticeReject(hrEmail, subject, content);
             }
         }
-        String email = userMapper.findEmailById(taskEvaluateInfo.getEvaluatedId());
+        // 4.邮件提醒评估人
+        String email = userMapper.findEmailById(taskEvaluateInfo.getEvaluatorId());
         if(email != null && !email.equals("")){
             String subject = "成长评估打分驳回提醒!";
             String content = "你好！您在本轮的评估打分已被管理员驳回。"+ "驳回理由如下:<"+reason +">。请您重新完成打分任务！";

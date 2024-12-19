@@ -1,0 +1,24 @@
+2024-12-18 12:06:51.794 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 48348 (started by LENOVO in E:\ScoreSystem)
+2024-12-18 12:06:51.802 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-12-18 12:06:55.342 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-12-18 12:06:57.024 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-12-18 12:06:57.090 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-12-18 12:06:57.122 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-12-18 12:06:57.553 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 5.974 seconds (JVM running for 8.553)
+2024-12-18 12:06:57.892 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...
+2024-12-18 15:52:16.605 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 32504 (started by LENOVO in E:\ScoreSystem)
+2024-12-18 15:52:16.701 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-12-18 15:52:20.993 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-12-18 15:52:23.013 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-12-18 15:52:23.074 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-12-18 15:52:23.105 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-12-18 15:52:23.620 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 7.235 seconds (JVM running for 9.867)
+2024-12-18 15:52:24.710 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...
+2024-12-18 16:11:39.539 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 12892 (started by LENOVO in E:\ScoreSystem)
+2024-12-18 16:11:39.549 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-12-18 16:11:45.298 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-12-18 16:11:48.350 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-12-18 16:11:48.454 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-12-18 16:11:48.491 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-12-18 16:11:49.265 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 9.973 seconds (JVM running for 12.576)
+2024-12-18 16:11:50.555 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...

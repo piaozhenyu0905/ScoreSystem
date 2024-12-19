@@ -16,9 +16,6 @@ public interface RelationshipMapper {
                                           @Param("evaluatedId") Integer evaluatedId,
                                           @Param("epoch") Integer epoch);
 
-    public Integer findSingleRelationshipInfo(@Param("evaluatorId") Integer evaluatorId,
-                                          @Param("evaluatedId") Integer evaluatedId,
-                                          @Param("epoch") Integer epoch);
 
     public List<Integer> findAllEvaluated();
 
@@ -33,6 +30,10 @@ public interface RelationshipMapper {
     public List<RelationshipCheckVO> findRelationshipById(@Param("id")Integer userId);
 
     public Integer deleteEvaluationMatrix(@Param("userId")Integer userId,
+                                          @Param("evaluatorId")Integer evaluatorId,
+                                          @Param("type")Integer type);
+
+    public Integer deleteEvaluation(@Param("userId")Integer userId,
                                           @Param("evaluatorId")Integer evaluatorId,
                                           @Param("type")Integer type);
 

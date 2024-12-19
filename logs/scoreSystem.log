@@ -1,0 +1,16 @@
+2024-12-19 15:22:16.548 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 47600 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2024-12-19 15:22:16.559 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2024-12-19 15:22:21.273 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2024-12-19 15:22:21.273 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2024-12-19 15:22:21.274 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2024-12-19 15:22:21.303 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2024-12-19 15:22:21.303 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2024-12-19 15:22:21.303 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-12-19 15:22:21.322 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2024-12-19 15:22:21.458 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2024-12-19 15:22:22.994 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-12-19 15:22:23.661 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2024-12-19 15:22:23.695 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2024-12-19 15:22:23.721 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2024-12-19 15:22:23.997 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2024-12-19 15:22:24.015 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 8.0 seconds (JVM running for 10.76)

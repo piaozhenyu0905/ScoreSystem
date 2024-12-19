@@ -276,7 +276,7 @@ public class RelationshipServiceImpl implements RelationshipService {
 
     @Override
     public Integer deleteEvaluationMatrix(Integer userId, Integer evaluatorId) {
-        return relationshipMapper.deleteEvaluationMatrix(userId, evaluatorId, RelationType.fixed.getCode());
+        return relationshipMapper.deleteEvaluation(userId, evaluatorId, RelationType.fixed.getCode());
     }
 
     @Override

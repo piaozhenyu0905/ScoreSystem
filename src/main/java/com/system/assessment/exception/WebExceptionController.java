@@ -56,12 +56,6 @@ public class WebExceptionController {
         throw e;
     }
 
-//    @ExceptionHandler(NoHandlerFoundException.class)
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    public String  handleResourceNotFound(NoHandlerFoundException e) {
-//        log.error("捕获到了");
-//        return "redirect:/index.html";  // 返回一个自定义的错误页面
-//    }
 
     //自定义异常
     @ResponseBody

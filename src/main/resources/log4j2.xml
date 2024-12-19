@@ -5,7 +5,7 @@
             <PatternLayout charset="UTF-8" pattern="[%-5p] %d %c - %m%n" />
         </Console>
 
-        <RollingFile name="runtimeFile" fileName="./logs/pjcm.log" filePattern="./logs/pjcm-%d{yyyy-MM-dd}.log"
+        <RollingFile name="runtimeFile" fileName="./logs/scoreSystem.log" filePattern="./logs/scoreSystem-%d{yyyy-MM-dd}.log"
                      append="true">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS Z}\t%level\t%class\t%line\t%thread\t%msg%n"/>
             <Policies>
