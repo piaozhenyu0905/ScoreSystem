@@ -13,8 +13,7 @@ import java.util.List;
 @Mapper
 public interface RelationshipMapper {
     public Integer findSingleRelationship(@Param("evaluatorId") Integer evaluatorId,
-                                          @Param("evaluatedId") Integer evaluatedId,
-                                          @Param("epoch") Integer epoch);
+                                          @Param("evaluatedId") Integer evaluatedId);
 
 
     public List<Integer> findAllEvaluated();

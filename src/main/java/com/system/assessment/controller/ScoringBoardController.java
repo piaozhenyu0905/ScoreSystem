@@ -127,7 +127,7 @@ public class ScoringBoardController {
         return true;
     }
 
-    @ApiOperation("得分看板-设置置信度")
+    @ApiOperation("得分看板-设置得分系数")
     @RequestMapping(value = "/assessorConfidenceLevel",method = RequestMethod.POST)
     public ResponseResult assessorConfidenceLevel(@RequestBody AssessorConfidenceLevelVO assessorConfidenceLevelVO){
         Integer newEnableProcess = evaluateService.findNewEnableProcess();

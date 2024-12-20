@@ -80,7 +80,7 @@
     <select id="findSingleRelationship" resultType="int">
         select id
         from evaluate_relations
-        where  epoch = #{epoch} and evaluated_user = #{evaluatedId} and evaluator = #{evaluatorId} and enable = 1
+        where  evaluated_user = #{evaluatedId} and evaluator = #{evaluatorId} and enable = 1
     </select>
 
 

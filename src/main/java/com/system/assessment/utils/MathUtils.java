@@ -10,4 +10,11 @@ public class MathUtils {
         Double newScoreScale = bd.doubleValue();
         return newScoreScale;
     };
+
+    public static Double transformer(Double score, Integer scale){
+        BigDecimal bd = BigDecimal.valueOf(score);
+        bd = bd.setScale(2, RoundingMode.HALF_UP); // 四舍五入
+        Double newScoreScale = bd.doubleValue();
+        return newScoreScale;
+    };
 }

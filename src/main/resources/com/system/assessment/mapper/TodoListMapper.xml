@@ -162,6 +162,14 @@
         where tl.id = #{id}
     </select>
 
+
+    <select id="findTodoListByRelationship" resultMap="TodoList">
+        select operation, id
+        from todo_list
+        where epoch = #{epoch} and evaluated_id = #{evaluatedId} and evaluator_id = #{evaluatorId}
+    </select>
+
+
     <select id="findHistory" resultMap="AssessmentMap">
         SELECT evaluated_id, evaluated_name, complete_time, operation, id, enable, reject_reason
         from todo_list
@@ -470,4 +478,9 @@
         where epoch = #{epoch}
     </delete>
 
+
+    <delete id="DeleteUnFinished" >
+        DELETE FROM todo_list
+        where epoch = #{epoch} and evaluator_id = #{evaluatorId} and evaluated_id = #{evaluatedId} and operation = #{operation}
+    </delete>
 </mapper>

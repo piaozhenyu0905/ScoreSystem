@@ -181,6 +181,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
 
 
     public List<AverageGettingScoringVO> sumGettingAverage(List<ScoreGettingDetailVO> rawList){
+        //计算每个被评估人的各维度平均得分以及总得分
         ArrayList<AverageGettingScoringVO> postList = new ArrayList<>();
         if(rawList == null || rawList.isEmpty()){
             return null;
@@ -380,7 +381,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             totalScore = totalScore + scoreList.get(index);
         }
         BigDecimal bd = BigDecimal.valueOf(totalScore);
-        bd = bd.setScale(1, RoundingMode.HALF_UP); // 保留两位小数，四舍五入
+        bd = bd.setScale(1, RoundingMode.HALF_UP); // 保留一位小数，四舍五入
         Double newTotalScore = bd.doubleValue();
         return newTotalScore;
     }
@@ -445,27 +446,31 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "参数传递有误!");
         }
 
-        //根据任务id查找所属的被评估人（驳回的都是同一个人，所以取第一个就行）
-        TaskEvaluateInfo taskEvaluateInfo = todoListMapper.findTaskEvaluateInfo(tasksToReject.get(0)); //根据任务id找到评议人和被评议人的信息
-        Integer userId = taskEvaluateInfo.getEvaluatorId(); //评议人Id
-        String reason = reasonsToReject.get(0);  //驳回理由
+        for (int index = 0; index < tasksToReject.size(); index++){
+            Long taskId = tasksToReject.get(index); //任务id
+            TaskEvaluateInfo taskEvaluateInfo = todoListMapper.findTaskEvaluateInfo(taskId);
+            String reason = reasonsToReject.get(index);
+            String evaluatorName = taskEvaluateInfo.getEvaluatorName();
+            String evaluatedName = taskEvaluateInfo.getEvaluatedName();
+            Integer evaluatedId = taskEvaluateInfo.getEvaluatedId();
+            Integer evaluatorId = taskEvaluateInfo.getEvaluatorId();
 
-        //1.将enable设置为2
-        todoListMapper.reject(userId, newEpoch);
+            //将该条任务的enable置为驳回
+            todoListMapper.rejectSingle(reason, taskId, ScoringOperationType.Rejected.getCode());
 
-        //2.根据评议人的关系矩阵，生成新的评估任务
-        List<RelationshipCheckVO> relationships = relationshipMapper.findRelationshipById(userId);
-        relationships.forEach(relationship->{
-            String evaluatorName = relationship.getEvaluatorName();
-            String evaluatedName = relationship.getEvaluatedName();
-            Integer evaluatedId = relationship.getEvaluatedId();
-            Integer evaluatorId = relationship.getEvaluatorId();
+            //1.先判断评估人和被评估人是否还存在关系
+            Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, evaluatedId);
 
-            TodoListVO todoListIsExist = todoListMapper.findTodoListIsExist(evaluatorId, evaluatedId, newEpoch);
-            if(todoListIsExist != null){
-                return;
+            //2.已不存在关系则跳入下一个循环
+            if(singleRelationship == null || singleRelationship == 0){
+                continue;
             }
-
+            TodoListVO todoListIsExist = todoListMapper.findTodoListIsExist(evaluatorId, evaluatedId, newEpoch);
+            //3.任务存在则进入下个循环
+            if(todoListIsExist != null){
+                continue;
+            }
+            //4.否则创建一个新任务
             TodoList todoList = new TodoList();
             todoList.setRejectReason(null);
             todoList.setCompleteTime(null);
@@ -483,25 +488,27 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             String detail = "请完成对" + evaluatedName +"的评议";
             todoList.setDetail(detail);
             todoListMapper.addTodoList(todoList);
-        });
+        }
 
-        // 3.邮件提醒被评估人的HRBP
-        Integer hrId = userMapper.findHrById(taskEvaluateInfo.getEvaluatedId());
+        TaskEvaluateInfo taskEvaluateInfo = todoListMapper.findTaskEvaluateInfo(tasksToReject.get(0)); //根据任务id找到评议人和被评议人的信息
+        String reason = reasonsToReject.get(0);  //驳回理由
+        // 3.邮件提醒评估人的HRBP
+        Integer hrId = userMapper.findHrById(taskEvaluateInfo.getEvaluatorId());
         if(hrId != null && hrId != 0){
             String hrEmail = userMapper.findEmailById(hrId);
             if(hrEmail != null && !hrEmail.equals("")){
-                String name = taskEvaluateInfo.getEvaluatedName();
+                String name = taskEvaluateInfo.getEvaluatorName();
                 String subject = "【驳回提醒】"+name+ "的打分已被驳回!";
-                String content = "你好！" + name + "在本轮的评估打分已被管理员驳回" + "。驳回理由如下:<"+reason +">。请您及时跟进其打分进度!";
-                noticeReject(hrEmail, subject, content);
+                String content = "你好！" + name + "在本轮的评估打分已被管理员驳回" + "。驳回理由:<"+reason +">。请您及时跟进其打分进度!";
+                noticeReject(hrEmail, content, subject);
             }
         }
         // 4.邮件提醒评估人
         String email = userMapper.findEmailById(taskEvaluateInfo.getEvaluatorId());
         if(email != null && !email.equals("")){
             String subject = "成长评估打分驳回提醒!";
-            String content = "你好！您在本轮的评估打分已被管理员驳回。"+ "驳回理由如下:<"+reason +">。请您重新完成打分任务！";
-            noticeReject(email, subject, content);
+            String content = "你好！您在本轮的评估打分已被管理员驳回。"+ "驳回理由:<"+reason +">。请您重新完成打分任务！";
+            noticeReject(email, content, subject);
         }
 
         return 1;
@@ -782,28 +789,29 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
     public void sumAverageScoreByCondition(List<AverageGettingScoringVO> scoreList, AverageScoreByCondition averageScoreByCondition){
          List<Double> resultList = new ArrayList<>(Collections.nCopies(Guideline.values().length, 0.0));
          Double totalScore = 0.0;
-         Double weightSum = 0.0;
+
          for(int index = 0; index < scoreList.size(); index++){
              AverageGettingScoringVO averageGettingScoringVO = scoreList.get(index);
              List<Double> scoreSingleList = averageGettingScoringVO.getScoreList();
              Double confidence = averageGettingScoringVO.getConfidence(); //得分者的置信度
-             weightSum = weightSum + confidence;
+
              for(int idx = 0; idx < scoreSingleList.size(); idx++){
                  Double oldScore = resultList.get(idx);
                  Double newScore = oldScore + scoreSingleList.get(idx) * confidence; //新得分 = 旧得分 + 分数 * 置信度
                  resultList.set(idx, newScore);
              }
+             Double totalScoreSingle = averageGettingScoringVO.getTotalScore() * confidence;
+             totalScore = totalScoreSingle + totalScore;
          }
         //加权平均计算
         for(int index = 0; index < resultList.size(); index++){
             Double rawAverage = resultList.get(index);
-            Double newAverage = rawAverage / weightSum; // 总加权得分/总权重
-            Double transformerScore = MathUtils.transformer(newAverage);
+            Double newAverage = rawAverage / scoreList.size(); // 总得分/总人数
+            Double transformerScore = MathUtils.transformer(newAverage, 2);
             resultList.set(index, transformerScore);
-            totalScore = totalScore + transformerScore;
         }
-
-        totalScore = MathUtils.transformer(totalScore);
+        totalScore = totalScore / scoreList.size();
+        totalScore =  MathUtils.transformer(totalScore);
         averageScoreByCondition.setScoreList(resultList);
         averageScoreByCondition.setTotalScore(totalScore);
     };

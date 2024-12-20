@@ -26,7 +26,7 @@ import java.util.Map;
 
 @Service
 @Slf4j
-public class AsyncTask {
+public class AsyncTask  {
 
     @Autowired
     public UserMapper userMapper;
@@ -138,7 +138,6 @@ public class AsyncTask {
     }
 
 
-//    @Async("emailExecutor")
     public void sendEmailToEvaluator(Integer epoch, Map<Integer, String> map){
 
         LocalDate endDate = evaluateMapper.findEndDate(epoch);

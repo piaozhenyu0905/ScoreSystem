@@ -35,12 +35,23 @@ public interface TodoListMapper {
                                                  @Param("operation")Integer operation,
                                                  @Param("epoch")Integer epoch);
 
+    public Integer DeleteUnFinished(@Param("evaluatorId")Integer evaluatorId,
+                                                   @Param("evaluatedId")Integer evaluatedId,
+                                                   @Param("operation")Integer operation,
+                                                   @Param("epoch")Integer epoch);
+
+
     public Integer enableTaskById(@Param("epoch")Integer epoch,
                                   @Param("id")Integer id);
 
     public Integer deleteAverageTable(@Param("epoch")Integer epoch);
 
     public Integer findTodoListById(@Param("id") long id);
+
+    public TodoListVO findTodoListByRelationship(@Param("evaluatorId") Integer evaluatorId,
+                                          @Param("evaluatedId")  Integer evaluatedId,
+                                          @Param("epoch")Integer epoch);
+
 
     public TodoListVO findTodoListIsExist(@Param("evaluatorId") Integer evaluatorId,
                                          @Param("evaluatedId")  Integer evaluatedId,

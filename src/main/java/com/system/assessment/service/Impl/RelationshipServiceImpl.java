@@ -52,7 +52,7 @@ public class RelationshipServiceImpl implements RelationshipService {
         if(newEpoch == null){
             newEpoch = 1;
         }
-        return relationshipMapper.findSingleRelationship(evaluatorId, evaluatedId ,newEpoch);
+        return relationshipMapper.findSingleRelationship(evaluatorId, evaluatedId);
     }
 
     @Override
@@ -285,9 +285,10 @@ public class RelationshipServiceImpl implements RelationshipService {
         Integer newEpoch = evaluateMapper.findNewEpoch();
         //1.删除关系
         relationshipMapper.deleteEvaluationMatrix(userId, evaluatorId, RelationType.fixed.getCode());
-        //2.将打分标志置为“已删除”
+        //2.若已完成则将打分标志置为“已删除”
         todoListMapper.setFinishedOperationToDeleted(evaluatorId, userId, OperationType.FINISHEDANDDELETED.getCode(),newEpoch);
-        todoListMapper.setUnFinishedOperationToDeleted(evaluatorId, userId, OperationType.UNFINISHEDANDDELETED.getCode(),newEpoch);
+        // 若未完成则delete
+        todoListMapper.DeleteUnFinished(evaluatorId, userId, OperationType.NOTFINISHED.getCode(),newEpoch);
         return 1;
     }
 
