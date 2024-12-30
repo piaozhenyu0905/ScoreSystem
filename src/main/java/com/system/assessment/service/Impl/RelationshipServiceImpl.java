@@ -3,6 +3,7 @@ package com.system.assessment.service.Impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.system.assessment.constants.OperationType;
+import com.system.assessment.constants.PathConstants;
 import com.system.assessment.constants.RelationType;
 import com.system.assessment.constants.TaskType;
 import com.system.assessment.exception.CustomException;
@@ -21,11 +22,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -34,6 +39,8 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class RelationshipServiceImpl implements RelationshipService {
+    @Value("${spring.profiles.active:dev}") // 默认环境为开发环境
+    private String activeProfile;
 
     @Autowired
     public RelationshipMapper relationshipMapper;
@@ -115,6 +122,138 @@ public class RelationshipServiceImpl implements RelationshipService {
                 return "";  // 如果是空单元格或其他类型，返回空字符串
         }
     }
+
+    @Override
+    public void exportExcel(HttpServletResponse response) {
+        ArrayList<RelationshipMatrixVO> relationshipMatrixVOS = new ArrayList<>();
+        List<User> allUser = relationshipMapper.findAllUser(null);
+        allUser.forEach(user -> {
+            RelationshipMatrixVO relationshipMatrixVO = new RelationshipMatrixVO();
+            // 1.添加基本信息
+            relationshipMatrixVO.setName(user.getName());
+            relationshipMatrixVO.setUserId(user.getId());
+            relationshipMatrixVO.setSupervisorName1(user.getSupervisorName1());
+            relationshipMatrixVO.setSupervisorName2(user.getSupervisorName2());
+            relationshipMatrixVO.setSupervisorName3(user.getSupervisorName3());
+            relationshipMatrixVO.setHrName(user.getHrName());
+            relationshipMatrixVO.setFirstAdminName(user.getFirstAdminName());
+            relationshipMatrixVO.setSecondAdminName(user.getSecondAdminName());
+            relationshipMatrixVO.setSuperAdminName(user.getSuperAdminName());
+            relationshipMatrixVO.setBusiness(user.getBusinessType());
+            relationshipMatrixVO.setLxyz(user.getLxyz());
+            relationshipMatrixVO.setDepartment(user.getDepartment());
+            relationshipMatrixVO.setWeight1(user.getWeight1());
+            relationshipMatrixVO.setWeight2(user.getWeight2());
+            relationshipMatrixVO.setWeight3(user.getWeight3());
+            // 2.查找固定评估人
+            List<RelationshipEvaluatorInfo> fixedList = relationshipMapper.findEvaluatorById(user.getId(), RelationType.fixed.getCode());
+            String relatedPerson = fixedList.stream()
+                    .map(info -> (info.name != null ? info.name : "") + "/" + (info.workNum != null ? info.workNum : ""))
+                    .collect(Collectors.joining(";"));;
+
+            relationshipMatrixVO.setRelatedPerson(relatedPerson);
+            relationshipMatrixVOS.add(relationshipMatrixVO);
+        });
+
+        String savePath;
+        File destinationFile = null;
+
+        // 模板文件路径
+        if ("prd".equals(activeProfile)) {
+            savePath = PathConstants.EXCEL_FOLDER ; // 生产环境路径
+            destinationFile = new File(savePath,  "export.xlsx");
+        } else {
+            ClassPathResource resource = new ClassPathResource("static/template");
+            File directory = null;
+            try {
+                directory = resource.getFile();
+                // 保存文件为 template.docx
+                destinationFile = new File(directory, "export.xlsx");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(destinationFile);
+            Workbook workbook = new XSSFWorkbook(fis);
+            // 假设数据写入第一个 Sheet
+            Sheet sheet = workbook.getSheetAt(0);
+
+            // 获取第二行（索引为 3，因为行号从 0 开始）
+            Row styleRow = sheet.getRow(3);
+            if (styleRow == null) {
+                throw new IllegalArgumentException("模板中的第四行不存在，无法应用颜色");
+            }
+
+            int rowIndex = 4;
+            for (int i = 0; i < relationshipMatrixVOS.size(); i++) {
+                RelationshipMatrixVO user = relationshipMatrixVOS.get(i);
+                // 获取或创建行
+                Row row = sheet.getRow(rowIndex);
+                if (row == null) {
+                    row = sheet.createRow(rowIndex);
+                }
+
+                // 按表头顺序填写单元格并设置样式
+                createCellWithStyle(row, 0, user.getName(), styleRow.getCell(0), workbook); // ID
+                createCellWithStyle(row, 1, user.getDepartment(), styleRow.getCell(1), workbook); // Name
+                createCellWithStyle(row, 2, user.getLxyz(), styleRow.getCell(2), workbook); // Department
+                createCellWithStyle(row, 3, user.getBusiness(), styleRow.getCell(3), workbook); //
+                createCellWithStyle(row, 4, user.getSupervisorName1(), styleRow.getCell(4), workbook); //
+                createCellWithStyle(row, 5, user.getWeight1(), styleRow.getCell(5), workbook); //
+                createCellWithStyle(row, 6, user.getSupervisorName2(), styleRow.getCell(6), workbook); //
+                createCellWithStyle(row, 7, user.getWeight2(), styleRow.getCell(7), workbook); //
+                createCellWithStyle(row, 8, user.getSupervisorName3(), styleRow.getCell(8), workbook); //
+                createCellWithStyle(row, 9, user.getWeight3(), styleRow.getCell(9), workbook); //
+                createCellWithStyle(row, 10, user.getHrName(), styleRow.getCell(10), workbook); //
+                createCellWithStyle(row, 11, user.getRelatedPerson(), styleRow.getCell(11), workbook); //
+                createCellWithStyle(row, 12, user.getSuperAdminName(), styleRow.getCell(12), workbook); //
+                createCellWithStyle(row, 13, user.getFirstAdminName(), styleRow.getCell(13), workbook); //
+                createCellWithStyle(row, 14, user.getSecondAdminName(), styleRow.getCell(14), workbook); //
+                createCellWithStyle(row, 15, null, styleRow.getCell(15), workbook); //
+                // 下一行
+                rowIndex++;
+            }
+
+            // 设置文件下载响应头
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            String fileName = URLEncoder.encode("矩阵关系导出表格.xlsx", "UTF-8");
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+            // 写入数据到响应流
+            workbook.write(response.getOutputStream());
+            workbook.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private  void createCellWithStyle(Row row, int columnIndex, Object value, Cell styleCell, Workbook workbook) {
+        Cell cell = row.createCell(columnIndex);
+
+        // 设置单元格值
+        if (value instanceof Double) {
+            cell.setCellValue((Double) value);
+        } else if (value instanceof String) {
+            cell.setCellValue((String) value);
+        }
+
+        // 复制样式
+        if (styleCell != null) {
+            CellStyle newStyle = workbook.createCellStyle();
+            newStyle.cloneStyleFrom(styleCell.getCellStyle()); // 克隆样式
+            cell.setCellStyle(newStyle);
+        }
+    }
+
+
     @Override
     public List<String> addRelationshipExcel(MultipartFile file) {
         try {
@@ -579,4 +718,6 @@ public class RelationshipServiceImpl implements RelationshipService {
                 return ""; // 未支持的类型返回空字符串
         }
     }
+
+
 }

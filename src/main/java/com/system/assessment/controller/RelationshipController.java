@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -153,6 +154,12 @@ public class RelationshipController {
         }
     }
 
+    @ApiOperation("导出评估矩阵")
+    @RequestMapping(value = "/export/relationship",method = RequestMethod.GET)
+    public void exportExcel(HttpServletResponse response){
+        // 设置文件下载响应头
+        relationshipService.exportExcel(response);
+    }
 
 
 }

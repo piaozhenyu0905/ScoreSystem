@@ -3312,3 +3312,31 @@ Caused by: javax.mail.AuthenticationFailedException: 535 Login Fail. Please ente
 	at org.springframework.mail.javamail.JavaMailSenderImpl.connectTransport(JavaMailSenderImpl.java:518) ~[spring-context-support-5.2.0.RELEASE.jar:5.2.0.RELEASE]
 	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:437) ~[spring-context-support-5.2.0.RELEASE.jar:5.2.0.RELEASE]
 	... 15 more
+2024-12-31 01:18:20.774 +0800	ERROR	org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter	40	main	
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 80 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 80 or configure this application to listen on another port.
+
+2024-12-31 01:20:29.561 +0800	ERROR	org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter	40	main	
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 80 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 80 or configure this application to listen on another port.
+

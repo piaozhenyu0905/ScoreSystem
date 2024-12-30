@@ -8,4 +8,6 @@ public class PathConstants {
     public static String PICTURE_FOLDER = "static/pic";
 
     public static String EMAIL_FOLDER = "config";
+
+    public static String EXCEL_FOLDER = "config";
 }

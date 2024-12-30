@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface ExcelService {
+    public void export();
+
     public void addUserExcel(Row row, Map<String, Integer> columnIndexMap, List<SupervisorVO> supervisorList);
 
     public void addRelationshipExcel(Row row, Map<String, Integer> columnIndexMap);
