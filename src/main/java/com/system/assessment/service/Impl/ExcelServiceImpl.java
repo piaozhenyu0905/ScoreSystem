@@ -450,7 +450,12 @@ public class ExcelServiceImpl implements ExcelService {
             if(evaluatorId != null && !evaluatorId.equals(0)){
                 //建立评估关系
                 log.info("被评估人:"+evaluatedName +";评估人:" + name);
-                addFixedRelationshipById(evaluatorId, evaluatedId);
+                //先查看两人是否已经建立了关系，如果没有建立则建立
+                Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, evaluatedId);
+                if(singleRelationship == null || singleRelationship == 0){
+                    addFixedRelationshipById(evaluatorId, evaluatedId);
+                }
+
             }else {
                 log.error("相关人内容有误!");
                 throw new CustomException(CustomExceptionType.USER_INPUT_ERROR,"相关人内容有误!");
