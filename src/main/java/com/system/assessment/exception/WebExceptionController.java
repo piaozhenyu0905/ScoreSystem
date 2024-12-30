@@ -42,7 +42,7 @@ import java.sql.SQLSyntaxErrorException;
  * @author WKY
  */
 @Slf4j
-@ControllerAdvice
+//@ControllerAdvice
 public class WebExceptionController {
 
     @Resource

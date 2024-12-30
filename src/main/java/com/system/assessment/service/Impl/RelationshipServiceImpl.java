@@ -7,7 +7,6 @@ import com.system.assessment.constants.RelationType;
 import com.system.assessment.constants.TaskType;
 import com.system.assessment.exception.CustomException;
 import com.system.assessment.exception.CustomExceptionType;
-import com.system.assessment.exception.ResponseResult;
 import com.system.assessment.mapper.EvaluateMapper;
 import com.system.assessment.mapper.RelationshipMapper;
 import com.system.assessment.mapper.TodoListMapper;
@@ -15,6 +14,7 @@ import com.system.assessment.mapper.UserMapper;
 import com.system.assessment.pojo.EvaluateRelationship;
 import com.system.assessment.pojo.TodoList;
 import com.system.assessment.pojo.User;
+import com.system.assessment.service.ExcelService;
 import com.system.assessment.service.RelationshipService;
 import com.system.assessment.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +25,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -46,6 +47,10 @@ public class RelationshipServiceImpl implements RelationshipService {
     @Autowired
     public TodoListMapper todoListMapper;
 
+    @Autowired
+    public ExcelService excelService;
+
+
     @Override
     public Integer findSingleRelationship(Integer evaluatorId, Integer evaluatedId) {
         Integer newEpoch = evaluateMapper.findNewEpoch();
@@ -53,6 +58,22 @@ public class RelationshipServiceImpl implements RelationshipService {
             newEpoch = 1;
         }
         return relationshipMapper.findSingleRelationship(evaluatorId, evaluatedId);
+    }
+
+    @Override
+    public Integer addFixedRelationshipById(Integer evaluatorId, Integer evaluatedId) {
+        Integer epoch = evaluateMapper.findNewEpoch();
+        if(epoch == null){
+            epoch = 1;
+        }
+        EvaluateRelationship evaluateRelationship = new EvaluateRelationship();
+        evaluateRelationship.setEnable(1);
+        evaluateRelationship.setEpoch(epoch);
+        evaluateRelationship.setEvaluateType(RelationType.fixed.getDescription());
+        evaluateRelationship.setEvaluator(evaluatorId);
+        evaluateRelationship.setEvaluatedUser(evaluatedId);
+        relationshipMapper.addRelationship(evaluateRelationship);
+        return 1;
     }
 
     @Override
@@ -92,6 +113,58 @@ public class RelationshipServiceImpl implements RelationshipService {
                 return evaluatorCell.getCellFormula().trim();  // 这里返回公式本身，可能需要进一步的值计算
             default:
                 return "";  // 如果是空单元格或其他类型，返回空字符串
+        }
+    }
+    @Override
+    public List<String> addRelationshipExcel(MultipartFile file) {
+        try {
+            // 解析 Excel 文件
+            Workbook workbook = new XSSFWorkbook(file.getInputStream());
+            Sheet sheet = workbook.getSheetAt(0);  // 获取第一个工作表
+            Row headerRow = sheet.getRow(2); //获取第三行的表头信息
+            Map<String, Integer> columnIndexMap = new HashMap<>(); // 存储每个列名和它的索引
+
+            List<String> errorList = new ArrayList<>();
+
+            // 动态获取表头的列索引
+            for (Cell cell : headerRow) {
+                String header = cell.getStringCellValue().trim();
+                if (header.contains("\n")) {
+                    // 使用 split 提取 \n 前的部分
+                    String[] parts = header.split("\n");
+                    columnIndexMap.put(parts[0].trim(), cell.getColumnIndex());
+                } else {
+                    // 如果没有 \n，直接添加原字符串
+                    columnIndexMap.put(header, cell.getColumnIndex());
+                }
+            }
+            //验证用户传入的表格是否符合用户导入的格式
+            if(columnIndexMap.get("被评估人") == null || columnIndexMap.get("相关人") == null){
+                log.error("用户导入的文件内容有误!");
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "用户导入的文件内容有误!");
+            }
+            for (int i = 3; i <= sheet.getLastRowNum(); i++) {
+                Row row = sheet.getRow(i);
+                if (row != null) {
+                    String evaluatedInfo = getCellValue(row, columnIndexMap.get("被评估人"));
+                    try {
+                        excelService.addRelationshipExcel(row, columnIndexMap);
+                        log.info(evaluatedInfo + "导入成功!");
+                    }catch (Exception e){
+                        log.error(evaluatedInfo + "导入失败!");
+                        errorList.add(evaluatedInfo);
+                    }
+
+                }
+            }
+            return errorList;
+
+        }catch (IOException e) {
+            log.error("矩阵关系导入有误!");
+            return null;
+        } catch (IllegalStateException e){
+            log.error("文件格式或内容不符合要求!");
+            return null;
         }
     }
 
@@ -311,13 +384,23 @@ public class RelationshipServiceImpl implements RelationshipService {
                 relationshipMatrixVO.setSupervisorName1(user.getSupervisorName1());
                 relationshipMatrixVO.setSupervisorName2(user.getSupervisorName2());
                 relationshipMatrixVO.setSupervisorName3(user.getSupervisorName3());
-                relationshipMatrixVO.setSupervisorName4(user.getSupervisorName4());
-                // 2.查找固定评估人
+                relationshipMatrixVO.setHrName(user.getHrName());
+                relationshipMatrixVO.setFirstAdminName(user.getFirstAdminName());
+                relationshipMatrixVO.setSecondAdminName(user.getSecondAdminName());
+                relationshipMatrixVO.setSuperAdminName(user.getSuperAdminName());
+                relationshipMatrixVO.setBusiness(user.getBusinessType());
+                relationshipMatrixVO.setLxyz(user.getLxyz());
+                relationshipMatrixVO.setDepartment(user.getDepartment());
+                relationshipMatrixVO.setWeight1(user.getWeight1());
+                relationshipMatrixVO.setWeight2(user.getWeight2());
+                relationshipMatrixVO.setWeight3(user.getWeight3());
+                // 2.查找相关人
                 List<RelationshipEvaluatorInfo> fixedList = relationshipMapper.findEvaluatorById(user.getId(), RelationType.fixed.getCode());
-                relationshipMatrixVO.setRelationshipFixedList(fixedList);
-                // 3.查找自主评估人
-                List<RelationshipEvaluatorInfo> selfList = relationshipMapper.findEvaluatorById(user.getId(), RelationType.self.getCode());
-                relationshipMatrixVO.setRelationshipSelfList(selfList);
+                String relatedPerson = fixedList.stream()
+                        .map(info -> (info.name != null ? info.name : "") + "/" + (info.workNum != null ? info.workNum : ""))
+                        .collect(Collectors.joining(";"));;
+
+                relationshipMatrixVO.setRelatedPerson(relatedPerson);
                 relationshipMatrixVOS.add(relationshipMatrixVO);
             });
 
@@ -341,13 +424,23 @@ public class RelationshipServiceImpl implements RelationshipService {
                 relationshipMatrixVO.setSupervisorName1(user.getSupervisorName1());
                 relationshipMatrixVO.setSupervisorName2(user.getSupervisorName2());
                 relationshipMatrixVO.setSupervisorName3(user.getSupervisorName3());
-                relationshipMatrixVO.setSupervisorName4(user.getSupervisorName4());
+                relationshipMatrixVO.setHrName(user.getHrName());
+                relationshipMatrixVO.setFirstAdminName(user.getFirstAdminName());
+                relationshipMatrixVO.setSecondAdminName(user.getSecondAdminName());
+                relationshipMatrixVO.setSuperAdminName(user.getSuperAdminName());
+                relationshipMatrixVO.setBusiness(user.getBusinessType());
+                relationshipMatrixVO.setLxyz(user.getLxyz());
+                relationshipMatrixVO.setDepartment(user.getDepartment());
+                relationshipMatrixVO.setWeight1(user.getWeight1());
+                relationshipMatrixVO.setWeight2(user.getWeight2());
+                relationshipMatrixVO.setWeight3(user.getWeight3());
                 // 2.查找固定评估人
                 List<RelationshipEvaluatorInfo> fixedList = relationshipMapper.findEvaluatorById(user.getId(), RelationType.fixed.getCode());
-                relationshipMatrixVO.setRelationshipFixedList(fixedList);
-                // 3.查找自主评估人
-                List<RelationshipEvaluatorInfo> selfList = relationshipMapper.findEvaluatorById(user.getId(), RelationType.self.getCode());
-                relationshipMatrixVO.setRelationshipSelfList(selfList);
+                String relatedPerson = fixedList.stream()
+                        .map(info -> (info.name != null ? info.name : "") + "/" + (info.workNum != null ? info.workNum : ""))
+                        .collect(Collectors.joining(";"));;
+
+                relationshipMatrixVO.setRelatedPerson(relatedPerson);
                 relationshipMatrixVOS.add(relationshipMatrixVO);
             });
             objectDataListResult.setTotal(total);
@@ -452,5 +545,38 @@ public class RelationshipServiceImpl implements RelationshipService {
     @Override
     public Integer addRelationship(EvaluateRelationship evaluateRelationship) {
         return relationshipMapper.addRelationship(evaluateRelationship);
+    }
+
+    // 获取单元格的字符串值，并去除前后空格
+    private String getCellValue(Row row, Integer columnIndex) {
+        if (columnIndex == null || row == null) return "";
+
+        Cell cell = row.getCell(columnIndex);
+        if (cell == null) return "";
+
+        // 根据单元格类型处理返回值
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue().trim(); // 返回字符串值
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return cell.getDateCellValue().toString(); // 如果是日期，返回日期字符串
+                } else {
+                    DecimalFormat df = new DecimalFormat("0.##########"); // 格式化数字，避免科学计数法
+                    return df.format(cell.getNumericCellValue());
+                }
+            case BOOLEAN:
+                return String.valueOf(cell.getBooleanCellValue());
+            case FORMULA:
+                try {
+                    return cell.getStringCellValue().trim(); // 优先尝试返回公式结果的字符串
+                } catch (IllegalStateException e) {
+                    return String.valueOf(cell.getNumericCellValue()); // 如果失败，返回公式计算的数值结果
+                }
+            case BLANK:
+                return ""; // 空白单元格返回空字符串
+            default:
+                return ""; // 未支持的类型返回空字符串
+        }
     }
 }

@@ -13,6 +13,30 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
+    public Integer setSuperVisor1(@Param("id")Integer id,
+                                  @Param("superVisor")Integer superVisor);
+
+    public Integer setSuperVisor2(@Param("id")Integer id,
+                                  @Param("superVisor")Integer superVisor);
+
+    public Integer setSuperVisor3(@Param("id")Integer id,
+                                  @Param("superVisor")Integer superVisor);
+
+    public Integer setSuperWeight1(@Param("id")Integer id,
+                                  @Param("weight")Double weight);
+
+    public Integer setSuperWeight2(@Param("id")Integer id,
+                                   @Param("weight")Double weight);
+
+    public Integer setSuperWeight3(@Param("id")Integer id,
+                                   @Param("weight")Double weight);
+
+    public Integer updateWeightsAndSuperVisor(@Param("id")Integer id);
+
+    @Select("select id from user where name = #{name} and work_num = #{workNum} and is_delete = 0")
+    public Integer findIdByNameAndWorkNum(@Param("name") String name,
+                                              @Param("workNum")String workNum);
+
     @Select("select hr from user where id = #{id}")
     public Integer findHrById(@Param("id")Integer id);
 
@@ -28,7 +52,7 @@ public interface UserMapper {
     @Select("select role from user where id = #{id}")
     public Integer findRole(@Param("id")Integer id);
 
-    public Integer updateSupervisor(@Param("id")Integer id);
+    public Integer updateSupervisorAndAdmin(@Param("id")Integer id);
 
     public Integer updateHRBP(@Param("id")Integer id);
 
@@ -44,9 +68,19 @@ public interface UserMapper {
     public Integer updateSupervisor3ById(@Param("id") Integer id,
                                          @Param("supervisor")Integer supervisor);
 
-    @Update("update  user set supervisor_4 = #{supervisor} where id = #{id}")
-    public Integer updateSupervisor4ById(@Param("id") Integer id,
-                                         @Param("supervisor")Integer supervisor);
+
+    @Update("update  user set first_admin = #{firstAdmin} where id = #{id}")
+    public Integer updateFirstAdminById(@Param("id") Integer id,
+                                         @Param("firstAdmin")Integer firstAdmin);
+
+    @Update("update  user set second_admin = #{secondAdmin} where id = #{id}")
+    public Integer updateSecondAdminById(@Param("id") Integer id,
+                                        @Param("secondAdmin")Integer secondAdmin);
+
+    @Update("update  user set super_admin = #{superAdmin} where id = #{id}")
+    public Integer updateSuperAdminById(@Param("id") Integer id,
+                                        @Param("superAdmin")Integer superAdmin);
+
 
     @Update("update  user set hr = #{hr} where id = #{id}")
     public Integer updateHrById(@Param("id") Integer id,
@@ -66,6 +100,11 @@ public interface UserMapper {
 
     @Select("select * from user where name = #{name} and is_delete = 0")
     public User findValuedUserByName(@Param("name") String name);
+
+    @Select("select * from user where name = #{name} and work_num = #{workNum} and is_delete = 0")
+    public User findValuedUserByNameAndWorkNum(@Param("name") String name,
+                                               @Param("workNum")String workNum);
+
 
     @Select("select * from user where name = #{name} and is_delete = 0")
     public User findValuedUserByHrName(@Param("name") String name);

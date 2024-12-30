@@ -8,6 +8,7 @@ import com.system.assessment.exception.ResponseResult;
 import com.system.assessment.mapper.RelationshipMapper;
 import com.system.assessment.mapper.UserMapper;
 import com.system.assessment.pojo.User;
+import com.system.assessment.service.ExcelService;
 import com.system.assessment.service.UserService;
 import com.system.assessment.utils.AuthenticationUtil;
 import com.system.assessment.vo.*;
@@ -36,6 +37,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UserService userService;
+
+    @Autowired
+    public ExcelService excelService;
 
     @Override
     public ArrayList<String> deleteUsers(DeleteUserVO deleteUserVO) {
@@ -92,8 +96,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional
-    public Integer uploadFile(MultipartFile file) {
+    public List<String> uploadFile(MultipartFile file) {
         try {
             // 解析 Excel 文件
             Workbook workbook = new XSSFWorkbook(file.getInputStream());
@@ -103,203 +106,101 @@ public class UserServiceImpl implements UserService {
 
             // 动态获取表头的列索引
             for (Cell cell : headerRow) {
-                columnIndexMap.put(cell.getStringCellValue().trim(), cell.getColumnIndex());
+                String header = cell.getStringCellValue().trim();
+                if (header.contains("\n")) {
+                    // 使用 split 提取 \n 前的部分
+                    String[] parts = header.split("\n");
+                    columnIndexMap.put(parts[0].trim(), cell.getColumnIndex());
+                } else {
+                    // 如果没有 \n，直接添加原字符串
+                    columnIndexMap.put(header, cell.getColumnIndex());
+                }
             }
+
             //验证用户传入的表格是否符合用户导入的格式
             if(columnIndexMap.get("姓名") == null || columnIndexMap.get("系统角色") == null){
                 log.error("用户导入的文件内容有误!");
                 throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "用户导入的文件内容有误!");
             }
 
-            Set<String> nameSet = new HashSet<>();
-
             List<SupervisorVO> supervisorList = new ArrayList<>();
+            List<String> errorList = new ArrayList<>();
 
             // 假设第一行为表头，跳过第一行
             for (int i = 1; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);
                 if (row != null) {
-                    User user = new User();
-                    // 根据列名获取对应列的值，去掉前后空格
                     String name = getCellValue(row, columnIndexMap.get("姓名"));
-                    if(name == null || name.equals("")){
-                        continue;
-                    }
-                    if(nameSet.contains(name)){
-                        String error = "名字["+name+"]出现了两次!";
-                        log.error(error);
-                        throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, error);
-                    }else {
-                        nameSet.add(name);
-                    }
-                    user.setName(name);
-                    User userByName = userMapper.findValuedUserByName(user.getName());
-                    // 数据库中该用户已被导入过,则对用户数据进行更新
-                    if (userByName != null) {
-                        UserVO userVO = new UserVO();
-                        userVO.setId(userByName.getId()); //id
-                        userVO.setName(userByName.getName()); //姓名
-                        String workNum = getCellValue(row, columnIndexMap.get("工号"));
-                        if(workNum == null || workNum.equals("")){
-                            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "表格填写错误!工号不能为空!");
-                        }
-                        userVO.setWorkNum(workNum);
-                        userVO.setDepartment(getCellValue(row, columnIndexMap.get("部门")));
-                        userVO.setSupervisorName1(getCellValue(row, columnIndexMap.get("主管1")));
-                        userVO.setSupervisorName2(getCellValue(row, columnIndexMap.get("主管2")));
-                        userVO.setSupervisorName3(getCellValue(row, columnIndexMap.get("主管3")));
-                        userVO.setSupervisorName4(getCellValue(row, columnIndexMap.get("主管4")));
-                        userVO.setHrName(getCellValue(row, columnIndexMap.get("HRBP")));
-                        userVO.setSupervisor1(0);
-                        userVO.setSupervisor2(0);
-                        userVO.setSupervisor3(0);
-                        userVO.setSupervisor4(0);
-                        userVO.setHr(0);
-
-                        // 处理日期字段
-                        userVO.setHireDate(getLocalDateValue(row, columnIndexMap.get("入职时间")));
-                        userVO.setResidence(getCellValue(row, columnIndexMap.get("常驻地")));
-                        userVO.setPhoneNumber(getCellValue(row, columnIndexMap.get("手机号码")));
-                        userVO.setEmail(getCellValue(row, columnIndexMap.get("邮箱")));
-
-                        String business = getCellValue(row, columnIndexMap.get("业务类型"));
-                        if(!BusinessIsValued(business)){
-                            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "表格填写错误!业务类型只包含[研发]、[非研发]两种!");
-                        }
-                        userVO.setBusinessType(business);
-
-                        String lxyz = getCellValue(row, columnIndexMap.get("LXYZ类型"));
-                        if(!LxyzIsValued(lxyz)){
-                            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "表格填写错误!LXYZ类型只包含[IP]、[LP]、[中坚]、[精英]和[成长]五种!");
-                        }
-                        userVO.setLxyz(lxyz);
-
-                        // 设置角色
-                        String role = getCellValue(row, columnIndexMap.get("系统角色"));
-                        Boolean RoleIsValued = RoleIsValued(role);
-                        if(!RoleIsValued){
-                            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "表格填写错误!系统角色只包含[超级管理员]、[一级管理员]、[二级管理员]、[普通用户]四种!");
-                        }
-                        userVO.setRole(Role.getCodeByDescription(En2Zn(role)));
-                        userVO.setIsDelete(false);
-
-                        SupervisorVO supervisorVO = new SupervisorVO();
-                        supervisorVO.setId(userByName.getId());
-                        supervisorVO.setName(userByName.getName());
-                        supervisorVO.setSupervisorName1(userVO.getSupervisorName1());
-                        supervisorVO.setSupervisorName2(userVO.getSupervisorName2());
-                        supervisorVO.setSupervisorName3(userVO.getSupervisorName3());
-                        supervisorVO.setSupervisorName4(userVO.getSupervisorName4());
-                        supervisorVO.setHrName(userVO.getHrName());
-                        supervisorList.add(supervisorVO);
-
-                        userMapper.updateUserInfoInit(userVO);
-
-                    }else {
-                        user.setUsername(getCellValue(row, columnIndexMap.get("姓名")));
-                        String workNum = getCellValue(row, columnIndexMap.get("工号"));
-                        if(workNum == null || workNum.equals("")){
-                            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "表格填写错误!工号不能为空!");
-                        }
-                        user.setWorkNum(workNum);
-                        user.setDepartment(getCellValue(row, columnIndexMap.get("部门")));
-                        user.setSupervisorName1(getCellValue(row, columnIndexMap.get("主管1")));
-                        user.setSupervisorName2(getCellValue(row, columnIndexMap.get("主管2")));
-                        user.setSupervisorName3(getCellValue(row, columnIndexMap.get("主管3")));
-                        user.setSupervisorName4(getCellValue(row, columnIndexMap.get("主管4")));
-                        user.setHrName(getCellValue(row, columnIndexMap.get("HRBP")));
-
-                        user.setSupervisor1(0);
-                        user.setSupervisor2(0);
-                        user.setSupervisor3(0);
-                        user.setSupervisor4(0);
-                        user.setHr(0);
-
-                        // 处理日期字段
-                        user.setHireDate(getLocalDateValue(row, columnIndexMap.get("入职时间")));
-                        user.setResidence(getCellValue(row, columnIndexMap.get("常驻地")));
-                        user.setPhoneNumber(getCellValue(row, columnIndexMap.get("手机号码")));
-                        user.setEmail(getCellValue(row, columnIndexMap.get("邮箱")));
-
-                        String business = getCellValue(row, columnIndexMap.get("业务类型"));
-                        if(!BusinessIsValued(business)){
-                            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "表格填写错误!业务类型只包含[研发]、[非研发]两种!");
-                        }
-                        user.setBusinessType(business);
-
-                        String lxyz = getCellValue(row, columnIndexMap.get("LXYZ类型"));
-                        if(!LxyzIsValued(lxyz)){
-                            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "表格填写错误!LXYZ类型只包含[IP]、[LP]、[中坚]、[精英]和[成长]五种!");
-                        }
-                        user.setLxyz(lxyz);
-
-                        // 设置角色
-                        String role = getCellValue(row, columnIndexMap.get("系统角色"));
-                        if(!RoleIsValued(role)){
-                            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "表格填写错误!系统角色只包含[超级管理员]、[一级管理员]、[二级管理员]、[普通用户]四种!");
-                        }
-                        user.setRole(Role.getCodeByDescription(En2Zn(role)));
-
-                        // 权限设置
-                        user.setWeight(1.0);
-                        user.setIsFirstLogin(true); //设置是否为第一次登录，导入后默认为true
-                        user.setAccountNonExpired(true);
-                        user.setCredentialsNonExpired(true);
-                        user.setEnabled(true);
-                        user.setAccountNonLocked(true);
-                        user.setIsDelete(false);
-
-                        addUser(user);
-
-                        SupervisorVO supervisorVO = new SupervisorVO();
-                        supervisorVO.setId(user.getId());
-                        supervisorVO.setName(user.getName());
-                        supervisorVO.setSupervisorName1(user.getSupervisorName1());
-                        supervisorVO.setSupervisorName2(user.getSupervisorName2());
-                        supervisorVO.setSupervisorName3(user.getSupervisorName3());
-                        supervisorVO.setSupervisorName4(user.getSupervisorName4());
-                        supervisorVO.setHrName(user.getHrName());
-                        supervisorList.add(supervisorVO);
+                    try {
+                        excelService.addUserExcel(row, columnIndexMap, supervisorList);
+                    }catch (Exception e){
+                        log.error(name + "导入失败!");
+                        errorList.add(name);
                     }
                 }
             }
-
 
             //进行主管id的导设置
             for (int index = 0; index < supervisorList.size(); index++ ){
                 SupervisorVO supervisorVO = supervisorList.get(index);
                 Integer id = supervisorVO.getId();
+
                 String supervisorName1 = supervisorVO.getSupervisorName1();
                 String supervisorName2 = supervisorVO.getSupervisorName2();
                 String supervisorName3 = supervisorVO.getSupervisorName3();
-                String supervisorName4 = supervisorVO.getSupervisorName4();
                 String hrName = supervisorVO.getHrName();
+                String firstAdminName = supervisorVO.getFirstAdminName();
+                String secondAdminName = supervisorVO.getSecondAdminName();
+                String superAdminName = supervisorVO.getSuperAdminName();
 
-                User supervisor1 = userMapper.findValuedUserByName(supervisorName1);
-                if(supervisor1 != null){
-                    userMapper.updateSupervisor1ById(id, supervisor1.getId());
+                String supervisorWorkNum1 = supervisorVO.getSupervisorWorkNum1();
+                String supervisorWorkNum2 = supervisorVO.getSupervisorWorkNum2();
+                String supervisorWorkNum3 = supervisorVO.getSupervisorWorkNum3();
+                String hrWorkNum = supervisorVO.getHrWorkNum();
+                String firstAdminWorkNum = supervisorVO.getFirstAdminWorkNum();
+                String secondAdminWorkNum = supervisorVO.getSecondAdminWorkNum();
+                String superAdminWorkNum = supervisorVO.getSuperAdminWorkNum();
+
+
+                Integer supervisor1 = userMapper.findIdByNameAndWorkNum(supervisorName1, supervisorWorkNum1);
+                if(supervisor1 != null && supervisor1 != 0){
+                    userMapper.updateSupervisor1ById(id, supervisor1);
                 }
-                User supervisor2 = userMapper.findValuedUserByName(supervisorName2);
-                if(supervisor2 != null){
-                    userMapper.updateSupervisor2ById(id, supervisor2.getId());
+
+                Integer supervisor2 = userMapper.findIdByNameAndWorkNum(supervisorName2, supervisorWorkNum2);
+                if(supervisor2 != null && supervisor2 != 0){
+                    userMapper.updateSupervisor2ById(id, supervisor2);
                 }
-                User supervisor3 = userMapper.findValuedUserByName(supervisorName3);
-                if(supervisor3 != null){
-                    userMapper.updateSupervisor3ById(id, supervisor3.getId());
+
+                Integer supervisor3 = userMapper.findIdByNameAndWorkNum(supervisorName3, supervisorWorkNum3);
+                if(supervisor3 != null && supervisor3 != 0){
+                    userMapper.updateSupervisor3ById(id, supervisor3);
                 }
-                User supervisor4 = userMapper.findValuedUserByName(supervisorName4);
-                if(supervisor4 != null){
-                    userMapper.updateSupervisor4ById(id, supervisor4.getId());
+
+                Integer hr = userMapper.findIdByNameAndWorkNum(hrName, hrWorkNum);
+                if(hr != null && hr != 0){
+                    userMapper.updateHrById(id, hr);
                 }
-                User hrNameUser = userMapper.findValuedUserByHrName(hrName);
-                if(hrNameUser != null){
-                    userMapper.updateHrById(id, hrNameUser.getId());
+
+                Integer firstAdmin = userMapper.findIdByNameAndWorkNum(firstAdminName, firstAdminWorkNum);
+                if(firstAdmin != null && firstAdmin != 0){
+                    userMapper.updateFirstAdminById(id, firstAdmin);
+                }
+
+                Integer secondAdmin = userMapper.findIdByNameAndWorkNum(secondAdminName, secondAdminWorkNum);
+                if(secondAdmin != null && secondAdmin != 0){
+                    userMapper.updateSecondAdminById(id, secondAdmin);
+                }
+
+                Integer superAdmin = userMapper.findIdByNameAndWorkNum(superAdminName, superAdminWorkNum);
+                if(superAdmin != null && superAdmin != 0){
+                    userMapper.updateSuperAdminById(id, superAdmin);
                 }
 
             }
 
             workbook.close();
-
+            return errorList;
 
         } catch (IOException e) {
             log.error("用户导入数据有误!");
@@ -308,7 +209,7 @@ public class UserServiceImpl implements UserService {
             log.error("文件格式或内容不符合要求!");
             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "文件格式或内容不符合要求");
         }
-        return 1;
+
     }
 
     @Override
@@ -331,8 +232,8 @@ public class UserServiceImpl implements UserService {
 
         //1.将跟该用户有关的从关系矩阵中删除
         relationshipMapper.deleteRelationshipById(userId);
-        //2.若该用户是某人的主管，则删去这种关系
-        userMapper.updateSupervisor(userId);
+        //2.若该用户是某人的主管或管理员，则删去这种关系
+        userMapper.updateSupervisorAndAdmin(userId);
         //3.若该用户时某人的HRBP，则删除这种关系
         userMapper.updateHRBP(userId);
         return userMapper.deleteUser(userId);
@@ -348,7 +249,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer updateUserInfo(UserVO user) {
-        user.preHandle();
         return userMapper.updateUserInfo(user);
     }
 

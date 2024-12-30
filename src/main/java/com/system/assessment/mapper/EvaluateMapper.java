@@ -13,6 +13,7 @@ import java.util.List;
 
 @Mapper
 public interface EvaluateMapper {
+    public Integer updateTitle(@Param("title")String title);
 
     public Integer assessorConfidenceLevel(@Param("confidenceLevel")Double confidenceLevel,
                                            @Param("userId")Integer userId);

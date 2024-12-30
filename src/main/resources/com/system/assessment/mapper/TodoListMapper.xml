@@ -141,7 +141,9 @@
 
     <!--根据用户名查询用户方法-->
     <select id="findTodoList" resultMap="TodoList">
-        select tl.id, tl.type, tl.detail, tl.operation, tl.present_date, tl.evaluated_name, u.department
+        select tl.id, tl.type, tl.detail, tl.operation, tl.present_date,
+               CONCAT(u.name, '/', u.work_num) as evaluated_name,
+               u.department
         from todo_list as tl
         left join user as u on tl.evaluated_id = u.id
         where tl.owner_id = #{userId} and tl.operation = 0 and tl.epoch = #{epoch}
@@ -171,16 +173,22 @@
 
 
     <select id="findHistory" resultMap="AssessmentMap">
-        SELECT evaluated_id, evaluated_name, complete_time, operation, id, enable, reject_reason
-        from todo_list
-        where owner_id = #{id} and operation in (1,3)
-        ORDER BY complete_time DESC
+        SELECT tl.evaluated_id,
+               CONCAT(u.name, '/', u.work_num) as evaluated_name,
+               tl.complete_time, tl.operation, tl.id, tl.enable, tl.reject_reason
+        from todo_list as tl
+        left join user as u on tl.evaluated_id = u.id
+        where tl.owner_id = #{id} and tl.operation in (1,3)
+        ORDER BY tl.complete_time DESC
     </select>
 
     <select id="findScoreResult" resultMap="ScoreResult">
-        SELECT tl.evaluated_name, tl.evaluator_name, s.score, s.dimension_id, s.todo_id, u.department, tl.enable FROM todo_list as tl
+        SELECT tl.evaluated_name,
+               CONCAT(u1.name, '/', u1.work_num) as evaluator_name,
+               s.score, s.dimension_id, s.todo_id, u.department, tl.enable FROM todo_list as tl
          left join scores as s on tl.id = s.todo_id
          left join user as u on u.id = tl.evaluated_id
+         left join user as u1 on u1.id = tl.evaluator_id
          where tl.id = #{todoListId}
          ORDER BY s.dimension_id
     </select>

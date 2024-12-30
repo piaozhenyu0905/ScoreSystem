@@ -1,9 +1,12 @@
 package com.system.assessment.controller;
 
+import com.system.assessment.constants.ProcessType;
+import com.system.assessment.exception.CustomExceptionType;
 import com.system.assessment.exception.ResponseResult;
 import com.system.assessment.pojo.EvaluateTable;
 import com.system.assessment.service.EmailService;
 import com.system.assessment.service.EvaluateService;
+import com.system.assessment.service.RelationshipService;
 import com.system.assessment.service.TemplateCreateService;
 import com.system.assessment.template.panelTemplate;
 import com.system.assessment.vo.AverageScoringConditionVO;
@@ -12,10 +15,8 @@ import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +34,9 @@ public class TestController {
 
     @Autowired
     public EmailService emailService;
+
+    @Autowired
+    public RelationshipService relationshipService;
 
     @Autowired
     public EvaluateService evaluateService;
@@ -56,6 +60,30 @@ public class TestController {
         String content = panelTemplate.htmlTemplate2("PZY", context);
         emailService.sendMessageHTML("2339134840@qq.com", "评议结果", content);
         return ResponseResult.success();
+    }
+
+    @RequestMapping(value = "/excel",method = RequestMethod.POST)
+    public ResponseResult excel(@RequestParam("file") MultipartFile file) throws IOException {
+        Integer newEnableProcess = evaluateService.findNewEnableProcess();
+        if(newEnableProcess == null){
+            newEnableProcess = 1;
+        }
+        if(!newEnableProcess.equals(ProcessType.BuildRelationships.getCode())){
+            return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "该操作在当前环节无效!");
+        }
+
+        if (file.isEmpty()) {
+            return ResponseResult.error(401, "该文件为空");
+        }
+        List<String> errorList = relationshipService.addRelationshipExcel(file);
+        if(errorList == null){
+            return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "矩阵导入错误!");
+        }else if(errorList.size() == 0){
+            return ResponseResult.success();
+        }else {
+            String error = String.join(",", errorList) + "导入失败!";
+            return ResponseResult.error(401, error);
+        }
     }
 
 

@@ -20,7 +20,7 @@ public interface UserService {
 
     public Integer findRole(Integer id);
 
-    public Integer uploadFile(MultipartFile file);
+    public List<String> uploadFile(MultipartFile file);
 
     public List<String> findDepartment();
 

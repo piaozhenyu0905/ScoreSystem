@@ -40,8 +40,6 @@ public class  UserVO {
 
     private Integer supervisor3; //主管3 id
 
-    private Integer supervisor4; //主管4 id
-
     private Integer hr;
 
     private String supervisorName1; //主管1姓名
@@ -50,8 +48,6 @@ public class  UserVO {
 
     private String supervisorName3; //主管3姓名
 
-    private String supervisorName4; //主管4姓名
-
     private String hrName;
 
     private Double weight;
@@ -59,6 +55,24 @@ public class  UserVO {
     private String lxyz; //LXYZ类型
 
     private String businessType; //业务类型
+
+    public Double weight1;
+
+    public Double weight2;
+
+    public Double weight3;
+
+    public Integer firstAdmin;
+
+    public Integer secondAdmin;
+
+    public Integer superAdmin;
+
+    public String firstAdminName;
+
+    public String secondAdminName;
+
+    public String superAdminName;
 
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private LocalDate hireDate; //入职时间
@@ -91,11 +105,6 @@ public class  UserVO {
         if(supervisor3 == null){
             supervisor3 = 0;
         }
-        if(supervisor4 == null){
-            supervisor4 = 0;
-        }
-    };
-
-
+    }
 
 }

@@ -137,6 +137,9 @@ public class EvaluateServiceImpl implements EvaluateService {
                 }
                 evaluateMapper.addNewEvaluateStep(evaluateProcess);
             }
+            //修改标题
+            evaluateMapper.updateTitle(processStepVO.getTitle());
+
         }else {
             List<StepTimeVO> stepTimeVOList = processStepVO.getStepTimeVOList();
             for (int index = 1; index <= stepTimeVOList.size(); index++){

@@ -253,6 +253,12 @@
         where epoch = #{epoch} and type = #{type} and content = #{content}
     </update>
 
+
+    <update id="updateTitle">
+        UPDATE evaluate_table
+        SET title = #{title}
+    </update>
+
     <delete id="deleteAverageSum">
         delete from average_sum
         where epoch = #{epoch} and type = #{type} and content = #{content}

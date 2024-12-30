@@ -47,7 +47,6 @@ public class TodoController {
     }
 
 
-
     @ApiOperation("我的代办-打分")
     @RequestMapping(value = "/todolist/tick",method = RequestMethod.POST)
     //已验证

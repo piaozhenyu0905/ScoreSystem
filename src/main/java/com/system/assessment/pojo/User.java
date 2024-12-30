@@ -45,8 +45,6 @@ public class User implements UserDetails {
 
     private Integer supervisor3; //主管3 id
 
-    private Integer supervisor4; //主管4 id
-
     private Integer hr;
 
     private String supervisorName1; //主管1姓名
@@ -55,13 +53,29 @@ public class User implements UserDetails {
 
     private String supervisorName3; //主管3姓名
 
-    private String supervisorName4; //主管4姓名
-
     private String hrName;
 
     private String lxyz; //LXYZ类型
 
     private String businessType; //业务类型
+
+    public Double weight1;
+
+    public Double weight2;
+
+    public Double weight3;
+
+    public Integer firstAdmin;
+
+    public Integer secondAdmin;
+
+    public Integer superAdmin;
+
+    public String firstAdminName;
+
+    public String secondAdminName;
+
+    public String superAdminName;
 
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private LocalDate hireDate; //入职时间
@@ -263,14 +277,6 @@ public class User implements UserDetails {
         this.supervisor3 = supervisor3;
     }
 
-    public Integer getSupervisor4() {
-        return supervisor4;
-    }
-
-    public void setSupervisor4(Integer supervisor4) {
-        this.supervisor4 = supervisor4;
-    }
-
     public String getSupervisorName1() {
         return supervisorName1;
     }
@@ -293,14 +299,6 @@ public class User implements UserDetails {
 
     public void setSupervisorName3(String supervisorName3) {
         this.supervisorName3 = supervisorName3;
-    }
-
-    public String getSupervisorName4() {
-        return supervisorName4;
-    }
-
-    public void setSupervisorName4(String supervisorName4) {
-        this.supervisorName4 = supervisorName4;
     }
 
     public String getLxyz() {
@@ -349,5 +347,78 @@ public class User implements UserDetails {
 
     public void setIsFirstLogin(Boolean firstLogin) {
         isFirstLogin = firstLogin;
+    }
+
+
+    public Double getWeight1() {
+        return weight1;
+    }
+
+    public void setWeight1(Double weight1) {
+        this.weight1 = weight1;
+    }
+
+    public Double getWeight2() {
+        return weight2;
+    }
+
+    public void setWeight2(Double weight2) {
+        this.weight2 = weight2;
+    }
+
+    public Double getWeight3() {
+        return weight3;
+    }
+
+    public void setWeight3(Double weight3) {
+        this.weight3 = weight3;
+    }
+
+    public Integer getFirstAdmin() {
+        return firstAdmin;
+    }
+
+    public void setFirstAdmin(Integer firstAdmin) {
+        this.firstAdmin = firstAdmin;
+    }
+
+    public Integer getSecondAdmin() {
+        return secondAdmin;
+    }
+
+    public void setSecondAdmin(Integer secondAdmin) {
+        this.secondAdmin = secondAdmin;
+    }
+
+    public Integer getSuperAdmin() {
+        return superAdmin;
+    }
+
+    public void setSuperAdmin(Integer superAdmin) {
+        this.superAdmin = superAdmin;
+    }
+
+    public String getFirstAdminName() {
+        return firstAdminName;
+    }
+
+    public void setFirstAdminName(String firstAdminName) {
+        this.firstAdminName = firstAdminName;
+    }
+
+    public String getSecondAdminName() {
+        return secondAdminName;
+    }
+
+    public void setSecondAdminName(String secondAdminName) {
+        this.secondAdminName = secondAdminName;
+    }
+
+    public String getSuperAdminName() {
+        return superAdminName;
+    }
+
+    public void setSuperAdminName(String superAdminName) {
+        this.superAdminName = superAdminName;
     }
 }

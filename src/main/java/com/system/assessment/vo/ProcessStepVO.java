@@ -20,6 +20,8 @@ public class ProcessStepVO {
 
     public Boolean isNew;
 
+    public String title;
+
     public void PreDo(){
         stepTimeVOList = new ArrayList<>();
         stepTimeVOList.add(first);

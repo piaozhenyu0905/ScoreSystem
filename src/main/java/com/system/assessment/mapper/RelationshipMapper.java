@@ -7,11 +7,16 @@ import com.system.assessment.vo.RelationshipCheckVO;
 import com.system.assessment.vo.RelationshipEvaluatorInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 @Mapper
 public interface RelationshipMapper {
+    @Select("select id from user where name = #{name} and work_num = #{workNum} and is_delete = 0")
+    public Integer judgeExistByNameAndWorkNum(@Param("name") String name,
+                                              @Param("workNum")String workNum);
+
     public Integer findSingleRelationship(@Param("evaluatorId") Integer evaluatorId,
                                           @Param("evaluatedId") Integer evaluatedId);
 
@@ -23,6 +28,8 @@ public interface RelationshipMapper {
     public Integer deleteFixedRelationship();
 
     public Integer deleteSelfRelationship();
+
+    public Integer deleteAllRelationshipByEvaluatedId(@Param("id")Integer id);
 
     public Integer deleteRelationshipById(@Param("id")Integer userId);
 

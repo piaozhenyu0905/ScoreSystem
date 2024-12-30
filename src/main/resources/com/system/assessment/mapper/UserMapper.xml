@@ -7,7 +7,6 @@
     <resultMap id="User" type="com.system.assessment.pojo.User">
         <id column="id" property="id"></id>
         <result column="name" property="name"></result>
-        <result column="hrName" property="hrName"></result>
         <result column="username" property="username"></result>
         <result column="work_num" property="workNum"></result>
         <result column="password" property="password"></result>
@@ -23,18 +22,22 @@
         <result column="supervisor_name_1" property="supervisorName1"></result>
         <result column="supervisor_name_2" property="supervisorName2"></result>
         <result column="supervisor_name_3" property="supervisorName3"></result>
-        <result column="supervisor_name_4" property="supervisorName4"></result>
+        <result column="first_admin_name" property="firstAdminName"></result>
+        <result column="second_admin_name" property="secondAdminName"></result>
+        <result column="super_admin_name" property="superAdminName"></result>
         <result column="supervisor_1" property="supervisor1"></result>
         <result column="supervisor_2" property="supervisor2"></result>
         <result column="supervisor_3" property="supervisor3"></result>
-        <result column="supervisor_4" property="supervisor4"></result>
+        <result column="hrName" property="hrName"></result>
+        <result column="first_admin" property="firstAdmin"></result>
+        <result column="second_admin" property="secondAdmin"></result>
+        <result column="super_admin" property="superAdmin"></result>
         <result column="is_delete" property="isDelete"></result>
     </resultMap>
 
     <resultMap id="UserVO" type="com.system.assessment.vo.UserVO">
         <id column="id" property="id"></id>
         <result column="name" property="name"></result>
-        <result column="hrName" property="hrName"></result>
         <result column="username" property="username"></result>
         <result column="work_num" property="workNum"></result>
         <result column="password" property="password"></result>
@@ -50,11 +53,16 @@
         <result column="supervisor_name_1" property="supervisorName1"></result>
         <result column="supervisor_name_2" property="supervisorName2"></result>
         <result column="supervisor_name_3" property="supervisorName3"></result>
-        <result column="supervisor_name_4" property="supervisorName4"></result>
+        <result column="first_admin_name" property="firstAdminName"></result>
+        <result column="second_admin_name" property="secondAdminName"></result>
+        <result column="super_admin_name" property="superAdminName"></result>
         <result column="supervisor_1" property="supervisor1"></result>
         <result column="supervisor_2" property="supervisor2"></result>
         <result column="supervisor_3" property="supervisor3"></result>
-        <result column="supervisor_4" property="supervisor4"></result>
+        <result column="hrName" property="hrName"></result>
+        <result column="first_admin" property="firstAdmin"></result>
+        <result column="second_admin" property="secondAdmin"></result>
+        <result column="super_admin" property="superAdmin"></result>
     </resultMap>
 
 
@@ -68,16 +76,20 @@
                u.email,
                u.hire_date,
                u.role,
-               u1.name as supervisor_name_1,
-               u2.name as supervisor_name_2,
-               u3.name as supervisor_name_3,
-               u4.name as supervisor_name_4,
-               u5.name as hrName,
+               CONCAT(u1.name, '/', u1.work_num) as supervisor_name_1,
+               CONCAT(u2.name, '/', u2.work_num) as supervisor_name_2,
+               CONCAT(u3.name, '/', u3.work_num) as supervisor_name_3,
+               CONCAT(u4.name, '/', u4.work_num) as hrName,
+               CONCAT(u5.name, '/', u5.work_num) as first_admin_name,
+               CONCAT(u6.name, '/', u6.work_num) as second_admin_name,
+               CONCAT(u7.name, '/', u7.work_num) as super_admin_name,
                u.supervisor_1,
                u.supervisor_2,
                u.supervisor_3,
-               u.supervisor_4,
                u.hr,
+               u.first_admin,
+               u.second_admin,
+               u.super_admin,
                u.residence,
                u.lxyz,
                u.business_type,
@@ -86,8 +98,10 @@
         left join user as u1 on u.supervisor_1 = u1.id
         left join user as u2 on u.supervisor_2 = u2.id
         left join user as u3 on u.supervisor_3 = u3.id
-        left join user as u4 on u.supervisor_4 = u4.id
-        left join user as u5 on u.hr = u5.id
+        left join user as u4 on u.hr = u4.id
+        left join user as u5 on u.first_admin = u5.id
+        left join user as u6 on u.second_admin = u6.id
+        left join user as u7 on u.super_admin = u7.id
         where u.id = #{userId}
     </select>
 
@@ -115,16 +129,20 @@
                 u.hire_date,
                 u.role,
                 u.password,
-                u.hr,
-                u1.name as supervisor_name_1,
-                u2.name as supervisor_name_2,
-                u3.name as supervisor_name_3,
-                u4.name as supervisor_name_4,
-                u5.name as hrName,
+                CONCAT(u1.name, '/', u1.work_num) as supervisor_name_1,
+                CONCAT(u2.name, '/', u2.work_num) as supervisor_name_2,
+                CONCAT(u3.name, '/', u3.work_num) as supervisor_name_3,
+                CONCAT(u4.name, '/', u4.work_num) as hrName,
+                CONCAT(u5.name, '/', u5.work_num) as first_admin_name,
+                CONCAT(u6.name, '/', u6.work_num) as second_admin_name,
+                CONCAT(u7.name, '/', u7.work_num) as super_admin_name,
                 u.supervisor_1,
                 u.supervisor_2,
                 u.supervisor_3,
-                u.supervisor_4,
+                u.hr,
+                u.first_admin,
+                u.second_admin,
+                u.super_admin,
                 u.residence,
                 u.lxyz,
                 u.business_type
@@ -132,8 +150,10 @@
         left join user as u1 on u.supervisor_1 = u1.id
         left join user as u2 on u.supervisor_2 = u2.id
         left join user as u3 on u.supervisor_3 = u3.id
-        left join user as u4 on u.supervisor_4 = u4.id
-        left join user as u5 on u.hr = u5.id
+        left join user as u4 on u.hr = u4.id
+        left join user as u5 on u.first_admin = u5.id
+        left join user as u6 on u.second_admin = u6.id
+        left join user as u7 on u.super_admin = u7.id
         <where>
             u.is_delete = 0
             <if test="selectVo.username != null and selectVo.username != ''">
@@ -159,13 +179,15 @@
     </update>
 
 
-    <update id="updateSupervisor">
+    <update id="updateSupervisorAndAdmin">
         UPDATE user
         SET
             supervisor_1 = IF(supervisor_1 = #{id}, 0, supervisor_1),
             supervisor_2 = IF(supervisor_2 = #{id}, 0, supervisor_2),
             supervisor_3 = IF(supervisor_3 = #{id}, 0, supervisor_3),
-            supervisor_4 = IF(supervisor_4 = #{id}, 0, supervisor_4)
+            first_admin = IF(first_admin = #{id}, 0, first_admin),
+            second_admin = IF(second_admin = #{id}, 0, second_admin),
+            super_admin = IF(super_admin = #{id}, 0, super_admin)
     </update>
 
 
@@ -233,13 +255,25 @@
             <if test="user.supervisorName3 != null">
                 supervisor_name_3 = #{user.supervisorName3},
             </if>
-            <if test="user.supervisorName4 != null">
-                supervisor_name_4 = #{user.supervisorName4},
+            <if test="user.firstAdminName != null">
+                first_admin_name = #{user.firstAdminName},
+            </if>
+            <if test="user.secondAdminName != null">
+                second_admin_name = #{user.secondAdminName},
+            </if>
+            <if test="user.superAdminName != null">
+                super_admin_name = #{user.superAdminName},
+            </if>
+            <if test="user.hrName != null">
+                hr_name = #{user.hrName},
             </if>
             supervisor_1 = #{user.supervisor1},
             supervisor_2 = #{user.supervisor2},
             supervisor_3 = #{user.supervisor3},
-            supervisor_4 = #{user.supervisor4},
+            first_admin = #{user.firstAdmin},
+            second_admin = #{user.secondAdmin},
+            super_admin = #{user.superAdmin},
+            hr = #{user.hr},
             is_delete = #{user.isDelete}
         </set>
         WHERE id = #{user.id}
@@ -293,13 +327,36 @@
             <if test="user.supervisorName3 != null">
                 supervisor_name_3 = #{user.supervisorName3},
             </if>
-            <if test="user.supervisorName4 != null">
-                supervisor_name_4 = #{user.supervisorName4},
+            <if test="user.firstAdminName != null">
+                first_admin_name = #{user.firstAdminName},
             </if>
-            supervisor_1 = #{user.supervisor1},
-            supervisor_2 = #{user.supervisor2},
-            supervisor_3 = #{user.supervisor3},
-            supervisor_4 = #{user.supervisor4},
+            <if test="user.secondAdminName != null">
+                second_admin_name = #{user.secondAdminName},
+            </if>
+            <if test="user.superAdminName != null">
+                super_admin_name = #{user.superAdminName},
+            </if>
+            <if test="user.hrName != null">
+                hr_name = #{user.hrName},
+            </if>
+            <if test="user.supervisor1 != null">
+                supervisor_1 = #{user.supervisor1},
+            </if>
+            <if test="user.supervisor2 != null">
+                supervisor_2 = #{user.supervisor2},
+            </if>
+            <if test="user.supervisor3 != null">
+                supervisor_3 = #{user.supervisor3},
+            </if>
+            <if test="user.firstAdmin != null">
+                first_admin = #{user.firstAdmin},
+            </if>
+            <if test="user.secondAdmin != null">
+                second_admin = #{user.secondAdmin},
+            </if>
+            <if test="user.superAdmin != null">
+                super_admin = #{user.superAdmin},
+            </if>
         </set>
         WHERE id = #{user.id}
     </update>
@@ -346,16 +403,67 @@
         where id = #{id}
     </update>
 
+
+    <update id="setSuperVisor1">
+        update user
+        set supervisor_1 =  #{superVisor}
+        where id = #{id}
+    </update>
+
+    <update id="setSuperVisor2">
+        update user
+        set supervisor_2 =  #{superVisor}
+        where id = #{id}
+    </update>
+
+    <update id="setSuperVisor3">
+        update user
+        set supervisor_3 =  #{superVisor}
+        where id = #{id}
+    </update>
+
+
+    <update id="setSuperWeight1">
+        update user
+        set weight1 =  #{weight}
+        where id = #{id}
+    </update>
+
+    <update id="setSuperWeight2">
+        update user
+        set weight2 =  #{weight}
+        where id = #{id}
+    </update>
+
+    <update id="setSuperWeight3">
+        update user
+        set weight3 =  #{weight}
+        where id = #{id}
+    </update>
+
+    <update id="updateWeightsAndSuperVisor">
+        update user
+        set weight1 = -1,
+            weight2 = -1,
+            weight3 = -1,
+            supervisor_1 = 0,
+            supervisor_2 = 0,
+            supervisor_3 = 0
+        where id = #{id}
+    </update>
+
     <delete id="deleteClean">
         delete from user
         where is_delete = 1
     </delete>
 
 
+
     <insert id="addUser" parameterType="com.system.assessment.pojo.User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user (username, department, email, phone_number, password, supervisor_name_1, supervisor_name_2, supervisor_name_3, supervisor_name_4,  name, role, residence,
+        INSERT INTO user (username, department, email, phone_number, password, supervisor_name_1, supervisor_name_2, supervisor_name_3,  name, role, residence,
                           lxyz, business_type, work_num, hire_date, enabled, account_non_expired, account_non_locked, credentials_non_expired,
-                          supervisor_1, supervisor_2, supervisor_3, supervisor_4, resignation_date, is_delete, is_first_login, weight, hr, hr_name) VALUES
+                          supervisor_1, supervisor_2, supervisor_3, resignation_date, is_delete, is_first_login, weight, hr, hr_name, weight1,
+                          weight2, weight3, first_admin, second_admin, super_admin, first_admin_name, second_admin_name, super_admin_name) VALUES
         (#{user.username},
          #{user.department},
          #{user.email},
@@ -364,7 +472,6 @@
          #{user.supervisorName1},
          #{user.supervisorName2},
          #{user.supervisorName3},
-         #{user.supervisorName4},
          #{user.name},
          #{user.role},
          #{user.residence},
@@ -379,13 +486,21 @@
          #{user.supervisor1},
          #{user.supervisor2},
          #{user.supervisor3},
-         #{user.supervisor4},
          #{user.resignationDate},
          #{user.isDelete},
          #{user.isFirstLogin},
          #{user.weight},
          #{user.hr},
-         #{user.hrName})
+         #{user.hrName},
+         #{user.weight1},
+         #{user.weight2},
+         #{user.weight3},
+         #{user.firstAdmin},
+         #{user.secondAdmin},
+         #{user.superAdmin},
+         #{user.firstAdminName},
+         #{user.secondAdminName},
+         #{user.superAdminName})
     </insert>
 
 </mapper>

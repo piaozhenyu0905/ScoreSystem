@@ -134,6 +134,7 @@ public class RelationshipController {
         if(newEnableProcess == null){
             newEnableProcess = 1;
         }
+        //只能在第一环节进行导入
         if(!newEnableProcess.equals(ProcessType.BuildRelationships.getCode())){
             return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "该操作在当前环节无效!");
         }
@@ -141,8 +142,15 @@ public class RelationshipController {
         if (file.isEmpty()) {
             return ResponseResult.error(401, "该文件为空");
         }
-        Integer result = relationshipService.addRelationshipByFile(file);
-        return ResponseResult.success();
+        List<String> errorList = relationshipService.addRelationshipExcel(file);
+        if(errorList == null){
+            return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "矩阵导入错误!");
+        }else if(errorList.size() == 0){
+            return ResponseResult.success();
+        }else {
+            String error = String.join(",", errorList) + "导入失败!";
+            return ResponseResult.error(401, error);
+        }
     }
 
 

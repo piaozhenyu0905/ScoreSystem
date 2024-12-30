@@ -17,9 +17,26 @@ public class RelationshipMatrixVO {
 
     public String supervisorName3;
 
-    public String supervisorName4;
+    public Double weight1;
 
-    public List<RelationshipEvaluatorInfo> relationshipFixedList; //固定评估人
+    public Double weight2;
 
-    public List<RelationshipEvaluatorInfo> relationshipSelfList; //自主评估人
+    public Double weight3;
+
+    public String department;
+
+    public String lxyz;
+
+    public String business;
+
+    public String firstAdminName;
+
+    public String secondAdminName;
+
+    public String superAdminName;
+
+    public String hrName;
+
+    public String relatedPerson; //相关人
+
 }
