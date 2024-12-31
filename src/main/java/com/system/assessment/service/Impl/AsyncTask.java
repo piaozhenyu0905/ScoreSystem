@@ -10,6 +10,8 @@ import com.system.assessment.service.EmailService;
 import com.system.assessment.service.EvaluateService;
 import com.system.assessment.service.ScoringBoardService;
 import com.system.assessment.template.panelTemplate;
+import com.system.assessment.vo.EmailVO;
+import com.system.assessment.vo.NotCompletedSet;
 import com.system.assessment.vo.PanelScoreBoardVO;
 import com.system.assessment.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -104,37 +106,33 @@ public class AsyncTask  {
     public void noticeAllNotCompleted(){
         //1.找出所有未打完分的人的邮箱
         Integer newEpoch = evaluateMapper.findNewEpoch();
-        List<Integer> allNotCompletedId = todoListMapper.findAllNotCompleted(newEpoch);
+        List<NotCompletedSet> allNotCompletedId = todoListMapper.findAllNotCompleted(newEpoch);
         if(allNotCompletedId == null){
             return;
         }
-        List<UserVO> allNotCompleted = new ArrayList<>();
-        for (int i = 0; i < allNotCompletedId.size();i++){
-            Integer userId = allNotCompletedId.get(i);
-            User basicInfoBySelfId = userMapper.findBasicInfoBySelfId(userId);
-            UserVO userVO = new UserVO();
-            userVO.setId(basicInfoBySelfId.getId());
-            userVO.setEmail(basicInfoBySelfId.getEmail());
-            userVO.setName(basicInfoBySelfId.getName());
-            allNotCompleted.add(userVO);
-        }
 
-        LocalDate endDate = evaluateMapper.findEndDate(newEpoch);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日");
-        // 格式化LocalDate为String
-        String deadline = endDate.format(formatter);
-
-        for (int index = 0; index < allNotCompleted.size(); index++){
-            UserVO userVO = allNotCompleted.get(index);
-            String content = "请您尽快前往成长评估系统进行评分";
-            String subject = "评分提醒!";
-            emailService.sendMessageHTML(userVO.getEmail(), subject, content);
-            try {
-                Thread.sleep(1000);
-            }catch (Exception e){
-
+        for (int index = 0; index < allNotCompletedId.size(); index++){
+            List<String> evaluatorName = new ArrayList<>();
+            NotCompletedSet notCompletedSet = allNotCompletedId.get(index);
+            String hrEmail = notCompletedSet.getHrEmail();
+            //给每个评估人发送打分提醒
+            List<EmailVO> evaluators = notCompletedSet.getEvaluators();
+            if(evaluators == null)
+                continue;
+            for (int idx = 0; idx < evaluators.size(); idx++){
+                EmailVO emailVO = evaluators.get(idx);
+                evaluatorName.add(emailVO.getName());
+                String email = emailVO.getEmail();
+                String content = "请您尽快前往成长评估系统进行评分";
+                String subject = "评分提醒!";
+                emailService.sendMessageHTML(email, subject, content);
             }
+            //给hrbp发未完成打分的人的提醒
+            String content = String.join("," ,evaluatorName) + "未完成打分任务!请您尽快督促他们完成打分任务!";
+            String subject = "督促用户评分提醒!";
+            emailService.sendMessageHTML(hrEmail, subject, content);
         }
+
     }
 
 

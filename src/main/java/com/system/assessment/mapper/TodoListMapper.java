@@ -19,7 +19,7 @@ public interface TodoListMapper {
                                  @Param("id")Long taskId,
                                 @Param("enable")Integer enable);
 
-    public List<Integer> findAllNotCompleted(@Param("epoch")Integer epoch);
+    public List<NotCompletedSet> findAllNotCompleted(@Param("epoch")Integer epoch);
 
     public Integer sumTotalPeople(@Param("epoch")Integer epoch);
 
@@ -78,16 +78,12 @@ public interface TodoListMapper {
     public  List<ScoreGettingDetailVO>  findAverageGettingNewRound(@Param("epoch") Integer epoch,
                                                             @Param("condition") GetScoreConditionalVO getScoreConditionalVO);
 
-    public  List<ScoreGettingDetailVO>  findAverageGettingNewRoundByFirstAdmin(@Param("epoch") Integer epoch,
+
+    public  List<ScoreGettingDetailVO>  findAverageGettingNewRoundByAdmin(@Param("epoch") Integer epoch,
                                                                                @Param("condition") GetScoreConditionalVO getScoreConditionalVO,
-                                                                               @Param("lxyz")String lxyz,
                                                                                @Param("id")Integer id);
 
-    public  List<ScoreGettingDetailVO>  findAverageGettingNewRoundBySecondAdmin(@Param("epoch") Integer epoch,
-                                                                               @Param("condition") GetScoreConditionalVO getScoreConditionalVO,
-                                                                               @Param("lxyz")String lxyz,
-                                                                               @Param("department")String department,
-                                                                                @Param("id")Integer userId);
+
 
     public  List<ScoreGettingDetailVO>  findAverageGettingNewRoundByCondition(@Param("epoch") Integer epoch,
                                                                                 @Param("type")String type,

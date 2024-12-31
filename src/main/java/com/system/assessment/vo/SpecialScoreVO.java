@@ -8,9 +8,9 @@ public class SpecialScoreVO {
 
     public Double score;
 
-    public Boolean isSupervisor;
+    public Double isSupervisor;
 
-    public SpecialScoreVO(Boolean isSupervisor, Double score, Double weight) {
+    public SpecialScoreVO(Double isSupervisor, Double score, Double weight) {
         this.score = score;
         this.isSupervisor = isSupervisor;
         this.weight = weight;

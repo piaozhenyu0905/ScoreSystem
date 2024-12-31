@@ -80,6 +80,16 @@
     </resultMap>
 
 
+    <resultMap id="NotCompletedSet" type="com.system.assessment.vo.NotCompletedSet">
+        <result column="id" property="hrId"/>
+        <result column="email" property="hrEmail"/>
+        <collection property="evaluators" ofType="com.system.assessment.vo.EmailVO">
+            <result column="EvId" property="id" />
+            <result column="Evmail" property="email" />
+            <result column="name" property="name" />
+        </collection>
+    </resultMap>
+
     <resultMap id="ScoreResult" type="com.system.assessment.vo.ScoreResult">
         <result property="evaluatedName" column="evaluated_name"/>
         <result property="evaluatorName" column="evaluator_name"/>
@@ -111,10 +121,12 @@
         <result property="confidenceLevel" column="confidence_level"/>
     </resultMap>
 
-    <select id="findAllNotCompleted" resultType="int">
-        select DISTINCT tl.owner_id
+    <select id="findAllNotCompleted" resultMap="NotCompletedSet">
+        select   tl.owner_id as EvId, u.email as Evmail, u1.id, u1.email,
+                 CONCAT(u.name, '/', u.work_num) as name
         from todo_list as tl
         left join user as u on tl.owner_id = u.id
+        left join user as u1 on u.hr = u1.id
         where tl.epoch = #{epoch} and tl.operation = 0
     </select>
 
@@ -198,13 +210,14 @@
     <select id="findAverageGettingNewRoundByCondition" resultMap="ScoreGettingDetail">
         SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation, u.weight,
         u.lxyz, u.business_type, tl.enable, tl.confidence_level,
+        COALESCE(
         CASE
-        WHEN (e1.supervisor_1 = e2.id
-        OR e1.supervisor_2 = e2.id
-        OR e1.supervisor_3 = e2.id
-        OR e1.supervisor_4 = e2.id) THEN 1
-        ELSE 0
-        END AS is_supervisor
+        WHEN u.supervisor_1 = e2.id THEN u.weight1
+        WHEN u.supervisor_2 = e2.id THEN u.weight2
+        WHEN u.supervisor_3 = e2.id THEN u.weight3
+        ELSE -1
+        END,
+        -1) AS is_supervisor
         FROM todo_list as tl
         left join user as u on u.id = tl.evaluated_id
         LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
@@ -238,23 +251,27 @@
 
     </select>
 
-    <select id="findAverageGettingNewRoundBySecondAdmin" resultMap="ScoreGettingDetail">
-        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation, u.weight,
+
+    <select id="findAverageGettingNewRoundByAdmin" resultMap="ScoreGettingDetail">
+        SELECT
+                CONCAT(u.name, '/', u.work_num) as evaluated_name,
+               u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation, u.weight,
         u.lxyz, u.business_type, tl.enable, tl.confidence_level,
+        COALESCE(
         CASE
-        WHEN (e1.supervisor_1 = e2.id
-        OR e1.supervisor_2 = e2.id
-        OR e1.supervisor_3 = e2.id
-        OR e1.supervisor_4 = e2.id) THEN 1
-        ELSE 0
-        END AS is_supervisor
+        WHEN u.supervisor_1 = e2.id THEN u.weight1
+        WHEN u.supervisor_2 = e2.id THEN u.weight2
+        WHEN u.supervisor_3 = e2.id THEN u.weight3
+        ELSE -1
+        END,
+        -1) AS is_supervisor
         FROM todo_list as tl
         left join user as u on u.id = tl.evaluated_id
-        LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
         LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
         <where>
             <!--当前轮次， 分数被确认，操作为已完成评议-->
-            tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1 and (u.id = #{id} or (u.lxyz != #{lxyz} and u.department = #{department}))
+            tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1 and (u.id = #{id}
+                                                or (u.first_admin = #{id} or u.second_admin = #{id} or u.super_admin = #{id}))
             <if test="condition.name != null and condition.name != ''">
                 AND tl.evaluated_name like concat('%',#{condition.name},'%')
             </if>
@@ -264,43 +281,19 @@
         </where>
     </select>
 
-    <select id="findAverageGettingNewRoundByFirstAdmin" resultMap="ScoreGettingDetail">
-        SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation, u.weight,
-        u.lxyz, u.business_type, tl.enable, tl.confidence_level,
-        CASE
-        WHEN (e1.supervisor_1 = e2.id
-        OR e1.supervisor_2 = e2.id
-        OR e1.supervisor_3 = e2.id
-        OR e1.supervisor_4 = e2.id) THEN 1
-        ELSE 0
-        END AS is_supervisor
-        FROM todo_list as tl
-        left join user as u on u.id = tl.evaluated_id
-        LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
-        LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
-        <where>
-            <!--当前轮次， 分数被确认，操作为已完成评议-->
-            tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1 and (u.id = #{id} or (u.lxyz != #{lxyz} and u.role != 1))
-            <if test="condition.name != null and condition.name != ''">
-                AND tl.evaluated_name like concat('%',#{condition.name},'%')
-            </if>
-            <if test="condition.department != null and condition.department != ''">
-                AND u.department = #{condition.department}
-            </if>
-        </where>
-    </select>
 
 
     <select id="findSingleGettingNewRound" resultMap="ScoreGettingDetail">
         SELECT tl.evaluated_name, tl.id, tl.evaluated_id as evaluatedId, tl.operation, e1.weight,
         tl.enable, tl.confidence_level,
-        CASE
-           WHEN (e1.supervisor_1 = e2.id
-               OR e1.supervisor_2 = e2.id
-               OR e1.supervisor_3 = e2.id
-               OR e1.supervisor_4 = e2.id) THEN 1
-           ELSE 0
-           END AS is_supervisor
+               COALESCE(
+                       CASE
+                           WHEN u.supervisor_1 = e2.id THEN u.weight1
+                           WHEN u.supervisor_2 = e2.id THEN u.weight2
+                           WHEN u.supervisor_3 = e2.id THEN u.weight3
+                           ELSE -1
+                           END,
+                       -1) AS is_supervisor
         FROM todo_list as tl
         LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
         LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
@@ -311,13 +304,14 @@
     <select id="findAverageGettingNewRound" resultMap="ScoreGettingDetail">
         SELECT tl.evaluated_name,  u.department,  tl.id, tl.evaluated_id as evaluatedId, tl.operation, u.weight,
                u.lxyz, u.business_type, tl.enable, tl.confidence_level,
+                COALESCE(
                 CASE
-                WHEN (e1.supervisor_1 = e2.id
-                OR e1.supervisor_2 = e2.id
-                OR e1.supervisor_3 = e2.id
-                OR e1.supervisor_4 = e2.id) THEN 1
-                ELSE 0
-                END AS is_supervisor
+                WHEN u.supervisor_1 = e2.id THEN u.weight1
+                WHEN u.supervisor_2 = e2.id THEN u.weight2
+                WHEN u.supervisor_3 = e2.id THEN u.weight3
+                ELSE -1
+                END,
+                -1) AS is_supervisor
         FROM todo_list as tl
         left join user as u on u.id = tl.evaluated_id
         LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
@@ -336,7 +330,9 @@
 
 
     <select id="findAverageScoringNewRound" resultMap="ScoreDetail">
-        SELECT tl.evaluator_name,  u.department,  tl.confidence_level, tl.id, tl.evaluator_id as Uid, tl.operation,
+        SELECT
+               CONCAT(u.name, '/', u.work_num) as evaluator_name,
+               u.department,  tl.confidence_level, tl.id, tl.evaluator_id as Uid, tl.operation,
                tl.enable
                 FROM todo_list as tl
                 left join user as u on u.id = tl.evaluator_id
@@ -366,7 +362,9 @@
 
 
     <select id="findAverageScoringDetail" resultMap="ScoreDetailCheck">
-        SELECT tl.evaluated_name, u.department,  s.dimension_id, s.score, tl.id
+        SELECT
+                CONCAT(u.name, '/', u.work_num) as evaluated_name,
+                u.department,  s.dimension_id, s.score, tl.id
         FROM todo_list as tl
         left join user as u on u.id = tl.evaluated_id
         left join scores as s on s.todo_id = tl.id
@@ -375,8 +373,11 @@
     </select>
 
     <select id="findAverageGettingScoringDetail" resultMap="ScoreGettingDetailCheck">
-        SELECT tl.evaluator_name, s.dimension_id, s.score, er.evaluate_type
+        SELECT
+               CONCAT(u.name, '/', u.work_num) as evaluator_name,
+               s.dimension_id, s.score, er.evaluate_type
         FROM todo_list as tl
+                 left join user as u on u.id = tl.evaluator_id
                  left join scores as s on s.todo_id = tl.id
                  left join evaluate_relations as er on er.evaluator = tl.evaluator_id and er.evaluated_user = tl.evaluated_id
         where tl.epoch = #{epoch} and tl.evaluated_id = #{id} and tl.operation = 1 and tl.enable = 1

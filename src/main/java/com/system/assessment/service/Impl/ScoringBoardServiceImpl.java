@@ -82,7 +82,8 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             SingleScoreWithSupervisor singleScore = singleScoreList.get(idx);
             List<ScoreVO> scores = singleScore.getScores();
             Double confidenceLevel = singleScore.getSingleConfidenceLevel();
-            if(singleScore.getIsSupervisor()){
+            //不等于-1证明评估人是被评估人的主管且权重有效
+            if(singleScore.getIsSupervisor() != -1.0){
                 supervisorCount++;
             }else {
                 employeeCount++;
@@ -98,11 +99,11 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
                     Double newDenominator = oldDenominator + confidenceLevel;
                     scoreDenominator.set(index, newDenominator);
                 }else {
-                    if(singleScore.getIsSupervisor()){
-                        specialScoreList.add(new SpecialScoreVO(true, score.getScore(), confidenceLevel));
+                    if(singleScore.getIsSupervisor() != -1.0){
+                        specialScoreList.add(new SpecialScoreVO(singleScore.getIsSupervisor(), score.getScore(), confidenceLevel));
                     }
                     else {
-                        specialScoreList.add(new SpecialScoreVO(false, score.getScore(), confidenceLevel));
+                        specialScoreList.add(new SpecialScoreVO(-1.0, score.getScore(), confidenceLevel));
                     }
                 }
             });
@@ -121,22 +122,28 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         //下面计算使命必达维度的平均分
         // 确定基本权重
         double employeeBasicWeight;
-        double supervisorBasicWeight;
 
         if (employeeCount > 0 && supervisorCount > 0) {
             // 既有员工又有主管
             employeeBasicWeight = 0.1 / employeeCount;
-            supervisorBasicWeight = 0.9 / supervisorCount;
         } else {
             // 只有员工或只有主管
             employeeBasicWeight = 1.0 / (employeeCount + supervisorCount);
-            supervisorBasicWeight = 1.0 / (employeeCount + supervisorCount);
         }
         // 遍历计算最终加权分数和总权重
         double weightedSum = 0.0;
         double totalWeight = 0.0;
         for(SpecialScoreVO specialScore: specialScoreList){
-            double basicWeight = specialScore.getIsSupervisor() ? supervisorBasicWeight : employeeBasicWeight;
+            Double isSupervisor = specialScore.getIsSupervisor();
+            double basicWeight;
+            if(isSupervisor == -1.0){
+                //普通员工
+                basicWeight = employeeBasicWeight;
+            }else {
+                //主管
+                basicWeight = isSupervisor;
+            }
+
             double finalWeight = basicWeight * specialScore.getWeight();
             weightedSum += specialScore.getScore() * finalWeight;
             totalWeight += finalWeight;
@@ -144,7 +151,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         Double specialTotalScore = totalWeight == 0 ? 0 : weightedSum / totalWeight;
         specialTotalScore = MathUtils.transformer(specialTotalScore);
         scoreList.set(Guideline.Execution.getCode() - 1,specialTotalScore);
-        return  scoreList;
+        return scoreList;
     };
 
     public AverageGettingScoringVO sumSingleGettingAverageByConfidence(ScoreGettingDetailVO scoreDetailVO){
@@ -820,22 +827,12 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
     @Override
     public DataListResult getAverageScoreBoard(GetScoreConditionalVO getScoreConditionalVO) {
         Integer userId = AuthenticationUtil.getUserId();
-        User user = userMapper.findRoleById(userId);
         Integer newEpoch = evaluateMapper.findNewEpoch();
         List<ScoreGettingDetailVO> averageGettingNewRound = null;
-        //1.查找出本轮所有得分情况的数据（带条件查询的）
-        if(user.getRole() == Role.firstAdmin.getCode()){
-            // 一级管理员权限次之，可以看到除去IP（LXYZ 类型）的剩余人员的得分情况,也不能看到其他一级管理员的情况
-            averageGettingNewRound = todoListMapper.findAverageGettingNewRoundByFirstAdmin(newEpoch,getScoreConditionalVO, "IP", userId);
 
-        }else if(user.getRole() == Role.SecondAdmin.getCode()){
-            // 二级管理员权限再减小，可以查看除去IP（LXYZ 类型）的剩余人员中，本部门员工的得分情况。
-            averageGettingNewRound = todoListMapper.findAverageGettingNewRoundBySecondAdmin(newEpoch,getScoreConditionalVO, "IP", user.getDepartment(), userId);
-        }
-        else {
-            // 超级管理员权限范围最大，可以看到公司所有用户的得分情况
-            averageGettingNewRound = todoListMapper.findAverageGettingNewRound(newEpoch, getScoreConditionalVO);
-        }
+        //新方案，只要查询者（userId）属于用户的一级或二级或超级管理员中的一个就可以查看到，同时也要能查看到自己的得分情况
+        averageGettingNewRound = todoListMapper.findAverageGettingNewRoundByAdmin(newEpoch, getScoreConditionalVO, userId);
+
         if(averageGettingNewRound == null || averageGettingNewRound.size() == 0){
             return new DataListResult<>(0,new ArrayList<>());
         }

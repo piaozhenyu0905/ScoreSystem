@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class SingleScoreWithSupervisor {
-    public Boolean isSupervisor;
+    public Double isSupervisor;
 
     public Double singleConfidenceLevel;
 
