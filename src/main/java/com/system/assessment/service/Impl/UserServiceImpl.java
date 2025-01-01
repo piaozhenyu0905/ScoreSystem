@@ -164,37 +164,53 @@ public class UserServiceImpl implements UserService {
 
                 Integer supervisor1 = userMapper.findIdByNameAndWorkNum(supervisorName1, supervisorWorkNum1);
                 if(supervisor1 != null && supervisor1 != 0){
-                    userMapper.updateSupervisor1ById(id, supervisor1);
+                    if(!id.equals(supervisor1)){
+                        userMapper.updateSupervisor1ById(id, supervisor1);
+                    }
                 }
 
                 Integer supervisor2 = userMapper.findIdByNameAndWorkNum(supervisorName2, supervisorWorkNum2);
                 if(supervisor2 != null && supervisor2 != 0){
-                    userMapper.updateSupervisor2ById(id, supervisor2);
+                    if(!id.equals(supervisor2)){
+                        userMapper.updateSupervisor2ById(id, supervisor2);
+                    }
+
                 }
 
                 Integer supervisor3 = userMapper.findIdByNameAndWorkNum(supervisorName3, supervisorWorkNum3);
                 if(supervisor3 != null && supervisor3 != 0){
-                    userMapper.updateSupervisor3ById(id, supervisor3);
+                    if(!id.equals(supervisor3)){
+                        userMapper.updateSupervisor3ById(id, supervisor3);
+                    }
                 }
 
                 Integer hr = userMapper.findIdByNameAndWorkNum(hrName, hrWorkNum);
                 if(hr != null && hr != 0){
-                    userMapper.updateHrById(id, hr);
+                    if(!id.equals(hr)){
+                        userMapper.updateHrById(id, hr);
+                    }
                 }
 
                 Integer firstAdmin = userMapper.findIdByNameAndWorkNum(firstAdminName, firstAdminWorkNum);
                 if(firstAdmin != null && firstAdmin != 0){
-                    userMapper.updateFirstAdminById(id, firstAdmin);
+                    if(!id.equals(firstAdmin)){
+                        userMapper.updateFirstAdminById(id, firstAdmin);
+                    }
                 }
 
                 Integer secondAdmin = userMapper.findIdByNameAndWorkNum(secondAdminName, secondAdminWorkNum);
                 if(secondAdmin != null && secondAdmin != 0){
-                    userMapper.updateSecondAdminById(id, secondAdmin);
+                    if(!id.equals(secondAdmin)){
+                        userMapper.updateSecondAdminById(id, secondAdmin);
+                    }
                 }
 
                 Integer superAdmin = userMapper.findIdByNameAndWorkNum(superAdminName, superAdminWorkNum);
                 if(superAdmin != null && superAdmin != 0){
-                    userMapper.updateSuperAdminById(id, superAdmin);
+                    if(!id.equals(superAdmin)){
+                        userMapper.updateSuperAdminById(id, superAdmin);
+                    }
+
                 }
 
             }

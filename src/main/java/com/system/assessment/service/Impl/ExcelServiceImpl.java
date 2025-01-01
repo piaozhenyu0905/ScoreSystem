@@ -345,6 +345,10 @@ public class ExcelServiceImpl implements ExcelService {
                 log.error("主管"+name+"-"+workNum+"不存在!");
                 throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管"+name+"-"+workNum+"不存在!");
             }
+            if(evaluatedId.equals(superVisor1Id)){
+                log.error("主管"+name+"-"+workNum+"和被评估人为同一人!");
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管"+name+"-"+workNum+"和被评估人为同一人!");
+            }
             userMapper.setSuperVisor1(evaluatedId, superVisor1Id);
             //主管存在，只进行权重分配
             String weight1Str = getCellValue(row, columnIndexMap.get("权重1"));
@@ -367,6 +371,12 @@ public class ExcelServiceImpl implements ExcelService {
                 log.error("主管"+name+"-"+workNum+"不存在!");
                 throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管"+name+"-"+workNum+"不存在!");
             }
+
+            if(evaluatedId.equals(superVisor2Id)){
+                log.error("主管"+name+"-"+workNum+"和被评估人为同一人!");
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管"+name+"-"+workNum+"和被评估人为同一人!");
+            }
+
             userMapper.setSuperVisor2(evaluatedId, superVisor2Id);
             //主管存在，只进行权重分配
             String weight2Str = getCellValue(row, columnIndexMap.get("权重2"));
@@ -389,6 +399,10 @@ public class ExcelServiceImpl implements ExcelService {
             if (superVisor3Id == null || superVisor3Id == 0){
                 log.error("主管"+name+"-"+workNum+"不存在!");
                 throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管"+name+"-"+workNum+"不存在!");
+            }
+            if(evaluatedId.equals(superVisor3Id)){
+                log.error("主管"+name+"-"+workNum+"和被评估人为同一人!");
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管"+name+"-"+workNum+"和被评估人为同一人!");
             }
             userMapper.setSuperVisor3(evaluatedId, superVisor3Id);
             //主管存在，只进行权重分配
@@ -449,7 +463,12 @@ public class ExcelServiceImpl implements ExcelService {
             //该名用户在数据库中存在
             if(evaluatorId != null && !evaluatorId.equals(0)){
                 //建立评估关系
-                log.info("被评估人:"+evaluatedName +";评估人:" + name);
+                //不能和自己建立评估关系
+                if(evaluatedId.equals(evaluatorId)){
+                    log.error(name +"不能和自己建立关系" );
+                    throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, name +"不能和自己建立关系");
+                }
+
                 //先查看两人是否已经建立了关系，如果没有建立则建立
                 Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, evaluatedId);
                 if(singleRelationship == null || singleRelationship == 0){

@@ -161,6 +161,16 @@ public class UserController {
                     return ResponseResult.error(401,"超级管理员不允许修改自己的角色，如需更改请联系数据库管理员!");
                 }
             }
+            Integer userId = AuthenticationUtil.getUserId();
+            if(userId.equals(user.getSupervisor1()) || userId.equals(user.getSupervisor2()) || userId.equals(user.getSupervisor3())){
+                return ResponseResult.error(401,"主管更新失败,用户与主管不能为同一人!");
+            }
+            if(userId.equals(user.getHr())){
+                return ResponseResult.error(401,"HRBP更新失败,用户与HRBP不能为同一人!");
+            }
+            if(userId.equals(user.getFirstAdmin()) || userId.equals(user.getSecondAdmin()) || userId.equals(user.getSuperAdmin())){
+                return ResponseResult.error(401,"管理员更新失败,用户与管理员不能为同一人!");
+            }
 
             Integer result = userService.updateUserInfo(user);
             if(result == 1){
