@@ -161,10 +161,12 @@ public class UserServiceImpl implements UserService {
                 String secondAdminWorkNum = supervisorVO.getSecondAdminWorkNum();
                 String superAdminWorkNum = supervisorVO.getSuperAdminWorkNum();
 
+                Integer supervisorNum = 0;
 
                 Integer supervisor1 = userMapper.findIdByNameAndWorkNum(supervisorName1, supervisorWorkNum1);
                 if(supervisor1 != null && supervisor1 != 0){
                     if(!id.equals(supervisor1)){
+                        supervisorNum = supervisorNum + 1;
                         userMapper.updateSupervisor1ById(id, supervisor1);
                     }
                 }
@@ -172,6 +174,7 @@ public class UserServiceImpl implements UserService {
                 Integer supervisor2 = userMapper.findIdByNameAndWorkNum(supervisorName2, supervisorWorkNum2);
                 if(supervisor2 != null && supervisor2 != 0){
                     if(!id.equals(supervisor2)){
+                        supervisorNum = supervisorNum + 1;
                         userMapper.updateSupervisor2ById(id, supervisor2);
                     }
 
@@ -180,9 +183,32 @@ public class UserServiceImpl implements UserService {
                 Integer supervisor3 = userMapper.findIdByNameAndWorkNum(supervisorName3, supervisorWorkNum3);
                 if(supervisor3 != null && supervisor3 != 0){
                     if(!id.equals(supervisor3)){
+                        supervisorNum = supervisorNum + 1;
                         userMapper.updateSupervisor3ById(id, supervisor3);
                     }
                 }
+
+                //设置权重系数
+                Double weight = supervisorNum == 0 ? 0.0 : 0.9/ supervisorNum;
+
+                if(supervisor1 != null && supervisor1 != 0){
+                    if(!id.equals(supervisor1)){
+                        userMapper.setWeight1(id, weight);
+                    }
+                }
+
+                if(supervisor2 != null && supervisor2 != 0){
+                    if(!id.equals(supervisor2)){
+                        userMapper.setWeight2(id, weight);
+                    }
+                }
+
+                if(supervisor3 != null && supervisor3 != 0){
+                    if(!id.equals(supervisor3)){
+                        userMapper.setWeight3(id, weight);
+                    }
+                }
+
 
                 Integer hr = userMapper.findIdByNameAndWorkNum(hrName, hrWorkNum);
                 if(hr != null && hr != 0){

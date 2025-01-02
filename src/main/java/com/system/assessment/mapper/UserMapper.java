@@ -13,6 +13,13 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
+
+    public Integer setWeight1(@Param("id")Integer id, @Param("weight")Double weight);
+
+    public Integer setWeight2(@Param("id")Integer id, @Param("weight")Double weight);
+
+    public Integer setWeight3(@Param("id")Integer id, @Param("weight")Double weight);
+
     public Integer setSuperVisor1(@Param("id")Integer id,
                                   @Param("superVisor")Integer superVisor);
 

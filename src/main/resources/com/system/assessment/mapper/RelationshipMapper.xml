@@ -29,6 +29,20 @@
         <result column="weight3" property="weight3"></result>
     </resultMap>
 
+
+    <resultMap id="RelatedPersonInfo" type="com.system.assessment.vo.RelatedPersonInfoVO">
+        <id column="id" property="userId"></id>
+        <result column="name" property="name"></result>
+        <result column="work_num" property="workNum"></result>
+        <result column="department" property="department"></result>
+    </resultMap>
+
+
+    <resultMap id="Assessor" type="com.system.assessment.vo.AssessorVO">
+        <id column="department" property="department"></id>
+        <result column="username" property="username"></result>
+    </resultMap>
+
     <resultMap id="Evaluator" type="com.system.assessment.vo.RelationshipEvaluatorInfo">
         <id column="id" property="id"></id>
         <result column="name" property="name"></result>
@@ -56,15 +70,15 @@
                 CONCAT(u6.name, '/', u6.work_num) as second_admin_name,
                 CONCAT(u7.name, '/', u7.work_num) as super_admin_name,
                 CASE
-                WHEN u.weight1 = -1 THEN NULL
+                WHEN u.weight1 = -1 or u.supervisor_1 = 0 or u.supervisor_1 is null THEN NULL
                 ELSE u.weight1
                 END AS weight1,
                 CASE
-                WHEN u.weight2 = -1 THEN NULL
+                WHEN u.weight2 = -1 or u.supervisor_2 = 0 or u.supervisor_2 is null THEN NULL
                 ELSE u.weight2
                 END AS weight2,
                 CASE
-                WHEN u.weight3 = -1 THEN NULL
+                WHEN u.weight3 = -1 or u.supervisor_3 = 0 or u.supervisor_3 is null THEN NULL
                 ELSE u.weight3
                 END AS weight3
         from user as u
@@ -112,6 +126,23 @@
         where  evaluated_user = #{evaluatedId} and evaluator = #{evaluatorId} and enable = 1
     </select>
 
+
+    <select id="findRelatedPersonInfo" resultMap="RelatedPersonInfo">
+        select u.id, u.department, u.work_num,
+               CONCAT(u.name, '/', u.work_num) as name
+        from evaluate_relations as er
+        left join user as u on u.id = er.evaluator
+        where  er.evaluated_user = #{id} and er.evaluate_type = 1 and er.enable = 1
+    </select>
+
+
+    <select id="findAssessor" resultMap="Assessor">
+        select u.department,
+               CONCAT(u.name, '/', u.work_num) as username
+        from evaluate_relations as er
+                 left join user as u on u.id = er.evaluated_user
+        where  er.evaluator = #{id} and er.evaluate_type = 0 and er.enable = 1
+    </select>
 
     <select id="findRelationshipById" resultMap="FindRelationship">
         select er.evaluated_user, er.evaluator, us.name as orName, ua.name as edName

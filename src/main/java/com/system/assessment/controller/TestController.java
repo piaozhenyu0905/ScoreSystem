@@ -11,6 +11,7 @@ import com.system.assessment.service.TemplateCreateService;
 import com.system.assessment.template.panelTemplate;
 import com.system.assessment.vo.AverageScoringConditionVO;
 import com.system.assessment.vo.AverageScoringVO;
+import com.system.assessment.vo.ImportINfo;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,29 +63,6 @@ public class TestController {
         return ResponseResult.success();
     }
 
-    @RequestMapping(value = "/excel",method = RequestMethod.POST)
-    public ResponseResult excel(@RequestParam("file") MultipartFile file) throws IOException {
-        Integer newEnableProcess = evaluateService.findNewEnableProcess();
-        if(newEnableProcess == null){
-            newEnableProcess = 1;
-        }
-        if(!newEnableProcess.equals(ProcessType.BuildRelationships.getCode())){
-            return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "该操作在当前环节无效!");
-        }
-
-        if (file.isEmpty()) {
-            return ResponseResult.error(401, "该文件为空");
-        }
-        List<String> errorList = relationshipService.addRelationshipExcel(file);
-        if(errorList == null){
-            return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "矩阵导入错误!");
-        }else if(errorList.size() == 0){
-            return ResponseResult.success();
-        }else {
-            String error = String.join(",", errorList) + "导入失败!";
-            return ResponseResult.error(401, error);
-        }
-    }
 
 
 //    @RequestMapping(value = "/word",method = RequestMethod.GET)

@@ -143,14 +143,17 @@ public class RelationshipController {
         if (file.isEmpty()) {
             return ResponseResult.error(401, "该文件为空");
         }
-        List<String> errorList = relationshipService.addRelationshipExcel(file);
-        if(errorList == null){
+        ImportINfo importINfo = relationshipService.addRelationshipExcel(file);
+        if(importINfo == null){
             return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "矩阵导入错误!");
-        }else if(errorList.size() == 0){
-            return ResponseResult.success();
         }else {
-            String error = String.join(",", errorList) + "导入失败!";
-            return ResponseResult.error(401, error);
+            if(importINfo.getErrorList() == null || importINfo.getErrorList().size() == 0){
+                return ResponseResult.success();
+            }else {
+                String error = "已成功导入" +importINfo.getSuccess() +"条数据!" + "\n"+ "导入失败的数据:"+ String.join(",", importINfo.getErrorList());
+                return ResponseResult.error(401, error);
+            }
+
         }
     }
 
@@ -161,5 +164,18 @@ public class RelationshipController {
         relationshipService.exportExcel(response);
     }
 
+    @ApiOperation("返回固定评估人")
+    @RequestMapping(value = "/matrix/relatedPersonInfo",method = RequestMethod.GET)
+    public ResponseResult relatedPersonInfo(@RequestParam("userId") Integer userId){
+        List<RelatedPersonInfoVO> relatedPersonInfoVOS = relationshipService.relatedPersonInfo(userId);
+        return ResponseResult.success(relatedPersonInfoVOS);
+    }
 
+    @ApiOperation("返回自己要评估的评估人（自主评估）")
+    @RequestMapping(value = "/find/assessor",method = RequestMethod.GET)
+    public ResponseResult findAssessor(){
+        Integer userId = AuthenticationUtil.getUserId();
+        List<AssessorVO> assessorList = relationshipService.findAssessor(userId);
+        return ResponseResult.success(assessorList);
+    }
 }

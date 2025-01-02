@@ -423,6 +423,25 @@
     </update>
 
 
+    <update id="setWeight1">
+        update user
+        set weight1 =  #{weight}
+        where id = #{id}
+    </update>
+
+    <update id="setWeight2">
+        update user
+        set weight2 =  #{weight}
+        where id = #{id}
+    </update>
+
+    <update id="setWeight3">
+        update user
+        set weight3 =  #{weight}
+        where id = #{id}
+    </update>
+
+
     <update id="setSuperWeight1">
         update user
         set weight1 =  #{weight}

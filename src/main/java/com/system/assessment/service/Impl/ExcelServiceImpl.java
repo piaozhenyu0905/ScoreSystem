@@ -199,7 +199,8 @@ public class ExcelServiceImpl implements ExcelService {
             userMapper.updateUserInfoInit(userVO);
             supervisorList.add(supervisorVO);
 
-        }else {
+        }
+        else {
             user.setUsername(getCellValue(row, columnIndexMap.get("姓名")));
             user.setDepartment(getCellValue(row, columnIndexMap.get("部门")));
 

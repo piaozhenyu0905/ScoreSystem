@@ -124,6 +124,17 @@ public class RelationshipServiceImpl implements RelationshipService {
     }
 
     @Override
+    public List<AssessorVO> findAssessor(Integer userId) {
+
+        return  relationshipMapper.findAssessor(userId);
+    }
+
+    @Override
+    public List<RelatedPersonInfoVO> relatedPersonInfo(Integer userId) {
+        return relationshipMapper.findRelatedPersonInfo(userId);
+    }
+
+    @Override
     public void exportExcel(HttpServletResponse response) {
         ArrayList<RelationshipMatrixVO> relationshipMatrixVOS = new ArrayList<>();
         List<User> allUser = relationshipMapper.findAllUser(null);
@@ -255,7 +266,9 @@ public class RelationshipServiceImpl implements RelationshipService {
 
 
     @Override
-    public List<String> addRelationshipExcel(MultipartFile file) {
+    public ImportINfo addRelationshipExcel(MultipartFile file) {
+        ImportINfo importINfo = new ImportINfo();
+        Integer success = 0;
         try {
             // 解析 Excel 文件
             Workbook workbook = new XSSFWorkbook(file.getInputStream());
@@ -289,6 +302,7 @@ public class RelationshipServiceImpl implements RelationshipService {
                     try {
                         excelService.addRelationshipExcel(row, columnIndexMap);
                         log.info(evaluatedInfo + "导入成功!");
+                        success = success + 1;
                     }catch (Exception e){
                         log.error(evaluatedInfo + "导入失败!");
                         errorList.add(evaluatedInfo);
@@ -296,7 +310,9 @@ public class RelationshipServiceImpl implements RelationshipService {
 
                 }
             }
-            return errorList;
+            importINfo.setSuccess(success);
+            importINfo.setErrorList(errorList);
+            return importINfo;
 
         }catch (IOException e) {
             log.error("矩阵关系导入有误!");
@@ -504,6 +520,43 @@ public class RelationshipServiceImpl implements RelationshipService {
         return 1;
     }
 
+    public String RelatedToStr(List<RelationshipEvaluatorInfo> fixedList){
+        // 初始化 StringBuilder 用于高效拼接字符串
+        StringBuilder relatedPersonBuilder = new StringBuilder();
+
+        // 检查 fixedList 是否为 null
+        if (fixedList == null) {
+            return ""; // 根据业务需求返回空字符串或其他默认值
+        }
+
+        for (int i = 0; i < fixedList.size(); i++) {
+            RelationshipEvaluatorInfo info = fixedList.get(i);
+
+            // 检查 info 是否为 null
+            if (info == null) {
+                continue; // 跳过当前循环，继续处理下一个元素
+            }
+
+            // 获取 name 和 workNum，处理可能的 null 值
+            String name = info.name != null ? info.name : "";
+            String workNum = info.workNum != null ? info.workNum : "";
+
+            // 拼接 name 和 workNum
+            String combined = name + "/" + workNum;
+
+            // 将拼接后的字符串添加到 StringBuilder
+            relatedPersonBuilder.append(combined);
+
+            // 如果不是最后一个元素，添加分号分隔符
+            if (i < fixedList.size() - 1) {
+                relatedPersonBuilder.append(";");
+            }
+        }
+        // 将 StringBuilder 转换为 String
+        String relatedPerson = relatedPersonBuilder.toString();
+        return relatedPerson;
+    };
+
     @Override
     @Transactional
     public DataListResult findEvaluationMatrix(EvaluationRelationshipVO evaluationRelationshipVO) {
@@ -535,10 +588,7 @@ public class RelationshipServiceImpl implements RelationshipService {
                 relationshipMatrixVO.setWeight3(user.getWeight3());
                 // 2.查找相关人
                 List<RelationshipEvaluatorInfo> fixedList = relationshipMapper.findEvaluatorById(user.getId(), RelationType.fixed.getCode());
-                String relatedPerson = fixedList.stream()
-                        .map(info -> (info.name != null ? info.name : "") + "/" + (info.workNum != null ? info.workNum : ""))
-                        .collect(Collectors.joining(";"));;
-
+                String relatedPerson = RelatedToStr(fixedList);
                 relationshipMatrixVO.setRelatedPerson(relatedPerson);
                 relationshipMatrixVOS.add(relationshipMatrixVO);
             });
@@ -575,10 +625,7 @@ public class RelationshipServiceImpl implements RelationshipService {
                 relationshipMatrixVO.setWeight3(user.getWeight3());
                 // 2.查找固定评估人
                 List<RelationshipEvaluatorInfo> fixedList = relationshipMapper.findEvaluatorById(user.getId(), RelationType.fixed.getCode());
-                String relatedPerson = fixedList.stream()
-                        .map(info -> (info.name != null ? info.name : "") + "/" + (info.workNum != null ? info.workNum : ""))
-                        .collect(Collectors.joining(";"));;
-
+                String relatedPerson = RelatedToStr(fixedList);
                 relationshipMatrixVO.setRelatedPerson(relatedPerson);
                 relationshipMatrixVOS.add(relationshipMatrixVO);
             });

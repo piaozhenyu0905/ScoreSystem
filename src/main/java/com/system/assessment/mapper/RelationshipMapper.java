@@ -3,6 +3,8 @@ package com.system.assessment.mapper;
 import com.system.assessment.exception.ResponseResult;
 import com.system.assessment.pojo.EvaluateRelationship;
 import com.system.assessment.pojo.User;
+import com.system.assessment.vo.AssessorVO;
+import com.system.assessment.vo.RelatedPersonInfoVO;
 import com.system.assessment.vo.RelationshipCheckVO;
 import com.system.assessment.vo.RelationshipEvaluatorInfo;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,6 +15,10 @@ import java.util.List;
 
 @Mapper
 public interface RelationshipMapper {
+    public List<AssessorVO> findAssessor(@Param("id")Integer id);
+
+    public List<RelatedPersonInfoVO> findRelatedPersonInfo(@Param("id")Integer userId);
+
     @Select("select id from user where name = #{name} and work_num = #{workNum} and is_delete = 0")
     public Integer judgeExistByNameAndWorkNum(@Param("name") String name,
                                               @Param("workNum")String workNum);

@@ -11,9 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface RelationshipService {
+    public List<AssessorVO> findAssessor(Integer userId);
+
+    public List<RelatedPersonInfoVO> relatedPersonInfo(Integer userId);
+
     public void exportExcel(HttpServletResponse response);
 
-    public List<String> addRelationshipExcel(MultipartFile file);
+    public ImportINfo addRelationshipExcel(MultipartFile file);
 
     public Integer findSingleRelationship(Integer evaluatorId, Integer evaluatedId);
 
