@@ -112,12 +112,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .and()
                 .exceptionHandling()
-                //添加一个认证失败（通常是该次请求还未被认证）的异常。
-//                .authenticationEntryPoint((req, resp, ex) -> {
-//                    resp.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-//                    resp.setStatus(HttpStatus.UNAUTHORIZED.value());
-//                    resp.getWriter().println("请认证之后再去处理!");
-//                })
                 .and()
                 .logout()
                 .logoutRequestMatcher(new OrRequestMatcher(
@@ -128,7 +122,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     Map<String, Object> result = new HashMap<String, Object>();
                     result.put("msg", "注销成功");
                     result.put("code", 200);
-                    result.put("用户信息", auth.getPrincipal());
+//                    result.put("用户信息", auth.getPrincipal());
                     resp.setContentType("application/json;charset=UTF-8");
                     resp.setStatus(HttpStatus.OK.value());
                     String s = new ObjectMapper().writeValueAsString(result);

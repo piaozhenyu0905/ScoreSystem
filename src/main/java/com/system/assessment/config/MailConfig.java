@@ -54,8 +54,8 @@ public class MailConfig {
         mailSender.setUsername("2339134840@qq.com");  // 发件人邮箱地址（QQ邮箱）
 
         // 从外部读取的授权码，确保没有空格
-//        String password = emailPassword != null ? emailPassword.trim() : null;
-        String password = "jsrlalxhrflcdjga";
+        String password = emailPassword != null ? emailPassword.trim() : null;
+//        String password = "jsrlalxhrflcdjga";
         mailSender.setPassword(password);  // 使用外部文件读取的授权码（不是QQ的登录密码）
 
         mailSender.setDefaultEncoding("utf-8");  // 默认编码

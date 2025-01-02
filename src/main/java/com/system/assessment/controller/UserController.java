@@ -157,9 +157,12 @@ public class UserController {
             Integer role = userService.findRole(AuthenticationUtil.getUserId());
             if(role.equals(Role.superAdmin.getCode())){
                 //修改的是自己的权限，则不允许
-                if(!user.getRole().equals(Role.superAdmin.getCode())){
-                    return ResponseResult.error(401,"超级管理员不允许修改自己的角色，如需更改请联系数据库管理员!");
+                if(user.getRole() != null){
+                    if(!user.getRole().equals(Role.superAdmin.getCode())){
+                        return ResponseResult.error(401,"超级管理员不允许修改自己的角色，如需更改请联系数据库管理员!");
+                    }
                 }
+
             }
             Integer userId = AuthenticationUtil.getUserId();
             if(userId.equals(user.getSupervisor1()) || userId.equals(user.getSupervisor2()) || userId.equals(user.getSupervisor3())){

@@ -220,7 +220,6 @@
         -1) AS is_supervisor
         FROM todo_list as tl
         left join user as u on u.id = tl.evaluated_id
-        LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
         LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
         WHERE tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1
         <choose>
@@ -284,7 +283,7 @@
 
 
     <select id="findSingleGettingNewRound" resultMap="ScoreGettingDetail">
-        SELECT tl.evaluated_name, tl.id, tl.evaluated_id as evaluatedId, tl.operation, e1.weight,
+        SELECT tl.evaluated_name, tl.id, tl.evaluated_id as evaluatedId, tl.operation, u.weight,
         tl.enable, tl.confidence_level,
                COALESCE(
                        CASE
@@ -295,7 +294,7 @@
                            END,
                        -1) AS is_supervisor
         FROM todo_list as tl
-        LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
+        LEFT JOIN user AS u ON u.id = tl.evaluated_id
         LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
         where tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1 and tl.evaluated_id = #{id}
     </select>
@@ -314,7 +313,6 @@
                 -1) AS is_supervisor
         FROM todo_list as tl
         left join user as u on u.id = tl.evaluated_id
-        LEFT JOIN user AS e1 ON e1.id = tl.evaluated_id
         LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
         <where>
             <!--当前轮次， 分数被确认，操作为已完成评议-->
