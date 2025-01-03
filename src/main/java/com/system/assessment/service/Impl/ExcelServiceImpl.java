@@ -201,9 +201,10 @@ public class ExcelServiceImpl implements ExcelService {
 
         }
         else {
-            user.setUsername(getCellValue(row, columnIndexMap.get("姓名")));
-            user.setDepartment(getCellValue(row, columnIndexMap.get("部门")));
 
+            user.setDepartment(getCellValue(row, columnIndexMap.get("部门")));
+            String username = user.getName() + user.getWorkNum();
+            user.setUsername(username);
             SupervisorVO supervisorVO = new SupervisorVO();
             supervisorVO.setName(user.getName());
             supervisorVO.setWorkNum(user.getWorkNum());
@@ -426,15 +427,17 @@ public class ExcelServiceImpl implements ExcelService {
     @Transactional
     @Override
     public void relationshipExtract(NameAndWorkNum nameAndWorkNum, String content){
+        String evaluatedName = nameAndWorkNum.getName();
+        String evaluatedWorkNum = nameAndWorkNum.getWorkNum();
+        Integer evaluatedId = userMapper.findIdByNameAndWorkNum(evaluatedName, evaluatedWorkNum);
+        relationshipMapper.deleteAllRelationshipByEvaluatedId(evaluatedId);
 
         if (content == null || content.trim().isEmpty()) {
             return;
         }
-        String evaluatedName = nameAndWorkNum.getName();
-        String evaluatedWorkNum = nameAndWorkNum.getWorkNum();
-        Integer evaluatedId = userMapper.findIdByNameAndWorkNum(evaluatedName, evaluatedWorkNum);
+
         //先删除该被评估人的所有固定评估关系
-        relationshipMapper.deleteAllRelationshipByEvaluatedId(evaluatedId);
+
 
         content = content.replaceAll("\\s*;\\s*", ";"); // 去掉 `;` 前后的空格
         content = content.replaceAll("\\s*/\\s*", "/"); // 去掉 `/` 前后的空格

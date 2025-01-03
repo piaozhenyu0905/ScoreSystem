@@ -145,6 +145,18 @@ public class UserController {
             if(!role.equals(Role.superAdmin.getCode())){
                 return ResponseResult.error(401,"编辑失败,您不具有该权限!");
             }
+
+            Integer userId = user.getId();
+            if(userId.equals(user.getSupervisor1()) || userId.equals(user.getSupervisor2()) || userId.equals(user.getSupervisor3())){
+                return ResponseResult.error(401,"主管更新失败,用户与主管不能为同一人!");
+            }
+            if(userId.equals(user.getHr())){
+                return ResponseResult.error(401,"HRBP更新失败,用户与HRBP不能为同一人!");
+            }
+            if(userId.equals(user.getFirstAdmin()) || userId.equals(user.getSecondAdmin()) || userId.equals(user.getSuperAdmin())){
+                return ResponseResult.error(401,"管理员更新失败,用户与管理员不能为同一人!");
+            }
+
             //如果自身是超级管理员就可修改
             Integer result = userService.updateUserInfo(user);
             if(result == 1){
