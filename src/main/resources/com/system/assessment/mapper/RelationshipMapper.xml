@@ -57,6 +57,8 @@
         <result column="evaluator" property="evaluatorId"></result>
         <result column="evaluated_user" property="evaluatedId"></result>
         <result column="email" property="evaluatorEmail"></result>
+        <result column="evaluatedWorkNum" property="evaluatedWorkNum"></result>
+        <result column="evaluatorWorkNum" property="evaluatorWorkNum"></result>
     </resultMap>
 
     <select id="findAllUser" resultMap="User">
@@ -107,7 +109,8 @@
 
 
     <select id="findAllRelationship" resultMap="FindRelationship">
-        select er.evaluated_user, er.evaluator, us.name as orName, ua.name as edName, us.email
+        select er.evaluated_user, er.evaluator, us.name as orName, ua.name as edName, us.email, us.work_num as evaluatorWorkNum,
+               ua.work_num as evaluatedWorkNum
         from evaluate_relations as er
                  left join user as us on er.evaluator = us.id
                  left join user as ua on er.evaluated_user = ua.id
@@ -144,14 +147,6 @@
         where  er.evaluator = #{id} and er.evaluate_type = 0 and er.enable = 1
     </select>
 
-    <select id="findRelationshipById" resultMap="FindRelationship">
-        select er.evaluated_user, er.evaluator, us.name as orName, ua.name as edName
-        from evaluate_relations as er
-             left join user as us on er.evaluator = us.id
-             left join user as ua on er.evaluated_user = ua.id
-        where er.evaluator = #{id} and er.enable = 1
-    </select>
-
 
     <insert id="addRelationship" parameterType="com.system.assessment.pojo.EvaluateRelationship" >
         INSERT INTO evaluate_relations (evaluated_user, evaluator,  evaluate_type,  epoch, enable) VALUES
@@ -168,6 +163,11 @@
         set enable = 0
         WHERE evaluated_user = #{id} OR evaluator = #{id}
     </update>
+
+    <delete id="clearRelationshipById" >
+        delete from  evaluate_relations
+        WHERE evaluated_user = #{id} OR evaluator = #{id}
+    </delete>
 
     <update id="addRelationshipEpoch" >
         update  evaluate_relations

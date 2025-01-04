@@ -340,9 +340,9 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         //1.计算所有该打分的人
         Integer total = todoListMapper.sumTotalPeople(newEpoch);
         //2.计算所有已完成打分的人
-        Integer notCompleted = todoListMapper.sumNotCompletedPeople(newEpoch);
+        Integer Completed = todoListMapper.sumCompletedPeople(newEpoch);
         scoreProcessVO.setTotalPeople(total);
-        scoreProcessVO.setCompletedPeople(total-notCompleted);
+        scoreProcessVO.setCompletedPeople(Completed);
         return scoreProcessVO;
     }
 
@@ -393,47 +393,6 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         return newTotalScore;
     }
 
-    @Override
-    @Transactional
-    public Integer reject(Integer userId) {
-        Integer newEpoch = evaluateMapper.findNewEpoch();
-        //1.将enable设置为2
-        todoListMapper.reject(userId, newEpoch);
-
-        //2.根据关系矩阵，生成新的评估任务
-        List<RelationshipCheckVO> relationships = relationshipMapper.findRelationshipById(userId);
-        relationships.forEach(relationship->{
-            String evaluatorName = relationship.getEvaluatorName();
-            String evaluatedName = relationship.getEvaluatedName();
-            Integer evaluatedId = relationship.getEvaluatedId();
-            Integer evaluatorId = relationship.getEvaluatorId();
-
-            TodoListVO todoListIsExist = todoListMapper.findTodoListIsExist(evaluatorId, evaluatedId, newEpoch);
-            if(todoListIsExist != null){
-                return;
-            }
-
-            TodoList todoList = new TodoList();
-            todoList.setRejectReason(null);
-            todoList.setCompleteTime(null);
-            todoList.setOwnerId(evaluatorId);
-            todoList.setEvaluatedId(evaluatedId);
-            todoList.setEvaluatedName(evaluatedName);
-            todoList.setEvaluatorName(evaluatorName);
-            todoList.setEvaluatorId(evaluatorId);
-            todoList.setConfidenceLevel(1.0);
-            todoList.setEpoch(newEpoch);
-            todoList.setType(TaskType.SurroundingEvaluation.getDescription());
-            todoList.setPresentDate(LocalDateTime.now());
-            todoList.setEnable(0);
-            todoList.setOperation(0);
-            String detail = "请完成对" + evaluatedName +"的评议";
-            todoList.setDetail(detail);
-            todoListMapper.addTodoList(todoList);
-        });
-
-        return 1;
-    }
 
     public void noticeReject(String to, String content, String title){
         emailService.sendMessage(to, title, content);

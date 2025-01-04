@@ -132,7 +132,11 @@
 
 
     <select id="findTaskEvaluateInfo" resultMap="TaskEvaluateInfo">
-        select u1.name as evaluatorName, u1.id as evaluatorId, u2.name as evaluatedName, u2.id as evaluatedId, tl.confidence_level
+        select
+               CONCAT(u1.name, '/', u1.work_num) as evaluatorName,
+               CONCAT(u2.name, '/', u2.work_num) as evaluatedName,
+               u1.id as evaluatorId,
+               u2.id as evaluatedId, tl.confidence_level
         from todo_list as tl
             left join user as u1 on tl.evaluator_id = u1.id
             left join user as u2 on tl.evaluated_id = u2.id
@@ -150,6 +154,20 @@
         from todo_list
         where epoch = #{epoch} and operation in (0, 2)
     </select>
+
+
+    <select id="sumCompletedPeople" resultType="int">
+        SELECT COUNT(*) AS notCompletedPeople
+        FROM (
+                 SELECT owner_id
+                 FROM todo_list
+                 WHERE epoch = #{epoch}
+                 GROUP BY owner_id
+                 HAVING COUNT(CASE WHEN operation = 0 THEN 1 END) = 0
+                    AND COUNT(CASE WHEN operation = 1 THEN 1 END) >= 1
+             ) AS subquery
+    </select>
+
 
     <!--根据用户名查询用户方法-->
     <select id="findTodoList" resultMap="TodoList">
@@ -269,7 +287,7 @@
         LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
         <where>
             <!--当前轮次， 分数被确认，操作为已完成评议-->
-            tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1 and (u.id = #{id}
+            tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1 and u.is_delete = 0 and e2.is_delete = 0 and (u.id = #{id}
                                                 or (u.first_admin = #{id} or u.second_admin = #{id} or u.super_admin = #{id}))
             <if test="condition.name != null and condition.name != ''">
                 AND tl.evaluated_name like concat('%',#{condition.name},'%')
@@ -337,7 +355,7 @@
         <where>
             tl.epoch = #{epoch} and tl.enable in (0, 1) and tl.operation in (0, 1, 2)
             <if test="condition.name != null and condition.name != ''">
-                AND tl.evaluator_name like concat('%',#{condition.name},'%')
+                AND u.name like concat('%',#{condition.name},'%')
             </if>
             <if test="condition.department != null and condition.department != ''">
                 AND u.department = #{condition.department}
@@ -453,6 +471,14 @@
           and operation = 1
     </update>
 
+
+    <update id="setFinishedOperationToDeletedInUser">
+        UPDATE todo_list
+        SET operation = #{operation}
+        where  epoch = #{epoch} and (evaluator_id = #{userId} or evaluated_id = #{userId})
+          and operation = 1
+    </update>
+
     <update id="setUnFinishedOperationToDeleted">
         UPDATE todo_list
         SET operation = #{operation}
@@ -489,5 +515,11 @@
     <delete id="DeleteUnFinished" >
         DELETE FROM todo_list
         where epoch = #{epoch} and evaluator_id = #{evaluatorId} and evaluated_id = #{evaluatedId} and operation = #{operation}
+    </delete>
+
+
+    <delete id="DeleteUnFinishedInUser" >
+        DELETE FROM todo_list
+        where epoch = #{epoch} and operation = #{operation} and (evaluator_id = #{userId} or evaluated_id = #{userId})
     </delete>
 </mapper>

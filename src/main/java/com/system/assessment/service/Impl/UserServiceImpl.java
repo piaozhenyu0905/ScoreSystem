@@ -1,11 +1,16 @@
 package com.system.assessment.service.Impl;
 
 import com.github.pagehelper.PageHelper;
+import com.system.assessment.constants.OperationType;
+import com.system.assessment.constants.ProcessType;
+import com.system.assessment.constants.RelationType;
 import com.system.assessment.constants.Role;
 import com.system.assessment.exception.CustomException;
 import com.system.assessment.exception.CustomExceptionType;
 import com.system.assessment.exception.ResponseResult;
+import com.system.assessment.mapper.EvaluateMapper;
 import com.system.assessment.mapper.RelationshipMapper;
+import com.system.assessment.mapper.TodoListMapper;
 import com.system.assessment.mapper.UserMapper;
 import com.system.assessment.pojo.User;
 import com.system.assessment.service.ExcelService;
@@ -40,6 +45,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public ExcelService excelService;
+
+    @Autowired
+    public EvaluateMapper evaluateMapper;
+
+    @Autowired
+    public TodoListMapper todoListMapper;
 
     @Override
     public ArrayList<String> deleteUsers(DeleteUserVO deleteUserVO) {
@@ -273,7 +284,35 @@ public class UserServiceImpl implements UserService {
         }
 
         //1.将跟该用户有关的从关系矩阵中删除
-        relationshipMapper.deleteRelationshipById(userId);
+        Integer newEnableProcess = evaluateMapper.findNewestEnableProcess();
+        if(newEnableProcess == null){
+            newEnableProcess = 1;
+        }
+
+        Integer newEpoch = evaluateMapper.findNewEpoch();
+        if(newEpoch == null){
+            newEpoch = 1;
+        }
+
+        //第一阶段则直接删除关系
+        if(newEnableProcess.equals(ProcessType.BuildRelationships.getCode())){
+           relationshipMapper.clearRelationshipById(userId);
+        }
+        //位于第二阶段，则把跟这个有关的所有代办任务进行删除(无论是否打完了分)
+        else if (newEnableProcess.equals(ProcessType.Evaluation.getCode())){
+            //delete删除关系
+            relationshipMapper.clearRelationshipById(userId);
+            //对于完成了的任务，因为考虑到历史记录，则进行标志位浅删除
+            todoListMapper.setFinishedOperationToDeletedInUser(userId, OperationType.FINISHEDANDDELETED.getCode(),newEpoch);
+            //对于还没有完成的任务，则直接delete删除
+            todoListMapper.DeleteUnFinishedInUser(userId, OperationType.NOTFINISHED.getCode(),newEpoch);
+
+        }
+        //位于第三阶段和第四阶段，则不准进行删除
+        else{
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "当前阶段无法进行用户删除!");
+        }
+
         //2.若该用户是某人的主管或管理员，则删去这种关系
         userMapper.updateSupervisorAndAdmin(userId);
         //3.若该用户时某人的HRBP，则删除这种关系

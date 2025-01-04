@@ -8,7 +8,11 @@ public class RelationshipCheckVO {
 
     public String evaluatedName;
 
+    public String evaluatedWorkNum;
+
     public String evaluatorName;
+
+    public String evaluatorWorkNum;
 
     public Integer evaluatedId;
 

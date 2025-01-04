@@ -128,6 +128,9 @@ public interface UserMapper {
     @Select("select name from user where id = #{id}")
     public String findNameByUserId(@Param("id") Integer id);
 
+    @Select("select work_num from user where id = #{id}")
+    public String findWorkNumById(@Param("id") Integer id);
+
     @Select("select direct_supervisor from user where id = #{id}")
     public Integer findDirectSupervisorById(@Param("id") Integer id);
 

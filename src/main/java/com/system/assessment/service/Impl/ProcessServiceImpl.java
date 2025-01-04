@@ -128,6 +128,10 @@ public class ProcessServiceImpl implements ProcessService {
             }
             String evaluatedName = relationship.getEvaluatedName();
             String evaluatorName = relationship.getEvaluatorName();
+            String evaluatedWorkNum = relationship.getEvaluatedWorkNum();
+            String evaluatorWorkNum = relationship.getEvaluatorWorkNum();
+
+
             TodoList todoList = new TodoList();
             todoList.setType(TaskType.SurroundingEvaluation.getDescription());
             todoList.setPresentDate(LocalDateTime.now());
@@ -137,12 +141,12 @@ public class ProcessServiceImpl implements ProcessService {
             todoList.setCompleteTime(null);
             todoList.setEvaluatorId(evaluatorId);
             todoList.setEvaluatedId(evaluatedId);
-            todoList.setEvaluatorName(evaluatorName);
-            todoList.setEvaluatedName(evaluatedName);
+            todoList.setEvaluatorName(evaluatorName + "/" + evaluatorWorkNum);
+            todoList.setEvaluatedName(evaluatedName + "/" + evaluatedWorkNum);
             todoList.setEnable(0); //分数设置待确认状态
             todoList.setEpoch(newEpoch);
             todoList.setConfidenceLevel(1.0);
-            String Detail = "请完成对" + evaluatedName + "的周边评议";
+            String Detail = "请完成对" + evaluatedName + "/" + evaluatedWorkNum + "的周边评议";
             todoList.setDetail(Detail);
             todoListMapper.addTodoList(todoList);
             if(!map.containsKey(evaluatorId)){

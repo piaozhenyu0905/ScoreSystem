@@ -25,10 +25,17 @@ public interface TodoListMapper {
 
     public Integer sumNotCompletedPeople(@Param("epoch")Integer epoch);
 
+    public Integer sumCompletedPeople(@Param("epoch")Integer epoch);
+
     public Integer setFinishedOperationToDeleted(@Param("evaluatorId")Integer evaluatorId,
                                          @Param("evaluatedId")Integer evaluatedId,
                                          @Param("operation")Integer operation,
                                          @Param("epoch")Integer epoch);
+
+    public Integer setFinishedOperationToDeletedInUser(@Param("userId")Integer userId,
+                                                 @Param("operation")Integer operation,
+                                                 @Param("epoch")Integer epoch);
+
 
     public Integer setUnFinishedOperationToDeleted(@Param("evaluatorId")Integer evaluatorId,
                                                  @Param("evaluatedId")Integer evaluatedId,
@@ -39,6 +46,11 @@ public interface TodoListMapper {
                                                    @Param("evaluatedId")Integer evaluatedId,
                                                    @Param("operation")Integer operation,
                                                    @Param("epoch")Integer epoch);
+
+    public Integer DeleteUnFinishedInUser(@Param("userId")Integer userId,
+                                    @Param("operation")Integer operation,
+                                    @Param("epoch")Integer epoch);
+
 
 
     public Integer enableTaskById(@Param("epoch")Integer epoch,

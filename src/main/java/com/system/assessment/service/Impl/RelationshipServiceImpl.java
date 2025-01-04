@@ -463,13 +463,15 @@ public class RelationshipServiceImpl implements RelationshipService {
         todoList.setEvaluatorId(evaluatorId);
         todoList.setEvaluatedId(evaluatedId);
         String evaluatedName = userMapper.findNameByUserId(evaluatedId);
+        String evaluatedWorkNum = userMapper.findWorkNumById(evaluatedId);
         String evaluatorName = userMapper.findNameByUserId(evaluatorId);
-        todoList.setEvaluatorName(evaluatorName);
-        todoList.setEvaluatedName(evaluatedName);
+        String  evaluatorWorkNum = userMapper.findWorkNumById(evaluatorId);
+        todoList.setEvaluatorName(evaluatorName + "/" +evaluatorWorkNum);
+        todoList.setEvaluatedName(evaluatedName + "/" +evaluatedWorkNum);
         todoList.setEnable(0); //分数设置待确认状态
         todoList.setEpoch(epoch);
         todoList.setConfidenceLevel(1.0);
-        String Detail = "请完成对" + evaluatedName + "的周边评议";
+        String Detail = "请完成对" + evaluatedName + "/" +evaluatedWorkNum + "的周边评议";
         todoList.setDetail(Detail);
         todoListMapper.addTodoList(todoList);
         return 1;

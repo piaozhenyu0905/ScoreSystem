@@ -1,10 +1,13 @@
 package com.system.assessment.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.system.assessment.constants.ProcessType;
 import com.system.assessment.constants.Role;
 import com.system.assessment.exception.CustomExceptionType;
 import com.system.assessment.exception.ResponseResult;
+import com.system.assessment.mapper.EvaluateMapper;
 import com.system.assessment.pojo.User;
+import com.system.assessment.service.EvaluateService;
 import com.system.assessment.service.UserService;
 import com.system.assessment.utils.AuthenticationUtil;
 import com.system.assessment.vo.*;
@@ -40,6 +43,10 @@ public class UserController {
 
     @Autowired
     public UserService userService;
+
+    @Autowired
+    public EvaluateService evaluateService;
+
 
     @ApiOperation("用户管理-查看个人信息")
     @RequestMapping(value = "/basicInfo",method = RequestMethod.GET)

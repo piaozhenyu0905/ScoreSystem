@@ -39,7 +39,8 @@ public interface RelationshipMapper {
 
     public Integer deleteRelationshipById(@Param("id")Integer userId);
 
-    public List<RelationshipCheckVO> findRelationshipById(@Param("id")Integer userId);
+    public Integer clearRelationshipById(@Param("id")Integer userId);
+
 
     public Integer deleteEvaluationMatrix(@Param("userId")Integer userId,
                                           @Param("evaluatorId")Integer evaluatorId,

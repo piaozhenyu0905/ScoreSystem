@@ -27,8 +27,6 @@ public interface ScoringBoardService {
 
     public DataListResult getAverageScoreBoard(GetScoreConditionalVO getScoreConditionalVO);
 
-    public Integer reject(Integer userId);
-
     public Integer reject(RejectVO rejectVO);
 
     public Integer confidenceLevel(confidenceLevelVO confidenceLevelVO);
