@@ -83,6 +83,7 @@
     <resultMap id="NotCompletedSet" type="com.system.assessment.vo.NotCompletedSet">
         <result column="id" property="hrId"/>
         <result column="email" property="hrEmail"/>
+        <result column="hrName" property="hrName"/>
         <collection property="evaluators" ofType="com.system.assessment.vo.EmailVO">
             <result column="EvId" property="id" />
             <result column="Evmail" property="email" />
@@ -122,7 +123,7 @@
     </resultMap>
 
     <select id="findAllNotCompleted" resultMap="NotCompletedSet">
-        select   tl.owner_id as EvId, u.email as Evmail, u1.id, u1.email,
+        select   tl.owner_id as EvId, u.email as Evmail, u1.id, u1.email, u1.name as hrName,
                  CONCAT(u.name, '/', u.work_num) as name
         from todo_list as tl
         left join user as u on tl.owner_id = u.id

@@ -123,13 +123,13 @@ public class AsyncTask  {
                 EmailVO emailVO = evaluators.get(idx);
                 evaluatorName.add(emailVO.getName());
                 String email = emailVO.getEmail();
-                String content = "请您尽快前往成长评估系统进行评分";
-                String subject = "评分提醒!";
+                String content = "尊敬的"+emailVO.getName()+"，您好！"+"请您尽快前往成长评估系统进行评分";
+                String subject = "评分提醒！";
                 emailService.sendMessageHTML(email, subject, content);
             }
             //给hrbp发未完成打分的人的提醒
-            String content = String.join("," ,evaluatorName) + "未完成打分任务!请您尽快督促他们完成打分任务!";
-            String subject = "督促用户评分提醒!";
+            String content = "尊敬的" +notCompletedSet.getHrName() +"，您好！" +  String.join("，" ,evaluatorName) + "未完成打分任务！请您尽快督促他们完成打分任务！";
+            String subject = "督促用户评分提醒！";
             emailService.sendMessageHTML(hrEmail, subject, content);
         }
 

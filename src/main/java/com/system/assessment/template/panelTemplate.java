@@ -37,7 +37,7 @@ public class panelTemplate {
         return String.format(
                 "<html>" +
                         "<body style=\"font-family: Arial, sans-serif;\">" +
-                        "<h2 style=\"color: #333; text-align: center;\">%s</h2>" +
+                        "<h2 style=\"color: #333; text-align: center;\">%s 个人成长报告</h2>" +
                         "<p><strong>尊敬的 %s:</strong></p>" +
                         "<p style=\"text-indent: 2em;\" >您好!</p>" +
                         "<p style=\"text-indent: 2em;\" >%s</p>" +

@@ -3,8 +3,10 @@ package com.system.assessment.service.Impl;
 import com.system.assessment.constants.Guideline;
 import com.system.assessment.constants.OperationType;
 import com.system.assessment.constants.ProcessType;
+import com.system.assessment.constants.Role;
 import com.system.assessment.exception.CustomException;
 import com.system.assessment.exception.CustomExceptionType;
+import com.system.assessment.exception.ResponseResult;
 import com.system.assessment.mapper.EvaluateMapper;
 import com.system.assessment.mapper.RelationshipMapper;
 import com.system.assessment.mapper.TodoListMapper;
@@ -13,6 +15,7 @@ import com.system.assessment.pojo.EvaluateProcess;
 import com.system.assessment.pojo.EvaluateTable;
 import com.system.assessment.pojo.Score;
 import com.system.assessment.service.EvaluateService;
+import com.system.assessment.service.UserService;
 import com.system.assessment.utils.AuthenticationUtil;
 import com.system.assessment.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +41,9 @@ public class EvaluateServiceImpl implements EvaluateService {
 
     @Autowired
     public UserMapper userMapper;
+
+    @Autowired
+    public UserService userService;
 
     @Override
     public Integer setVisible() {
@@ -105,6 +111,13 @@ public class EvaluateServiceImpl implements EvaluateService {
         Integer newEpoch = evaluateMapper.findNewEpoch();
 
         if(processStepVO.getIsNew()){
+
+            Integer role = userService.findRole(AuthenticationUtil.getUserId());
+            if(!role.equals(Role.superAdmin.getCode())){
+                //修改的是自己的权限，则不允许
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR,"只有超级管理员能够发布或修改评估节点!");
+            }
+
             //1.先将之前的环节的enable设置为0
             evaluateMapper.setEnableBefore(0);
             //2.删除自主评估人

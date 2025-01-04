@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkscoring_system_front"]=self["webpackChunkscoring_system_front"]||[]).push([[334,926],{6009:function(e,n,r){r.r(n),r.d(n,{default:function(){return a}});var s=r(5115),t=r(9675),u=r(9119),c={__name:"PersonalScoreAd",setup(e){return(e,n)=>((0,s.uX)(),(0,s.Wv)((0,t.R1)(u["default"])))}};const o=c;var a=o}}]);
+//# sourceMappingURL=334.4d71e01e.js.map

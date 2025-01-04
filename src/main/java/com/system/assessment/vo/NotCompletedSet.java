@@ -11,4 +11,6 @@ public class NotCompletedSet {
     public Integer hrId; //本人所属的hrId
 
     public String hrEmail;
+
+    public String hrName;
 }

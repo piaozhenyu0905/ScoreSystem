@@ -462,18 +462,20 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         Integer hrId = userMapper.findHrById(taskEvaluateInfo.getEvaluatorId());
         if(hrId != null && hrId != 0){
             String hrEmail = userMapper.findEmailById(hrId);
+            String hrName = userMapper.findNameByUserId(hrId);
             if(hrEmail != null && !hrEmail.equals("")){
                 String name = taskEvaluateInfo.getEvaluatorName();
                 String subject = "【驳回提醒】"+name+ "的打分已被驳回!";
-                String content = "你好！" + name + "在本轮的评估打分已被管理员驳回" + "。驳回理由:<"+reason +">。请您及时跟进其打分进度!";
+                String content = "尊敬的" + hrName + "，您好！" + name + "在本轮的评估打分已被管理员驳回" + "。驳回理由:<"+reason +">。请您及时跟进其打分进度！";
                 noticeReject(hrEmail, content, subject);
             }
         }
         // 4.邮件提醒评估人
         String email = userMapper.findEmailById(taskEvaluateInfo.getEvaluatorId());
+        String name = userMapper.findNameByUserId(taskEvaluateInfo.getEvaluatorId());
         if(email != null && !email.equals("")){
             String subject = "成长评估打分驳回提醒!";
-            String content = "你好！您在本轮的评估打分已被管理员驳回。"+ "驳回理由:<"+reason +">。请您重新完成打分任务！";
+            String content = "尊敬的" + name + "，您好！您在本轮的评估打分已被管理员驳回。"+ "驳回理由:<" + reason +">。请您重新完成打分任务！";
             noticeReject(email, content, subject);
         }
 
