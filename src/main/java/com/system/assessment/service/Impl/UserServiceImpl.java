@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<String> uploadFile(MultipartFile file) {
+    public Set<String> uploadFile(MultipartFile file) {
         try {
             // 解析 Excel 文件
             Workbook workbook = new XSSFWorkbook(file.getInputStream());
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
             }
 
             List<SupervisorVO> supervisorList = new ArrayList<>();
-            List<String> errorList = new ArrayList<>();
+            Set<String> errorList = new HashSet<>();
 
             // 假设第一行为表头，跳过第一行
             for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -154,101 +154,136 @@ public class UserServiceImpl implements UserService {
             //进行主管id的导设置
             for (int index = 0; index < supervisorList.size(); index++ ){
                 SupervisorVO supervisorVO = supervisorList.get(index);
-                Integer id = supervisorVO.getId();
-
-                String supervisorName1 = supervisorVO.getSupervisorName1();
-                String supervisorName2 = supervisorVO.getSupervisorName2();
-                String supervisorName3 = supervisorVO.getSupervisorName3();
-                String hrName = supervisorVO.getHrName();
-                String firstAdminName = supervisorVO.getFirstAdminName();
-                String secondAdminName = supervisorVO.getSecondAdminName();
-                String superAdminName = supervisorVO.getSuperAdminName();
-
-                String supervisorWorkNum1 = supervisorVO.getSupervisorWorkNum1();
-                String supervisorWorkNum2 = supervisorVO.getSupervisorWorkNum2();
-                String supervisorWorkNum3 = supervisorVO.getSupervisorWorkNum3();
-                String hrWorkNum = supervisorVO.getHrWorkNum();
-                String firstAdminWorkNum = supervisorVO.getFirstAdminWorkNum();
-                String secondAdminWorkNum = supervisorVO.getSecondAdminWorkNum();
-                String superAdminWorkNum = supervisorVO.getSuperAdminWorkNum();
-
-                Integer supervisorNum = 0;
-
-                Integer supervisor1 = userMapper.findIdByNameAndWorkNum(supervisorName1, supervisorWorkNum1);
-                if(supervisor1 != null && supervisor1 != 0){
-                    if(!id.equals(supervisor1)){
-                        supervisorNum = supervisorNum + 1;
-                        userMapper.updateSupervisor1ById(id, supervisor1);
-                    }
+                String name = supervisorVO.getName();
+                try {
+                    excelService.addOtherInfo(supervisorVO);
+                }catch (Exception e){
+                    log.error(name + "导入失败!");
+                    errorList.add(name);
                 }
-
-                Integer supervisor2 = userMapper.findIdByNameAndWorkNum(supervisorName2, supervisorWorkNum2);
-                if(supervisor2 != null && supervisor2 != 0){
-                    if(!id.equals(supervisor2)){
-                        supervisorNum = supervisorNum + 1;
-                        userMapper.updateSupervisor2ById(id, supervisor2);
-                    }
-
-                }
-
-                Integer supervisor3 = userMapper.findIdByNameAndWorkNum(supervisorName3, supervisorWorkNum3);
-                if(supervisor3 != null && supervisor3 != 0){
-                    if(!id.equals(supervisor3)){
-                        supervisorNum = supervisorNum + 1;
-                        userMapper.updateSupervisor3ById(id, supervisor3);
-                    }
-                }
-
-                //设置权重系数
-                Double weight = supervisorNum == 0 ? 0.0 : 0.9/ supervisorNum;
-
-                if(supervisor1 != null && supervisor1 != 0){
-                    if(!id.equals(supervisor1)){
-                        userMapper.setWeight1(id, weight);
-                    }
-                }
-
-                if(supervisor2 != null && supervisor2 != 0){
-                    if(!id.equals(supervisor2)){
-                        userMapper.setWeight2(id, weight);
-                    }
-                }
-
-                if(supervisor3 != null && supervisor3 != 0){
-                    if(!id.equals(supervisor3)){
-                        userMapper.setWeight3(id, weight);
-                    }
-                }
-
-
-                Integer hr = userMapper.findIdByNameAndWorkNum(hrName, hrWorkNum);
-                if(hr != null && hr != 0){
-                    if(!id.equals(hr)){
-                        userMapper.updateHrById(id, hr);
-                    }
-                }
-
-                Integer firstAdmin = userMapper.findIdByNameAndWorkNum(firstAdminName, firstAdminWorkNum);
-                if(firstAdmin != null && firstAdmin != 0){
-                    if(!id.equals(firstAdmin)){
-                        userMapper.updateFirstAdminById(id, firstAdmin);
-                    }
-                }
-
-                Integer secondAdmin = userMapper.findIdByNameAndWorkNum(secondAdminName, secondAdminWorkNum);
-                if(secondAdmin != null && secondAdmin != 0){
-                    if(!id.equals(secondAdmin)){
-                        userMapper.updateSecondAdminById(id, secondAdmin);
-                    }
-                }
-
-                Integer superAdmin = userMapper.findIdByNameAndWorkNum(superAdminName, superAdminWorkNum);
-                if(superAdmin != null && superAdmin != 0){
-                    if(!id.equals(superAdmin)){
-                        userMapper.updateSuperAdminById(id, superAdmin);
-                    }
-
-                }
+//                SupervisorVO supervisorVO = supervisorList.get(index);
+//                Integer id = supervisorVO.getId();
+//                String name = supervisorVO.getName();
+//
+//                String supervisorName1 = supervisorVO.getSupervisorName1();
+//                String supervisorName2 = supervisorVO.getSupervisorName2();
+//                String supervisorName3 = supervisorVO.getSupervisorName3();
+//                String hrName = supervisorVO.getHrName();
+//                String firstAdminName = supervisorVO.getFirstAdminName();
+//                String secondAdminName = supervisorVO.getSecondAdminName();
+//                String superAdminName = supervisorVO.getSuperAdminName();
+//
+//                String supervisorWorkNum1 = supervisorVO.getSupervisorWorkNum1();
+//                String supervisorWorkNum2 = supervisorVO.getSupervisorWorkNum2();
+//                String supervisorWorkNum3 = supervisorVO.getSupervisorWorkNum3();
+//                String hrWorkNum = supervisorVO.getHrWorkNum();
+//                String firstAdminWorkNum = supervisorVO.getFirstAdminWorkNum();
+//                String secondAdminWorkNum = supervisorVO.getSecondAdminWorkNum();
+//                String superAdminWorkNum = supervisorVO.getSuperAdminWorkNum();
+//
+//                Integer supervisorNum = 0;
+//
+//                Integer supervisor1 = userMapper.findIdByNameAndWorkNum(supervisorName1, supervisorWorkNum1);
+//                if(supervisor1 != null && supervisor1 != 0){
+//                    if(id.equals(supervisor1)){
+//                        errorList.add(name);
+//                        continue;
+//                    }
+//                    supervisorNum = supervisorNum + 1;
+//                    userMapper.updateSupervisor1ById(id, supervisor1);
+//
+//                }
+//
+//                Integer supervisor2 = userMapper.findIdByNameAndWorkNum(supervisorName2, supervisorWorkNum2);
+//                if(supervisor2 != null && supervisor2 != 0){
+//                    if(id.equals(supervisor2)){
+//                        errorList.add(name);
+//                        continue;
+//                    }
+//                    supervisorNum = supervisorNum + 1;
+//                    userMapper.updateSupervisor2ById(id, supervisor2);
+//
+//                }
+//
+//                Integer supervisor3 = userMapper.findIdByNameAndWorkNum(supervisorName3, supervisorWorkNum3);
+//                if(supervisor3 != null && supervisor3 != 0){
+//                    if(id.equals(supervisor3)){
+//                        errorList.add(name);
+//                        continue;
+//                    }
+//                    supervisorNum = supervisorNum + 1;
+//                    userMapper.updateSupervisor3ById(id, supervisor3);
+//
+//                }
+//
+//                //设置权重系数
+//                Double weight = supervisorNum == 0 ? 0.0 : 0.9/ supervisorNum;
+//
+//                if(supervisor1 != null && supervisor1 != 0){
+//                    if(id.equals(supervisor1)){
+//                        errorList.add(name);
+//                        continue;
+//                    }
+//                    userMapper.setWeight1(id, weight);
+//                }
+//
+//                if(supervisor2 != null && supervisor2 != 0){
+//                    if(id.equals(supervisor2){
+//                        errorList.add(name);
+//                        continue;
+//                    }
+//                    userMapper.setWeight2(id, weight);
+//                }
+//
+//                if(supervisor3 != null && supervisor3 != 0){
+//                    if(id.equals(supervisor3)){
+//                        errorList.add(name);
+//                        continue;
+//                    }
+//                    userMapper.setWeight3(id, weight);
+//                }
+//
+//
+//                Integer hr = userMapper.findIdByNameAndWorkNum(hrName, hrWorkNum);
+//                if(hr != null && hr != 0){
+//                    if(id.equals(hr)){
+//                        errorList.add(name);
+//                        continue;
+//                    }
+//                    userMapper.updateHrById(id, hr);
+//                }
+//
+//                Integer firstAdmin = userMapper.findIdByNameAndWorkNum(firstAdminName, firstAdminWorkNum);
+//                if(firstAdmin != null && firstAdmin != 0){
+//                    Integer firstAdminRole = userMapper.findRole(firstAdmin);
+//                    if(id.equals(firstAdmin) || !firstAdminRole.equals(1)){
+//                        errorList.add(name);
+//                        continue;
+//                    }
+//                    userMapper.updateFirstAdminById(id, firstAdmin);
+//
+//                }
+//
+//                Integer secondAdmin = userMapper.findIdByNameAndWorkNum(secondAdminName, secondAdminWorkNum);
+//                if(secondAdmin != null && secondAdmin != 0){
+//                    Integer secondAdminRole = userMapper.findRole(secondAdmin);
+//                    if(id.equals(secondAdmin) || !secondAdminRole.equals(2)){
+//                        errorList.add(name);
+//                        continue;
+//                    }
+//                    userMapper.updateSecondAdminById(id, secondAdmin);
+//                }
+//
+//                Integer superAdmin = userMapper.findIdByNameAndWorkNum(superAdminName, superAdminWorkNum);
+//                if(superAdmin != null && superAdmin != 0){
+//                    Integer superAdminRole = userMapper.findRole(superAdmin);
+//                    if(id.equals(superAdmin) || !superAdminRole.equals(3)){
+//                        errorList.add(name);
+//                        continue;
+//                    }
+//                    userMapper.updateSuperAdminById(id, superAdmin);
+//
+//                }
 
             }
 

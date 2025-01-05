@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 public interface UserService {
@@ -20,7 +21,7 @@ public interface UserService {
 
     public Integer findRole(Integer id);
 
-    public List<String> uploadFile(MultipartFile file);
+    public Set<String> uploadFile(MultipartFile file);
 
     public List<String> findDepartment();
 

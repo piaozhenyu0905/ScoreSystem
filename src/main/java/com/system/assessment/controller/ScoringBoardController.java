@@ -190,6 +190,26 @@ public class ScoringBoardController {
         return ResponseResult.success(averageScoreBoardByCondition);
     }
 
+    @ApiOperation("得分看板-查询群体平均分")
+    @RequestMapping(value = "/getBoard/conditionAll",method = RequestMethod.GET)
+    public ResponseResult getAverageScoreBoardAll(@RequestParam("condition") String condition){
+        Integer newEnableProcess = evaluateService.findNewEnableProcess();
+        if(newEnableProcess == null){
+            newEnableProcess = 0;
+        }
+        if(!newEnableProcess.equals(ProcessType.ResultConsultation.getCode())
+                && !newEnableProcess.equals(ProcessType.ResultPublic.getCode())){
+            return ResponseResult.success();
+        }
+        if(!isVisible()){
+            return ResponseResult.success();
+        }
+
+        GroupAverageVO groupAverageVO = scoringBoardService.getAverageScoreBoardAll(condition);
+        return ResponseResult.success(groupAverageVO);
+    }
+
+
     @ApiOperation("得分看板-根据维度条件查询-修改平均分系数")
     @RequestMapping(value = "/getBoard/update",method = RequestMethod.POST)
     public ResponseResult updateAverageScoreBoardByCondition(@RequestBody UpdateAverageScoreByConditionalVO getScoreConditionalVO){

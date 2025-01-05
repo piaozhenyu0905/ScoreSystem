@@ -324,6 +324,46 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
     };
 
     @Override
+    public GroupAverageVO getAverageScoreBoardAll(String condition) {
+        GroupAverageVO groupAverage = new GroupAverageVO();
+        ArrayList<AverageScoreByCondition> dataList = new ArrayList<>();
+
+        if(condition.equals("业务")){
+            GetByStyleCondition RandD = new GetByStyleCondition(); //研发
+            RandD.setCondition("业务");
+            RandD.setContent(0);
+            AverageScoreByCondition RandDResult = getAverageScoreBoardByCondition(RandD);
+            dataList.add(RandDResult);
+
+            GetByStyleCondition NonRandD = new GetByStyleCondition(); //研发
+            NonRandD.setCondition("业务");
+            NonRandD.setContent(1);
+            AverageScoreByCondition NonRandDResult = getAverageScoreBoardByCondition(NonRandD);
+            dataList.add(NonRandDResult);
+        }else {
+            GetByStyleCondition LGroup = new GetByStyleCondition(); //L
+            LGroup.setCondition("lxyz");
+            LGroup.setContent(0);
+            AverageScoreByCondition LGroupResult = getAverageScoreBoardByCondition(LGroup);
+            dataList.add(LGroupResult);
+
+            GetByStyleCondition XandYGroup = new GetByStyleCondition(); //X+Y
+            XandYGroup.setCondition("lxyz");
+            XandYGroup.setContent(1);
+            AverageScoreByCondition XandYGroupResult = getAverageScoreBoardByCondition(XandYGroup);
+            dataList.add(XandYGroupResult);
+
+            GetByStyleCondition ZGroup = new GetByStyleCondition(); //Z
+            ZGroup.setCondition("lxyz");
+            ZGroup.setContent(2);
+            AverageScoreByCondition ZGroupResult = getAverageScoreBoardByCondition(ZGroup);
+            dataList.add(ZGroupResult);
+        }
+        groupAverage.setDataList(dataList);
+        return groupAverage;
+    }
+
+    @Override
     @Transactional
     public void assessorConfidenceLevel(AssessorConfidenceLevelVO assessorConfidenceLevelVO) {
         Integer newEpoch = evaluateMapper.findNewEpoch();

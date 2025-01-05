@@ -30,10 +30,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")  // 统一为所有方法设置路径前缀
@@ -211,13 +208,13 @@ public class UserController {
         if (file.isEmpty()) {
             return ResponseResult.error(401, "该文件为空");
         }
-        List<String> errorList = userService.uploadFile(file);
+        Set<String> errorList = userService.uploadFile(file);
         if(errorList == null){
             return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "用户信息表导入错误!");
         }else if(errorList.size() == 0){
             return ResponseResult.success();
         }else {
-            String error = String.join(",", errorList) + "导入失败!";
+            String error = String.join("，", errorList) + "的部分信息导入失败!";
             return ResponseResult.error(401, error);
         }
     }

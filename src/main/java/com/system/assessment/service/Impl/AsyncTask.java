@@ -138,19 +138,13 @@ public class AsyncTask  {
 
     public void sendEmailToEvaluator(Integer epoch, Map<Integer, String> map){
 
-        LocalDate endDate = evaluateMapper.findEndDate(epoch);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日");
-
-        // 格式化LocalDate为String
-        String deadline = endDate.format(formatter);
-
         List<String> emails = new ArrayList();
         for (Integer evalutorId : map.keySet()) {
             emails.add(map.get(evalutorId));
         }
         String subject = "评估关系矩阵发布";
-        String content = "你好！本轮评估关系矩阵已发布，周边评议环节已经开始, 请您尽快前往成长评估系统进行周边评议!";
+
+        String content = panelTemplate.htmlRelationshipPublic( "http://10.16.56.39");
         sendManyMessage(emails, subject, content);
     }
 
@@ -158,7 +152,7 @@ public class AsyncTask  {
     public void sendManyMessage(List<String> recipients, String subject, String content) {
         for (int index = 0; index < recipients.size(); index++){
             String to = recipients.get(index);
-            emailService.sendMessage(to, subject, content);
+            emailService.sendMessageHTML(to, subject, content);
             try {
                 Thread.sleep(1000);
             }catch (Exception e){

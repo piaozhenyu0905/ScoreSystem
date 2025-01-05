@@ -75,6 +75,157 @@ public class ExcelServiceImpl implements ExcelService {
 
     @Override
     @Transactional
+    public void addOtherInfo(SupervisorVO supervisorVO) {
+        Integer id = supervisorVO.getId();
+        String supervisorName1 = supervisorVO.getSupervisorName1();
+        String supervisorName2 = supervisorVO.getSupervisorName2();
+        String supervisorName3 = supervisorVO.getSupervisorName3();
+        String hrName = supervisorVO.getHrName();
+        String firstAdminName = supervisorVO.getFirstAdminName();
+        String secondAdminName = supervisorVO.getSecondAdminName();
+        String superAdminName = supervisorVO.getSuperAdminName();
+
+        String supervisorWorkNum1 = supervisorVO.getSupervisorWorkNum1();
+        String supervisorWorkNum2 = supervisorVO.getSupervisorWorkNum2();
+        String supervisorWorkNum3 = supervisorVO.getSupervisorWorkNum3();
+        String hrWorkNum = supervisorVO.getHrWorkNum();
+        String firstAdminWorkNum = supervisorVO.getFirstAdminWorkNum();
+        String secondAdminWorkNum = supervisorVO.getSecondAdminWorkNum();
+        String superAdminWorkNum = supervisorVO.getSuperAdminWorkNum();
+
+        Integer supervisorNum = 0;
+
+        if(supervisorName1 != null && !supervisorName1.equals("") && supervisorWorkNum1 != null && !supervisorWorkNum1.equals("")){
+            Integer supervisor1 = userMapper.findIdByNameAndWorkNum(supervisorName1, supervisorWorkNum1);
+            if(supervisor1 != null && supervisor1 != 0){
+                if(id.equals(supervisor1)){
+                    throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管1设置错误");
+                }
+                supervisorNum = supervisorNum + 1;
+                userMapper.updateSupervisor1ById(id, supervisor1);
+            }else {
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管1设置错误");
+            }
+        }
+
+
+        if(supervisorName2 != null && !supervisorName2.equals("") && supervisorWorkNum2 != null && !supervisorWorkNum2.equals("")){
+            Integer supervisor2 = userMapper.findIdByNameAndWorkNum(supervisorName2, supervisorWorkNum2);
+            if(supervisor2 != null && supervisor2 != 0){
+                if(id.equals(supervisor2)){
+                    throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管2设置错误");
+                }
+                supervisorNum = supervisorNum + 1;
+                userMapper.updateSupervisor2ById(id, supervisor2);
+            }else {
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管2设置错误");
+            }
+        }
+
+        if(supervisorName3 != null && !supervisorName3.equals("") && supervisorWorkNum3 != null && !supervisorWorkNum3.equals("")){
+            Integer supervisor3 = userMapper.findIdByNameAndWorkNum(supervisorName3, supervisorWorkNum3);
+            if(supervisor3 != null && supervisor3 != 0){
+                if(id.equals(supervisor3)){
+                    throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管3设置错误");
+                }
+                supervisorNum = supervisorNum + 1;
+                userMapper.updateSupervisor3ById(id, supervisor3);
+            }else {
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管3设置错误");
+            }
+        }
+
+
+
+        //设置权重系数
+        Double weight = supervisorNum == 0 ? 0.0 : 0.9/ supervisorNum;
+
+        if(supervisorName1 != null && !supervisorName1.equals("") && supervisorWorkNum1 != null && !supervisorWorkNum1.equals("")){
+            Integer supervisor1 = userMapper.findIdByNameAndWorkNum(supervisorName1, supervisorWorkNum1);
+            if(supervisor1 != null && supervisor1 != 0){
+                userMapper.setWeight1(id, weight);
+            }else {
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "权重1设置错误");
+            }
+        }
+
+        if(supervisorName2 != null && !supervisorName2.equals("") && supervisorWorkNum2 != null && !supervisorWorkNum2.equals("")){
+            Integer supervisor2 = userMapper.findIdByNameAndWorkNum(supervisorName2, supervisorWorkNum2);
+            if(supervisor2 != null && supervisor2 != 0){
+                userMapper.setWeight2(id, weight);
+            }else {
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "权重2设置错误");
+            }
+        }
+
+
+        if(supervisorName3 != null && !supervisorName3.equals("") && supervisorWorkNum3 != null && !supervisorWorkNum3.equals("")){
+            Integer supervisor3 = userMapper.findIdByNameAndWorkNum(supervisorName3, supervisorWorkNum3);
+            if(supervisor3 != null && supervisor3 != 0){
+                userMapper.setWeight3(id, weight);
+            }else {
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "权重3设置错误");
+            }
+        }
+
+
+
+        if(hrName != null && !hrName.equals("") && hrWorkNum != null && !hrWorkNum.equals("")){
+            Integer hr = userMapper.findIdByNameAndWorkNum(hrName, hrWorkNum);
+            if(hr != null && hr != 0){
+                if(id.equals(hr)){
+                    throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "HRBP设置错误");
+                }
+                userMapper.updateHrById(id, hr);
+            }else {
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "HRBP设置错误");
+            }
+        }
+
+        if(firstAdminName != null && !firstAdminName.equals("") && firstAdminWorkNum != null && !firstAdminWorkNum.equals("")){
+            Integer firstAdmin = userMapper.findIdByNameAndWorkNum(firstAdminName, firstAdminWorkNum);
+            if(firstAdmin != null && firstAdmin != 0){
+                Integer firstAdminRole = userMapper.findRole(firstAdmin);
+                if(id.equals(firstAdminRole) || !firstAdminRole.equals(1)){
+                    throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "一级管理员设置错误");
+                }
+                userMapper.updateFirstAdminById(id, firstAdmin);
+            }else {
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "一级管理员设置错误");
+            }
+        }
+
+        if(secondAdminName != null && !secondAdminName.equals("") && secondAdminWorkNum != null && !secondAdminWorkNum.equals("")){
+            Integer secondAdmin = userMapper.findIdByNameAndWorkNum(secondAdminName, secondAdminWorkNum);
+            if(secondAdmin != null && secondAdmin != 0){
+                Integer secondAdminRole = userMapper.findRole(secondAdmin);
+                if(id.equals(secondAdminRole) || !secondAdminRole.equals(2)){
+                    throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "二级管理员设置错误");
+                }
+                userMapper.updateSecondAdminById(id, secondAdmin);
+            }else {
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "二级管理员设置错误");
+            }
+        }
+
+        if(superAdminName != null && !superAdminName.equals("") && superAdminWorkNum != null && !superAdminWorkNum.equals("")){
+            Integer superAdmin = userMapper.findIdByNameAndWorkNum(superAdminName, superAdminWorkNum);
+            if(superAdmin != null && superAdmin != 0){
+                Integer superAdminRole = userMapper.findRole(superAdmin);
+                if(id.equals(superAdmin) || !superAdminRole.equals(3)){
+                    throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "超级管理员设置错误");
+                }
+                userMapper.updateSuperAdminById(id, superAdmin);
+            }else {
+                throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "超级管理员设置错误");
+            }
+        }
+
+
+    }
+
+    @Override
+    @Transactional
     public void addUserExcel(Row row, Map<String, Integer> columnIndexMap, List<SupervisorVO> supervisorList) {
         User user = new User();
         // 根据列名获取对应列的值，去掉前后空格

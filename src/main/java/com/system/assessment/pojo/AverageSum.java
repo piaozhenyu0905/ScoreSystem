@@ -2,6 +2,7 @@ package com.system.assessment.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.system.assessment.constants.Guideline;
+import com.system.assessment.utils.MathUtils;
 import com.system.assessment.vo.ScoreVO;
 import lombok.Data;
 
@@ -52,7 +53,7 @@ public class AverageSum {
         averageList.forEach(scoreVO -> {
             Integer dimensionId = scoreVO.getDimensionId();
             Double score = scoreVO.getScore();
-            scoreList.set(dimensionId - 1, score * weight);
+            scoreList.set(dimensionId - 1, MathUtils.transformer(score * weight));
         });
     }
 }

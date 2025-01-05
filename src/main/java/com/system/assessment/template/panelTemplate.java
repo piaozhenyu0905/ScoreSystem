@@ -2,6 +2,17 @@ package com.system.assessment.template;
 
 public class panelTemplate {
 
+    //关系发布
+    public static String htmlRelationshipPublic(String url){
+        return String.format(
+                "<html>" +
+                        "<body style=\"font-family: Arial, sans-serif;\">" +
+                        "<p>您好！本轮评估关系矩阵已发布，周边评议环节已经开始, 请您尽快前往成长评估系统进行周边评议!<a href=\"" + url + "\">成长评估系统</a></p>" +
+                        "</body>" +
+                        "</html>",
+                url);
+    };
+
     public static String htmlTemplateTest(String name){
         return String.format(
                 "<html>" +

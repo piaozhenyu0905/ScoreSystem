@@ -284,10 +284,25 @@ public class RelationshipServiceImpl implements RelationshipService {
                 if (header.contains("\n")) {
                     // 使用 split 提取 \n 前的部分
                     String[] parts = header.split("\n");
-                    columnIndexMap.put(parts[0].trim(), cell.getColumnIndex());
+                    String part = parts[0];
+                    String property;
+                    if(part.contains("*")){
+                        property = part.replace("*", "");
+                    }
+                   else {
+                        property = part;
+                    }
+                    columnIndexMap.put(property.trim(), cell.getColumnIndex());
                 } else {
+                    String property;
+                    if(header.contains("*")){
+                        property = header.replace("*", "");
+                    }
+                    else {
+                        property = header;
+                    }
                     // 如果没有 \n，直接添加原字符串
-                    columnIndexMap.put(header, cell.getColumnIndex());
+                    columnIndexMap.put(property.trim(), cell.getColumnIndex());
                 }
             }
             //验证用户传入的表格是否符合用户导入的格式
