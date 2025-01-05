@@ -680,3 +680,11 @@ Caused by: com.alibaba.druid.pool.DataSourceDisableException
 	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1029) ~[spring-context-5.2.0.RELEASE.jar:5.2.0.RELEASE]
 	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:948) ~[spring-context-5.2.0.RELEASE.jar:5.2.0.RELEASE]
 2025-01-05 17:16:06.343 +0800	ERROR	com.system.assessment.exception.WebExceptionController	162	http-nio-80-exec-2	全局异常处理器将handleUncategorizedSQLException异常抛出,信息为数据库操作错误
+2025-01-05 17:28:05.790 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 64412 (started by LENOVO in E:\ScoreSystem)
+2025-01-05 17:28:05.801 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-01-05 17:28:08.716 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-01-05 17:28:09.992 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-01-05 17:28:10.032 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-01-05 17:28:10.057 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-01-05 17:28:10.487 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 4.97 seconds (JVM running for 7.243)
+2025-01-05 17:28:10.701 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...
