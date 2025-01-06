@@ -9,6 +9,7 @@ import com.system.assessment.pojo.EvaluateProcess;
 import com.system.assessment.service.EmailService;
 import com.system.assessment.service.EvaluateService;
 import com.system.assessment.service.ProcessService;
+import com.system.assessment.template.panelTemplate;
 import com.system.assessment.vo.EmailVO;
 import com.system.assessment.vo.NotCompletedSet;
 import org.apache.tomcat.jni.Local;
@@ -69,7 +70,7 @@ public class ScheduledTask {
                 EmailVO emailVO = evaluators.get(idx);
                 evaluatorName.add(emailVO.getName());
                 String email = emailVO.getEmail();
-                String content = "尊敬的"+emailVO.getName()+"，您好！"+"请您尽快前往成长评估系统进行评分";
+                String content = panelTemplate.htmlNotice(emailVO.getName());
                 String subject = "评分提醒！";
                 emailService.sendMessageHTML(email, subject, content);
             }

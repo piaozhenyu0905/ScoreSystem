@@ -18,7 +18,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Service
 @Slf4j
 public class AsyncEmailServiceImpl implements EmailService {
-    private String from = "2339134840@qq.com"; //正式提交时需要修改
+    private String from = "hr_performance@tengwei.com"; //正式提交时需要修改
 
     @Autowired(required = false)
     private JavaMailSender mailSender;

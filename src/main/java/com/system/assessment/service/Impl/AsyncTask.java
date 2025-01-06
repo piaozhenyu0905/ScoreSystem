@@ -123,7 +123,7 @@ public class AsyncTask  {
                 EmailVO emailVO = evaluators.get(idx);
                 evaluatorName.add(emailVO.getName());
                 String email = emailVO.getEmail();
-                String content = "尊敬的"+emailVO.getName()+"，您好！"+"请您尽快前往成长评估系统进行评分";
+                String content = panelTemplate.htmlNotice(emailVO.getName());
                 String subject = "评分提醒！";
                 emailService.sendMessageHTML(email, subject, content);
             }
@@ -144,7 +144,7 @@ public class AsyncTask  {
         }
         String subject = "评估关系矩阵发布";
 
-        String content = panelTemplate.htmlRelationshipPublic( "http://10.16.56.39");
+        String content = panelTemplate.htmlRelationshipPublic();
         sendManyMessage(emails, subject, content);
     }
 

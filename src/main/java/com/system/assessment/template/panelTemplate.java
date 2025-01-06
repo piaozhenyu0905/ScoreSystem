@@ -2,16 +2,30 @@ package com.system.assessment.template;
 
 public class panelTemplate {
 
+    public static String url = "http://10.16.56.39";
+
     //关系发布
-    public static String htmlRelationshipPublic(String url){
+    public static String htmlRelationshipPublic(){
+
         return String.format(
                 "<html>" +
                         "<body style=\"font-family: Arial, sans-serif;\">" +
-                        "<p>您好！本轮评估关系矩阵已发布，周边评议环节已经开始, 请您尽快前往成长评估系统进行周边评议!<a href=\"" + url + "\">成长评估系统</a></p>" +
+                        "<p>您好！本轮评估关系矩阵已发布，周边评议环节已经开始, 请您尽快前往"+"<a href=\"" + url + "\">成长评估系统</a>" + "进行周边评议!</p>" +
                         "</body>" +
                         "</html>",
                 url);
     };
+
+    public static String htmlNotice(String name){
+        return String.format(
+                "<html>" +
+                        "<body style=\"font-family: Arial, sans-serif;\">" +
+                        "<p>尊敬的" + name +"您好！请您尽快前往"+"<a href=\"" + url + "\">成长评估系统</a>" + "进行周边评议!</p>" +
+                        "</body>" +
+                        "</html>",
+                url);
+    };
+
 
     public static String htmlTemplateTest(String name){
         return String.format(
@@ -52,7 +66,7 @@ public class panelTemplate {
                         "<p><strong>尊敬的 %s:</strong></p>" +
                         "<p style=\"text-indent: 2em;\" >您好!</p>" +
                         "<p style=\"text-indent: 2em;\" >%s</p>" +
-                        "<p style=\"text-indent: 2em;\" ><strong>您本次评估平均得分为 %.1f，公司%s类型的平均得分为 %.1f，公司%s类型的平均得分为 %.1f</strong>，详细的得分情况，请前往成长评估系统查看!</p>" +
+                        "<p style=\"text-indent: 2em;\" ><strong>您本次评估平均得分为 %.1f，公司%s类型的平均得分为 %.1f，公司%s类型的平均得分为 %.1f</strong>，详细的得分情况，请前往"+"<a href=\"" + url + "\">成长评估系统</a>" +"查看</p>" +
                         "</body>" +
                         "</html>",
                 title, name, template, totalScore, lxyz, lxyzTotalScore, business, businessTotalScore);
