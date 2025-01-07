@@ -315,6 +315,9 @@
             <if test="user.password != null">
                 password = #{user.password},
             </if>
+            <if test="user.workNum != null and user.name != null">
+                username = CONCAT(TRIM(#{user.name}), TRIM(#{user.workNum})),
+            </if>
             <if test="user.residence != null">
                 residence = #{user.residence},
             </if>

@@ -28,7 +28,7 @@
                credentials_non_expired,
                is_first_login
         from user
-        where username = #{username} and is_delete = 0
+        where BINARY username = #{username} and is_delete = 0
     </select>
 
 </mapper>
