@@ -74,6 +74,32 @@ public class  UserVO {
 
     public String superAdminName;
 
+    private Boolean isFirstLogin;
+
+    public void preDo(){
+        if(this.supervisor1 == null){
+            this.supervisor1 = 0;
+        }
+        if(this.supervisor2 == null){
+            this.supervisor2 = 0;
+        }
+        if(this.supervisor3 == null){
+            this.supervisor3 = 0;
+        }
+        if(this.hr == null){
+            this.hr = 0;
+        }
+        if(this.firstAdmin == null){
+            this.firstAdmin = 0;
+        }
+        if(this.secondAdmin == null){
+            this.secondAdmin = 0;
+        }
+        if(this.superAdmin == null){
+            this.superAdmin = 0;
+        }
+    }
+
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private LocalDate hireDate; //入职时间
 

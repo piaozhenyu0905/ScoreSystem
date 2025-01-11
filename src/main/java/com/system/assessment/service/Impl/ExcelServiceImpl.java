@@ -1,30 +1,32 @@
 package com.system.assessment.service.Impl;
 
+import com.system.assessment.constants.ProcessType;
 import com.system.assessment.constants.RelationType;
 import com.system.assessment.constants.Role;
 import com.system.assessment.exception.CustomException;
 import com.system.assessment.exception.CustomExceptionType;
 import com.system.assessment.mapper.EvaluateMapper;
 import com.system.assessment.mapper.RelationshipMapper;
+import com.system.assessment.mapper.TodoListMapper;
 import com.system.assessment.mapper.UserMapper;
 import com.system.assessment.pojo.EvaluateRelationship;
 import com.system.assessment.pojo.User;
 import com.system.assessment.service.ExcelService;
-import com.system.assessment.vo.NameAndWorkNum;
-import com.system.assessment.vo.SupervisorVO;
-import com.system.assessment.vo.UserVO;
+import com.system.assessment.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +41,101 @@ public class ExcelServiceImpl implements ExcelService {
 
     @Autowired
     public EvaluateMapper evaluateMapper;
+
+    @Autowired
+    public TodoListMapper todoListMapper;
+
+    @Autowired
+    public RelationshipServiceImpl relationshipService;
+
+    public void addRelationshipInMatrix(ImportRelationAddSet importRelationAddSet){
+
+        Integer evaluatedId = importRelationAddSet.getEvaluatedId();
+        List<Integer> evaluatorIds = importRelationAddSet.getEvaluatorId();
+
+        if(evaluatorIds.size() != 0){
+            for (int index = 0; index < evaluatorIds.size(); index++){
+                Integer evaluatorId = evaluatorIds.get(index);
+                //判断关系是否存在
+                Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, evaluatedId);
+                if(singleRelationship != null && singleRelationship != 0){
+                    continue;
+                }
+                addFixedRelationshipById(evaluatorId, evaluatedId);
+            }
+        }
+
+    };
+
+
+    public void addRelationship(ImportRelationAddSet importRelationAddSet){
+
+        Integer newEnableProcess = evaluateMapper.findNewestEnableProcess();
+        if(newEnableProcess == null){
+            newEnableProcess = 1;
+        }
+        Integer newEpoch = evaluateMapper.findNewEpoch();
+        if(newEpoch == null){
+            newEpoch = 1;
+        }
+
+        //1.若处于第一阶段，不需要添加任务,先将所有关系删除，然后添加关系。
+        if(newEnableProcess.equals(ProcessType.BuildRelationships.getCode())){
+            //删除该被评估人的固定评估关系，添加新的固定评估关系
+            Integer evaluatedId = importRelationAddSet.getEvaluatedId();
+            List<Integer> evaluatorIds = importRelationAddSet.getEvaluatorId();
+            relationshipMapper.deleteAllRelationshipByEvaluatedId(evaluatedId);
+            if(evaluatorIds.size() != 0){
+                for (int index = 0; index < evaluatorIds.size(); index++){
+                    //添加关系
+                    Integer evaluatorId = evaluatorIds.get(index);
+                    addFixedRelationshipById(evaluatorId, evaluatedId);
+                }
+            }
+        } //2.若处于第二阶段，对于已经生成的任务和其关系做保留，对于新增的关系和任务，则添加
+        else if(newEnableProcess.equals(ProcessType.Evaluation.getCode())){
+            Integer evaluatedId = importRelationAddSet.getEvaluatedId();
+            List<Integer> evaluatorIds = importRelationAddSet.getEvaluatorId();
+
+            if(evaluatorIds.size() != 0){
+                for (int index = 0; index < evaluatorIds.size(); index++){
+                    Integer evaluatorId = evaluatorIds.get(index);
+                    //判断关系是否存在
+                    Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, evaluatedId);
+                    if(singleRelationship != null && singleRelationship != 0){
+                        continue;
+                    }
+                    //添加关系
+                    addFixedRelationshipById(evaluatorId, evaluatedId);
+
+                    //查看任务是否已存在
+                    TodoListVO todoListIsExist = todoListMapper.findTodoListIsExist(evaluatorId, evaluatedId, newEpoch);
+                    //系统中找不到对应关系的[未完成]的任务，则添加新任务
+                    if(todoListIsExist == null){
+                        //添加新任务
+                        relationshipService.addNewTask(evaluatorId, evaluatedId, newEpoch);
+                    }
+                }
+            }
+        } //3.对于第三、四阶段，不新增任务，只添加关系
+        else {
+            Integer evaluatedId = importRelationAddSet.getEvaluatedId();
+            List<Integer> evaluatorIds = importRelationAddSet.getEvaluatorId();
+            if(evaluatorIds.size() != 0){
+                for (int index = 0; index < evaluatorIds.size(); index++){
+                    Integer evaluatorId = evaluatorIds.get(index);
+                    //判断关系是否存在
+                    Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, evaluatedId);
+                    if(singleRelationship != null && singleRelationship != 0){
+                        continue;
+                    }
+                    //添加关系
+                    addFixedRelationshipById(evaluatorId, evaluatedId);
+                }
+            }
+        }
+    };
+
 
     public Integer addFixedRelationshipById(Integer evaluatorId, Integer evaluatedId) {
         Integer epoch = evaluateMapper.findNewEpoch();
@@ -95,6 +192,11 @@ public class ExcelServiceImpl implements ExcelService {
 
         Integer supervisorNum = 0;
 
+        ImportRelationAddSet importRelationAddSet = new ImportRelationAddSet();
+        importRelationAddSet.setEvaluatedId(id);
+        ArrayList<Integer> evaluatorIds = new ArrayList<>();
+        importRelationAddSet.setEvaluatorId(evaluatorIds);
+
         if(supervisorName1 != null && !supervisorName1.equals("") && supervisorWorkNum1 != null && !supervisorWorkNum1.equals("")){
             Integer supervisor1 = userMapper.findIdByNameAndWorkNum(supervisorName1, supervisorWorkNum1);
             if(supervisor1 != null && supervisor1 != 0){
@@ -103,6 +205,8 @@ public class ExcelServiceImpl implements ExcelService {
                 }
                 supervisorNum = supervisorNum + 1;
                 userMapper.updateSupervisor1ById(id, supervisor1);
+
+                importRelationAddSet.getEvaluatorId().add(supervisor1);
             }else {
                 throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管1设置错误");
             }
@@ -117,6 +221,8 @@ public class ExcelServiceImpl implements ExcelService {
                 }
                 supervisorNum = supervisorNum + 1;
                 userMapper.updateSupervisor2ById(id, supervisor2);
+
+                importRelationAddSet.getEvaluatorId().add(supervisor2);
             }else {
                 throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管2设置错误");
             }
@@ -130,6 +236,8 @@ public class ExcelServiceImpl implements ExcelService {
                 }
                 supervisorNum = supervisorNum + 1;
                 userMapper.updateSupervisor3ById(id, supervisor3);
+
+                importRelationAddSet.getEvaluatorId().add(supervisor3);
             }else {
                 throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管3设置错误");
             }
@@ -177,6 +285,8 @@ public class ExcelServiceImpl implements ExcelService {
                     throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "HRBP设置错误");
                 }
                 userMapper.updateHrById(id, hr);
+
+                importRelationAddSet.getEvaluatorId().add(hr);
             }else {
                 throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "HRBP设置错误");
             }
@@ -221,8 +331,13 @@ public class ExcelServiceImpl implements ExcelService {
             }
         }
 
+        //给主管和HRBP设置默认的关系
+        addRelationship(importRelationAddSet);
 
     }
+
+
+
 
     @Override
     @Transactional
@@ -471,6 +586,7 @@ public class ExcelServiceImpl implements ExcelService {
     @Transactional
     //处理表格中的每一行，一旦抛出异常则该列所有的数据均无效
     public void addRelationshipExcel(Row row, Map<String, Integer> columnIndexMap) {
+
         String evaluatedNameAndWorkNum = getCellValue(row, columnIndexMap.get("被评估人"));
         NameAndWorkNum nameAndWorkNum = extractCell(evaluatedNameAndWorkNum);
         if(nameAndWorkNum == null){
@@ -486,6 +602,12 @@ public class ExcelServiceImpl implements ExcelService {
 
         //被评估人有效,则进行主管权重分配， 要求分配之前清空所有主管和权重的数据，主管id置为0，权重置为-1
         userMapper.updateWeightsAndSuperVisor(evaluatedId);
+
+        ImportRelationAddSet importRelationAddSet = new ImportRelationAddSet();
+        importRelationAddSet.setEvaluatedId(evaluatedId);
+        ArrayList<Integer> evaluatorIds = new ArrayList<>();
+        importRelationAddSet.setEvaluatorId(evaluatorIds);
+
 
         String superVisor1 = getCellValue(row, columnIndexMap.get("主管1"));
         NameAndWorkNum superVisor1NameAndWorkNum = extractCell(superVisor1);
@@ -503,6 +625,9 @@ public class ExcelServiceImpl implements ExcelService {
                 throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管"+name+"-"+workNum+"和被评估人为同一人!");
             }
             userMapper.setSuperVisor1(evaluatedId, superVisor1Id);
+
+            importRelationAddSet.getEvaluatorId().add(superVisor1Id);
+
             //主管存在，只进行权重分配
             String weight1Str = getCellValue(row, columnIndexMap.get("权重1"));
             try {
@@ -531,6 +656,9 @@ public class ExcelServiceImpl implements ExcelService {
             }
 
             userMapper.setSuperVisor2(evaluatedId, superVisor2Id);
+
+            importRelationAddSet.getEvaluatorId().add(superVisor2Id);
+
             //主管存在，只进行权重分配
             String weight2Str = getCellValue(row, columnIndexMap.get("权重2"));
             try {
@@ -558,6 +686,9 @@ public class ExcelServiceImpl implements ExcelService {
                 throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "主管"+name+"-"+workNum+"和被评估人为同一人!");
             }
             userMapper.setSuperVisor3(evaluatedId, superVisor3Id);
+
+            importRelationAddSet.getEvaluatorId().add(superVisor3Id);
+
             //主管存在，只进行权重分配
             String weight3Str = getCellValue(row, columnIndexMap.get("权重3"));
             try {
@@ -569,10 +700,14 @@ public class ExcelServiceImpl implements ExcelService {
             }
         }
 
-        //添加固定评估人
+        //添加相关人
         String evaluatorContent = getCellValue(row, columnIndexMap.get("相关人"));
         evaluatorContent = evaluatorContent.replaceAll("；", ";");
         relationshipExtract(nameAndWorkNum, evaluatorContent);
+
+        //根据新的主管添加到固定评估关系中
+        addRelationshipInMatrix(importRelationAddSet);
+
     }
 
     @Transactional
@@ -588,8 +723,6 @@ public class ExcelServiceImpl implements ExcelService {
         }
 
         //先删除该被评估人的所有固定评估关系
-
-
         content = content.replaceAll("\\s*;\\s*", ";"); // 去掉 `;` 前后的空格
         content = content.replaceAll("\\s*/\\s*", "/"); // 去掉 `/` 前后的空格
 

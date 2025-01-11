@@ -1,10 +1,7 @@
 package com.system.assessment.service;
 
 import com.system.assessment.pojo.User;
-import com.system.assessment.vo.DeleteUserVO;
-import com.system.assessment.vo.PasswordUpdateVO;
-import com.system.assessment.vo.UserInfoSelectVO;
-import com.system.assessment.vo.UserVO;
+import com.system.assessment.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
@@ -17,11 +14,14 @@ import java.util.Set;
 
 
 public interface UserService {
+
+    public void updateNewUser(UserVO userVO);
+
     public ArrayList<String> deleteUsers(DeleteUserVO deleteUserVO);
 
     public Integer findRole(Integer id);
 
-    public Set<String> uploadFile(MultipartFile file);
+    public ImportVO uploadFile(MultipartFile file);
 
     public List<String> findDepartment();
 

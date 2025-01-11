@@ -98,7 +98,6 @@ public class User implements UserDetails {
     @JsonIgnore
     private Boolean isDelete;
 
-
     private Boolean isFirstLogin;
 
     //返回权限信息

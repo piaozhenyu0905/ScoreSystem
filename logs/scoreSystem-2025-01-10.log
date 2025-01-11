@@ -1,0 +1,162 @@
+2025-01-10 12:43:20.047 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 93616 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2025-01-10 12:43:20.076 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-01-10 12:43:26.007 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2025-01-10 12:43:26.008 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2025-01-10 12:43:26.008 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2025-01-10 12:43:26.010 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2025-01-10 12:43:26.010 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2025-01-10 12:43:26.010 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2025-01-10 12:43:26.031 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2025-01-10 12:43:26.169 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2025-01-10 12:43:29.558 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-01-10 12:43:37.855 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-01-10 12:43:38.179 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-01-10 12:43:38.589 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-01-10 12:43:39.558 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2025-01-10 12:43:39.659 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 20.37 seconds (JVM running for 24.217)
+2025-01-10 12:43:40.203 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-10 12:43:45.124 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-4	{dataSource-1} inited
+2025-01-10 12:43:46.141 +0800	ERROR	org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter	221	http-nio-80-exec-4	An internal error occurred while trying to authenticate the user.
+org.springframework.security.authentication.InternalAuthenticationServiceException: 用户名不存在!
+	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:123) ~[spring-security-core-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:144) ~[spring-security-core-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:175) ~[spring-security-core-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:195) ~[spring-security-core-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter$AuthenticationManagerDelegator.authenticate(WebSecurityConfigurerAdapter.java:511) ~[spring-security-config-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at com.system.assessment.config.filter.LoginFilter.attemptAuthentication(LoginFilter.java:37) ~[classes/:?]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:212) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at com.system.assessment.filter.SessionIsValuedTokenFilter.doFilterInternal(SessionIsValuedTokenFilter.java:36) [classes/:?]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) [spring-security-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358) [spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271) [spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) [spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) [spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) [spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) [spring-web-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1579) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_301]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_301]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.27.jar:9.0.27]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_301]
+Caused by: java.lang.RuntimeException: 用户名不存在!
+	at com.system.assessment.service.Impl.UserDetailServiceImpl.loadUserByUsername(UserDetailServiceImpl.java:24) ~[classes/:?]
+	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:108) ~[spring-security-core-5.2.0.RELEASE.jar:5.2.0.RELEASE]
+	... 55 more
+2025-01-10 12:45:49.658 +0800	WARN	com.alibaba.druid.pool.DruidAbstractDataSource	1489	http-nio-80-exec-1	discard long time none received connection. , jdbcUrl : jdbc:mysql://47.109.39.210/company_score?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false, version : 1.2.3, lastPacketReceivedIdleMillis : 113760
+2025-01-10 12:45:49.658 +0800	WARN	com.alibaba.druid.pool.DruidAbstractDataSource	1489	http-nio-80-exec-5	discard long time none received connection. , jdbcUrl : jdbc:mysql://47.109.39.210/company_score?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false, version : 1.2.3, lastPacketReceivedIdleMillis : 114048
+2025-01-10 12:46:08.761 +0800	ERROR	com.system.assessment.service.Impl.UserServiceImpl	152	http-nio-80-exec-6	PZY导入失败!
+2025-01-10 12:46:14.284 +0800	ERROR	com.system.assessment.service.Impl.UserServiceImpl	165	http-nio-80-exec-6	CHD导入失败!
+2025-01-10 12:47:13.856 +0800	ERROR	com.system.assessment.service.Impl.UserServiceImpl	152	http-nio-80-exec-3	PZY导入失败!
+2025-01-10 12:47:19.330 +0800	ERROR	com.system.assessment.service.Impl.UserServiceImpl	165	http-nio-80-exec-3	CHD导入失败!
+2025-01-10 12:48:33.009 +0800	WARN	com.alibaba.druid.pool.DruidAbstractDataSource	1489	http-nio-80-exec-1	discard long time none received connection. , jdbcUrl : jdbc:mysql://47.109.39.210/company_score?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false, version : 1.2.3, lastPacketReceivedIdleMillis : 73720
+2025-01-10 12:48:33.050 +0800	WARN	com.alibaba.druid.pool.DruidAbstractDataSource	1489	http-nio-80-exec-1	discard long time none received connection. , jdbcUrl : jdbc:mysql://47.109.39.210/company_score?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false, version : 1.2.3, lastPacketReceivedIdleMillis : 162564
+2025-01-10 12:50:53.380 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 72516 (started by LENOVO in E:\ScoreSystem)
+2025-01-10 12:50:53.387 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-01-10 12:50:56.593 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-01-10 12:50:58.232 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-01-10 12:50:58.274 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-01-10 12:50:58.303 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-01-10 12:50:58.696 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 5.663 seconds (JVM running for 9.204)
+2025-01-10 12:50:59.231 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...
+2025-01-10 17:06:54.759 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 77736 (started by LENOVO in E:\ScoreSystem)
+2025-01-10 17:06:54.779 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-01-10 17:06:58.203 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-01-10 17:06:59.952 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-01-10 17:07:00.032 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-01-10 17:07:00.153 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-01-10 17:07:00.666 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 6.128 seconds (JVM running for 8.502)
+2025-01-10 17:07:01.049 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...
+2025-01-10 21:08:07.842 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 65216 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2025-01-10 21:08:07.886 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-01-10 21:08:11.263 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2025-01-10 21:08:11.263 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2025-01-10 21:08:11.264 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2025-01-10 21:08:11.266 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2025-01-10 21:08:11.267 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2025-01-10 21:08:11.267 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2025-01-10 21:08:11.333 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2025-01-10 21:08:11.440 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2025-01-10 21:08:12.736 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-01-10 21:08:13.640 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-01-10 21:08:13.658 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-01-10 21:08:13.688 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-01-10 21:08:14.138 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2025-01-10 21:08:14.162 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 6.975 seconds (JVM running for 14.877)
+2025-01-10 21:55:15.057 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-10 21:57:03.986 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-10	{dataSource-1} inited
+2025-01-10 21:58:57.874 +0800	WARN	com.alibaba.druid.pool.DruidAbstractDataSource	1489	http-nio-80-exec-3	discard long time none received connection. , jdbcUrl : jdbc:mysql://47.109.39.210/company_score?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false, version : 1.2.3, lastPacketReceivedIdleMillis : 69874
+2025-01-10 21:58:57.912 +0800	WARN	com.alibaba.druid.pool.DruidAbstractDataSource	1489	http-nio-80-exec-3	discard long time none received connection. , jdbcUrl : jdbc:mysql://47.109.39.210/company_score?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false, version : 1.2.3, lastPacketReceivedIdleMillis : 70072
+2025-01-10 21:58:57.951 +0800	WARN	com.alibaba.druid.pool.DruidAbstractDataSource	1489	http-nio-80-exec-3	discard long time none received connection. , jdbcUrl : jdbc:mysql://47.109.39.210/company_score?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false, version : 1.2.3, lastPacketReceivedIdleMillis : 70189
+2025-01-10 21:59:49.395 +0800	INFO	com.system.assessment.service.Impl.RelationshipServiceImpl	319	http-nio-80-exec-4	导入成功!
+2025-01-10 22:00:06.864 +0800	INFO	com.system.assessment.service.Impl.RelationshipServiceImpl	319	http-nio-80-exec-4	Arvin/000导入成功!
+2025-01-10 22:06:07.457 +0800	INFO	com.system.assessment.service.Impl.RelationshipServiceImpl	319	http-nio-80-exec-4	Rock/011导入成功!
+2025-01-10 22:06:08.161 +0800	INFO	com.system.assessment.service.Impl.RelationshipServiceImpl	319	http-nio-80-exec-4	Jack/022导入成功!
+2025-01-10 22:06:09.195 +0800	INFO	com.system.assessment.service.Impl.RelationshipServiceImpl	319	http-nio-80-exec-4	Fisher/033导入成功!
+2025-01-10 22:06:09.913 +0800	INFO	com.system.assessment.service.Impl.RelationshipServiceImpl	319	http-nio-80-exec-4	wilson/002导入成功!
+2025-01-10 22:06:11.132 +0800	INFO	com.system.assessment.service.Impl.RelationshipServiceImpl	319	http-nio-80-exec-4	Jimmy/003导入成功!
+2025-01-10 22:06:11.308 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-1} closing ...
+2025-01-10 22:06:11.364 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2104	SpringContextShutdownHook	{dataSource-1} closed
+2025-01-10 22:06:12.349 +0800	INFO	com.system.assessment.service.Impl.RelationshipServiceImpl	319	http-nio-80-exec-4	Lemon/004导入成功!
+2025-01-10 22:06:12.449 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-4	Webb/005导入失败!
+2025-01-10 22:06:12.476 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-4	Donny/007导入失败!
+2025-01-10 22:06:12.476 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-4	Eric/008导入失败!
+2025-01-10 22:06:12.478 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-4	test1/009导入失败!
+2025-01-10 22:06:12.478 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-4	test2/010导入失败!
+2025-01-10 22:06:12.478 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-4	test3/011导入失败!
+2025-01-10 22:06:12.479 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-4	test4/012导入失败!
+2025-01-10 22:06:12.479 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-4	test5/013导入失败!
+2025-01-10 22:06:12.479 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-4	test6/014导入失败!
+2025-01-10 23:07:29.109 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 2244 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2025-01-10 23:07:29.116 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-01-10 23:07:31.882 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2025-01-10 23:07:31.882 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2025-01-10 23:07:31.883 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2025-01-10 23:07:31.884 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2025-01-10 23:07:31.884 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2025-01-10 23:07:31.885 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2025-01-10 23:07:31.966 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2025-01-10 23:07:32.072 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2025-01-10 23:07:33.265 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-01-10 23:07:34.076 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-01-10 23:07:34.104 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-01-10 23:07:34.128 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-01-10 23:07:34.367 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2025-01-10 23:07:34.384 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 5.801 seconds (JVM running for 8.587)
+2025-01-10 23:07:39.314 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-10 23:10:15.887 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-3	{dataSource-1} inited

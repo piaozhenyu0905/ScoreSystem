@@ -53,6 +53,65 @@ public class UserServiceImpl implements UserService {
     public TodoListMapper todoListMapper;
 
     @Override
+    public void updateNewUser(UserVO user) {
+        user.preDo();
+        String name = user.getName();
+        if(name != null){
+            name = name.trim();
+        }
+        String workNum = user.getWorkNum();
+        if(workNum != null){
+            workNum = workNum.trim();
+        }
+        user.setUsername(name + workNum); //用户名默认是姓名+工号
+        user.setPassword("00000000");
+        user.setResignationDate(null);
+        user.setWeight(1.0);   //得分权重
+
+        Integer superVisorNum = 0;
+        if(user.getSupervisor1() != 0){
+            superVisorNum = superVisorNum + 1;
+        }
+        if(user.getSupervisor2() != 0){
+            superVisorNum = superVisorNum + 1;
+        }
+        if(user.getSupervisor3() != 0){
+            superVisorNum = superVisorNum + 1;
+        }
+        Double weight;
+        if(superVisorNum == 0){
+            weight = 0.0;
+        }else {
+            weight = 0.9 / superVisorNum;
+        }
+
+        if(user.getSupervisor1() != 0){
+            user.setWeight1(weight); //主管权重
+        }else {
+            user.setWeight1(-1.0);
+        }
+        if(user.getSupervisor2() != 0){
+            user.setWeight2(weight); //主管权重
+        }else {
+            user.setWeight2(-1.0);
+        }
+        if(user.getSupervisor3() != 0){
+            user.setWeight3(weight); //主管权重
+        }else {
+            user.setWeight3(-1.0);
+        }
+
+        user.setIsFirstLogin(true); //设置是否为第一次登录，导入后默认为true
+        user.setAccountNonExpired(true);
+        user.setCredentialsNonExpired(true);
+        user.setEnabled(true);
+        user.setAccountNonLocked(true);
+        user.setIsDelete(false);
+
+        userMapper.addUserVO(user);
+    }
+
+    @Override
     public ArrayList<String> deleteUsers(DeleteUserVO deleteUserVO) {
         ArrayList<String> errorList = new ArrayList<>();
         for(int index = 0; index < deleteUserVO.getIds().size(); index++){
@@ -107,7 +166,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Set<String> uploadFile(MultipartFile file) {
+    public ImportVO uploadFile(MultipartFile file) {
+        ImportVO importVO = new ImportVO();
+
         try {
             // 解析 Excel 文件
             Workbook workbook = new XSSFWorkbook(file.getInputStream());
@@ -135,7 +196,9 @@ public class UserServiceImpl implements UserService {
             }
 
             List<SupervisorVO> supervisorList = new ArrayList<>();
-            Set<String> errorList = new HashSet<>();
+            Set<String> notImportSet = new HashSet<>();
+
+            Set<String> notCompletedSet = new HashSet<>();
 
             // 假设第一行为表头，跳过第一行
             for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -146,12 +209,12 @@ public class UserServiceImpl implements UserService {
                         excelService.addUserExcel(row, columnIndexMap, supervisorList);
                     }catch (Exception e){
                         log.error(name + "导入失败!");
-                        errorList.add(name);
+                        notImportSet.add(name);
                     }
                 }
             }
 
-            //进行主管id的导设置
+            //进行主管id的设置
             for (int index = 0; index < supervisorList.size(); index++ ){
                 SupervisorVO supervisorVO = supervisorList.get(index);
                 String name = supervisorVO.getName();
@@ -159,13 +222,15 @@ public class UserServiceImpl implements UserService {
                     excelService.addOtherInfo(supervisorVO);
                 }catch (Exception e){
                     log.error(name + "导入失败!");
-                    errorList.add(name);
+                    notCompletedSet.add(name);
                 }
 
             }
 
             workbook.close();
-            return errorList;
+            importVO.setNotImportSet(notImportSet);
+            importVO.setNotCompletedSet(notCompletedSet);
+            return importVO;
 
         } catch (IOException e) {
             log.error("用户导入数据有误!");

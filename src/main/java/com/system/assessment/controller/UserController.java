@@ -112,6 +112,15 @@ public class UserController {
         return ResponseResult.success();
     }
 
+    @ApiOperation("用户管理-添加用户")
+    @PostMapping(value = "/update/newUser")
+    public ResponseResult updateNewUser(@RequestBody UserVO userVO){
+
+        userService.updateNewUser(userVO);
+        return ResponseResult.success();
+    }
+    
+
 
     @ApiOperation("返回所有部门")
     @RequestMapping(value = "/departments",method = RequestMethod.POST)
@@ -204,18 +213,29 @@ public class UserController {
 
     @ApiOperation("用户管理-导入用户")
     @PostMapping("/upload")
-    public ResponseResult<String> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseResult uploadFile(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseResult.error(401, "该文件为空");
         }
-        Set<String> errorList = userService.uploadFile(file);
-        if(errorList == null){
+        ImportVO importVO = userService.uploadFile(file);
+        if(importVO == null){
             return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "用户信息表导入错误!");
-        }else if(errorList.size() == 0){
+        }else if(importVO.getNotImportSet().size() == 0 && importVO.getNotCompletedSet().size() == 0){
             return ResponseResult.success();
         }else {
-            String error = String.join("，", errorList) + "的部分信息导入失败!";
-            return ResponseResult.error(401, error);
+
+            ImportFailVO importFailVO = new ImportFailVO();
+            importFailVO.setNotImport("无");
+            importFailVO.setNotCompleted("无");
+
+            if(importVO.getNotImportSet().size() !=0){
+                importFailVO.setNotImport(String.join("，", importVO.getNotImportSet()));
+            }
+            if(importVO.getNotCompletedSet().size() !=0){
+                importFailVO.setNotCompleted(String.join("，", importVO.getNotCompletedSet()));
+            }
+
+            return ResponseResult.error(401, "导入失败",importFailVO);
         }
     }
 

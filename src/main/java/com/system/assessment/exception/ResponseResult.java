@@ -86,6 +86,17 @@ public class ResponseResult<T> {
         return responseResult;
     }
 
+    public static ResponseResult error(Integer code, String msg, Object data){
+
+        ResponseResult responseResult = new ResponseResult();
+        responseResult.setTimeStamp(new Date());
+        responseResult.setCode(code);
+        responseResult.setMsg(msg);
+        responseResult.setData(data);
+        return responseResult;
+    }
+
+
     public static ResponseResult error(CustomException customException){
 
         ResponseResult responseResult = new ResponseResult();

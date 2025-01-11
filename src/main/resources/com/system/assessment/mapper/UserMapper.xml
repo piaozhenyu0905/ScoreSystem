@@ -525,4 +525,48 @@
          #{user.superAdminName})
     </insert>
 
+    <insert id="addUserVO" parameterType="com.system.assessment.vo.UserVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (username, department, email, phone_number, password, supervisor_name_1, supervisor_name_2, supervisor_name_3,  name, role, residence,
+                          lxyz, business_type, work_num, hire_date, enabled, account_non_expired, account_non_locked, credentials_non_expired,
+                          supervisor_1, supervisor_2, supervisor_3, resignation_date, is_delete, is_first_login, weight, hr, hr_name, weight1,
+                          weight2, weight3, first_admin, second_admin, super_admin, first_admin_name, second_admin_name, super_admin_name) VALUES
+        (#{user.username},
+         #{user.department},
+         #{user.email},
+         #{user.phoneNumber},
+         '00000000',
+         #{user.supervisorName1},
+         #{user.supervisorName2},
+         #{user.supervisorName3},
+         #{user.name},
+         #{user.role},
+         #{user.residence},
+         #{user.lxyz},
+         #{user.businessType,typeHandler=com.system.assessment.constants.handler.BusinessTypeHandler},
+         #{user.workNum},
+         #{user.hireDate},
+         #{user.enabled},
+         #{user.accountNonExpired},
+         #{user.accountNonLocked},
+         #{user.credentialsNonExpired},
+         #{user.supervisor1},
+         #{user.supervisor2},
+         #{user.supervisor3},
+         #{user.resignationDate},
+         #{user.isDelete},
+         #{user.isFirstLogin},
+         #{user.weight},
+         #{user.hr},
+         #{user.hrName},
+         #{user.weight1},
+         #{user.weight2},
+         #{user.weight3},
+         #{user.firstAdmin},
+         #{user.secondAdmin},
+         #{user.superAdmin},
+         #{user.firstAdminName},
+         #{user.secondAdminName},
+         #{user.superAdminName})
+    </insert>
+
 </mapper>

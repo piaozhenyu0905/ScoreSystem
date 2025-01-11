@@ -146,5 +146,7 @@ public interface UserMapper {
 
     public Integer addUser(@Param("user") User user);
 
+    public Integer addUserVO(@Param("user") UserVO user);
+
     public String findPassword(@Param("userId")Integer userId);
 }
