@@ -214,6 +214,16 @@ public class UserController {
     @ApiOperation("用户管理-导入用户")
     @PostMapping("/upload")
     public ResponseResult uploadFile(@RequestParam("file") MultipartFile file) {
+
+        Integer newEnableProcess = evaluateService.findNewEnableProcess();
+        if(newEnableProcess == null){
+            newEnableProcess = 1;
+        }
+        //只能在第一环节进行导入
+        if(!newEnableProcess.equals(ProcessType.BuildRelationships.getCode())){
+            return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "该操作在当前环节无效!");
+        }
+
         if (file.isEmpty()) {
             return ResponseResult.error(401, "该文件为空");
         }
