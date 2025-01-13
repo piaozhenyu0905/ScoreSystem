@@ -150,7 +150,7 @@ public class RelationshipController {
             if(importINfo.getErrorList() == null || importINfo.getErrorList().size() == 0){
                 return ResponseResult.success();
             }else {
-                String error = "已成功导入" +importINfo.getSuccess() +"条数据!" + "\n"+ "导入失败的数据:"+ String.join("，", importINfo.getErrorList());
+                String error = "导入失败的数据:"+ String.join("，", importINfo.getErrorList());
                 return ResponseResult.error(401, error);
             }
 

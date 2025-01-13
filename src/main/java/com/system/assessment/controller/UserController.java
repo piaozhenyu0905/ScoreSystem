@@ -219,33 +219,34 @@ public class UserController {
         if(newEnableProcess == null){
             newEnableProcess = 1;
         }
-        //只能在第一环节进行导入
-        if(!newEnableProcess.equals(ProcessType.BuildRelationships.getCode())){
-            return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "该操作在当前环节无效!");
-        }
+        //只能在第一环节和第四阶段进行导入
+        if(newEnableProcess.equals(ProcessType.BuildRelationships.getCode()) || newEnableProcess.equals(ProcessType.ResultPublic.getCode())){
 
-        if (file.isEmpty()) {
-            return ResponseResult.error(401, "该文件为空");
-        }
-        ImportVO importVO = userService.uploadFile(file);
-        if(importVO == null){
-            return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "用户信息表导入错误!");
-        }else if(importVO.getNotImportSet().size() == 0 && importVO.getNotCompletedSet().size() == 0){
-            return ResponseResult.success();
+            if (file.isEmpty()) {
+                return ResponseResult.error(401, "该文件为空");
+            }
+            ImportVO importVO = userService.uploadFile(file);
+            if(importVO == null){
+                return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "用户信息表导入错误!");
+            }else if(importVO.getNotImportSet().size() == 0 && importVO.getNotCompletedSet().size() == 0){
+                return ResponseResult.success();
+            }else {
+
+                ImportFailVO importFailVO = new ImportFailVO();
+                importFailVO.setNotImport("无");
+                importFailVO.setNotCompleted("无");
+
+                if(importVO.getNotImportSet().size() !=0){
+                    importFailVO.setNotImport(String.join("，", importVO.getNotImportSet()));
+                }
+                if(importVO.getNotCompletedSet().size() !=0){
+                    importFailVO.setNotCompleted(String.join("，", importVO.getNotCompletedSet()));
+                }
+
+                return ResponseResult.error(401, "导入失败",importFailVO);
+            }
         }else {
-
-            ImportFailVO importFailVO = new ImportFailVO();
-            importFailVO.setNotImport("无");
-            importFailVO.setNotCompleted("无");
-
-            if(importVO.getNotImportSet().size() !=0){
-                importFailVO.setNotImport(String.join("，", importVO.getNotImportSet()));
-            }
-            if(importVO.getNotCompletedSet().size() !=0){
-                importFailVO.setNotCompleted(String.join("，", importVO.getNotCompletedSet()));
-            }
-
-            return ResponseResult.error(401, "导入失败",importFailVO);
+            return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "该操作在当前环节无效!");
         }
     }
 
