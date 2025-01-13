@@ -676,7 +676,7 @@ public class RelationshipServiceImpl implements RelationshipService {
 
         Integer selfId = addSelfEvaluatedVO.getSelfId();
         List<SelfEvaluatedVO> selfList = new ArrayList<>();
-        //查出所有以本人未评估人的评估关系
+        //查出所有以本人为评估人的评估关系
         List<SelfEvaluatedVO> allRelationshipList = evaluateMapper.findSelfEvaluated(selfId);
         if(allRelationshipList != null){
             for (int i=0; i < allRelationshipList.size();i++){

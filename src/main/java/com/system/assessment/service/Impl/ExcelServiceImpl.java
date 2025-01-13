@@ -90,6 +90,10 @@ public class ExcelServiceImpl implements ExcelService {
                 for (int index = 0; index < evaluatorIds.size(); index++){
                     //添加关系
                     Integer evaluatorId = evaluatorIds.get(index);
+                    Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, evaluatedId);
+                    if(singleRelationship != null && singleRelationship != 0){
+                        continue;
+                    }
                     addFixedRelationshipById(evaluatorId, evaluatedId);
                 }
             }

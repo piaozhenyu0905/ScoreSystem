@@ -114,6 +114,11 @@ public class UserServiceImpl implements UserService {
             // 假设数据写入第一个 Sheet
             Sheet sheet = workbook.getSheetAt(0);
 
+            CellStyle cellStyle = workbook.createCellStyle();
+            cellStyle.setAlignment(HorizontalAlignment.CENTER);  // 水平居中
+            cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);  // 垂直居中
+
+
             int rowIndex = 1;
             for (int i = 0; i < allUser.size(); i++) {
                 User user = allUser.get(i);
@@ -123,17 +128,34 @@ public class UserServiceImpl implements UserService {
                     row = sheet.createRow(rowIndex);
                 }
 
-                // 按表头顺序填写单元格并设置样式
+                // 填写用户信息并应用样式
                 row.createCell(0).setCellValue(user.getName());
+                row.getCell(0).setCellStyle(cellStyle);  // 设置居中
+
                 row.createCell(1).setCellValue(user.getWorkNum());
+                row.getCell(1).setCellStyle(cellStyle);
+
                 row.createCell(2).setCellValue(user.getDepartment());
+                row.getCell(2).setCellStyle(cellStyle);
+
                 row.createCell(3).setCellValue(user.getSupervisorName1());
+                row.getCell(3).setCellStyle(cellStyle);
+
                 row.createCell(4).setCellValue(user.getSupervisorName2());
+                row.getCell(4).setCellStyle(cellStyle);
+
                 row.createCell(5).setCellValue(user.getSupervisorName3());
+                row.getCell(5).setCellStyle(cellStyle);
+
                 row.createCell(6).setCellValue(user.getHrName());
+                row.getCell(6).setCellStyle(cellStyle);
+
+
                 LocalDate hireDate = user.getHireDate();
                 if (hireDate != null) {
                     CellStyle dateCellStyle = workbook.createCellStyle();
+                    dateCellStyle.setAlignment(HorizontalAlignment.CENTER);  // 水平居中
+                    dateCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);  // 垂直居中
                     CreationHelper creationHelper = workbook.getCreationHelper();
                     dateCellStyle.setDataFormat(creationHelper.createDataFormat().getFormat("yyyy-MM-dd"));
 
@@ -141,29 +163,51 @@ public class UserServiceImpl implements UserService {
                     Cell cell = row.createCell(7);
                     cell.setCellValue(java.sql.Date.valueOf(hireDate));
                     cell.setCellStyle(dateCellStyle);  // 设置日期格式
+                }else {
+                    row.createCell(7).setCellValue("");
                 }
 
                 row.createCell(8).setCellValue(user.getResidence());
+                row.getCell(8).setCellStyle(cellStyle);
+
                 row.createCell(9).setCellValue(user.getPhoneNumber());
+                row.getCell(9).setCellStyle(cellStyle);
+
                 row.createCell(10).setCellValue(user.getEmail());
+                row.getCell(10).setCellStyle(cellStyle);
+
                 row.createCell(11).setCellValue(user.getBusinessType());
+                row.getCell(11).setCellStyle(cellStyle);
+
                 row.createCell(12).setCellValue(user.getLxyz());
+                row.getCell(12).setCellStyle(cellStyle);
+
+                // 角色处理
+
+
+                row.createCell(13).setCellValue(user.getSuperAdminName());
+                row.getCell(13).setCellStyle(cellStyle);
+
+                row.createCell(14).setCellValue(user.getFirstAdminName());
+                row.getCell(14).setCellStyle(cellStyle);
+
+                row.createCell(15).setCellValue(user.getSecondAdminName());
+                row.getCell(15).setCellStyle(cellStyle);
 
                 Integer role = user.getRole();
-                String roleName =  "";
-                if(role.equals(Role.superAdmin.getCode())){
+                String roleName = "";
+                if (role.equals(Role.superAdmin.getCode())) {
                     roleName = "超级管理员";
-                }else if(role.equals(Role.normal.getCode())){
+                } else if (role.equals(Role.normal.getCode())) {
                     roleName = "普通用户";
-                }else if(role.equals(Role.firstAdmin.getCode())){
+                } else if (role.equals(Role.firstAdmin.getCode())) {
                     roleName = "一级管理员";
-                }else {
+                } else {
                     roleName = "二级管理员";
                 }
-                row.createCell(13).setCellValue(roleName);
-                row.createCell(14).setCellValue(user.getSuperAdminName());
-                row.createCell(15).setCellValue(user.getFirstAdminName());
-                row.createCell(16).setCellValue(user.getSecondAdminName());
+                row.createCell(16).setCellValue(roleName);
+                row.getCell(16).setCellStyle(cellStyle);
+
 
                 // 下一行
                 rowIndex++;
