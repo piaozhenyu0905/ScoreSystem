@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 
 public interface UserService {
+    public void exportExcel(HttpServletResponse response);
 
     public void updateNewUser(UserVO userVO);
 

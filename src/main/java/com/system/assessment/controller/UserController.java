@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -108,7 +109,7 @@ public class UserController {
             return ResponseResult.error(401,"管理员无法删除自己!");
         }
 
-        Integer result = userService.deleteUser(userId);
+        userService.deleteUser(userId);
         return ResponseResult.success();
     }
 
@@ -150,6 +151,8 @@ public class UserController {
     @ApiOperation("用户管理-修改个人信息")
     @RequestMapping(value = "/update/selfInfo",method = RequestMethod.POST)
     public ResponseResult updateUserInfo(@RequestBody UserVO user){
+
+        //涉及到主管、hr和管理员的修改，不会对关系做修改。
 
         //修改的别人的
         if(!user.getId().equals(AuthenticationUtil.getUserId())){
@@ -246,8 +249,18 @@ public class UserController {
                 return ResponseResult.error(401, "导入失败",importFailVO);
             }
         }else {
-            return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "该操作在当前环节无效!");
+            ImportFailVO importFailVO = new ImportFailVO();
+            importFailVO.setNotImport("无");
+            importFailVO.setNotCompleted("无");
+            return ResponseResult.error(402, "该操作在当前环节无效!");
         }
+    }
+
+    @ApiOperation("导出用户信息")
+    @RequestMapping(value = "/export/users",method = RequestMethod.GET)
+    public void exportExcel(HttpServletResponse response){
+        // 设置文件下载响应头
+        userService.exportExcel(response);
     }
 
 }

@@ -30,7 +30,7 @@ public class AsyncEmailServiceImpl implements EmailService {
     private final int MAX_RETRY_COUNT = 3;
 
     // 初始发送延迟，单位毫秒
-    private final long INITIAL_DELAY = 500; // 0.5秒
+    private final long INITIAL_DELAY = 1000; // 0.5秒
 
 
     @PostConstruct

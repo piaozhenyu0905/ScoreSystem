@@ -12,6 +12,7 @@ import com.system.assessment.mapper.UserMapper;
 import com.system.assessment.pojo.EvaluateRelationship;
 import com.system.assessment.pojo.User;
 import com.system.assessment.service.ExcelService;
+import com.system.assessment.service.RelationshipService;
 import com.system.assessment.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
@@ -46,7 +47,7 @@ public class ExcelServiceImpl implements ExcelService {
     public TodoListMapper todoListMapper;
 
     @Autowired
-    public RelationshipServiceImpl relationshipService;
+    public RelationshipService relationshipService;
 
     public void addRelationshipInMatrix(ImportRelationAddSet importRelationAddSet){
 

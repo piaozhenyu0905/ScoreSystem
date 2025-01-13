@@ -89,11 +89,7 @@ public class AsyncTask  {
                     String content = panelTemplate.htmlTemplate(title, name, context, totalScore, lxyz, lxyzTotalScore, business, businessTotalScore);
                     String subject = "成长评估结果发布";
                     emailService.sendMessageHTML(email, subject, content);
-                    try {
-                        Thread.sleep(1000);
-                    }catch (Exception e){
 
-                    }
                 }catch (Exception e) {
                     log.error(name + "的成长评估报告发送出现异常!" + "时间为"+ LocalDateTime.now());
                     // 记录异常或处理异常，可以选择继续执行
@@ -135,7 +131,7 @@ public class AsyncTask  {
 
     }
 
-
+    @Async("emailExecutor")
     public void sendEmailToEvaluator(Integer epoch, Map<Integer, String> map){
 
         List<String> emails = new ArrayList();
@@ -153,11 +149,6 @@ public class AsyncTask  {
         for (int index = 0; index < recipients.size(); index++){
             String to = recipients.get(index);
             emailService.sendMessageHTML(to, subject, content);
-            try {
-                Thread.sleep(1000);
-            }catch (Exception e){
-
-            }
         }
     }
 };

@@ -1,6 +1,7 @@
 package com.system.assessment.controller;
 
 import com.system.assessment.constants.ProcessType;
+import com.system.assessment.constants.Role;
 import com.system.assessment.exception.CustomExceptionType;
 import com.system.assessment.exception.ResponseResult;
 import com.system.assessment.pojo.EvaluateTable;
@@ -81,7 +82,14 @@ public class RelationshipController {
         else if(newEnableProcess.equals(ProcessType.Evaluation.getCode())){
             relationshipService.deleteEvaluationMatrixAtSecondStage(userId, evaluatorId);
             return ResponseResult.success();
-        }else {
+        }
+        //第四阶段对关系进行浅删除
+        else if(newEnableProcess.equals(ProcessType.ResultPublic.getCode())){
+
+            relationshipService.updateEvaluationMatrixEnable(userId, evaluatorId);
+            return ResponseResult.success();
+        }
+        else {
             return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "该操作在当前环节无效!");
         }
 
@@ -113,23 +121,29 @@ public class RelationshipController {
             }
         }
 
-        if(newEnableProcess.equals(ProcessType.BuildRelationships.getCode())){
+        if(newEnableProcess.equals(ProcessType.BuildRelationships.getCode())
+                || newEnableProcess.equals(ProcessType.ResultPublic.getCode())){
             relationshipService.addEvaluationMatrix(fixEvaluatedAddingVO);
             return ResponseResult.success();
         }else if (newEnableProcess.equals(ProcessType.Evaluation.getCode())){
             relationshipService.addEvaluationMatrixAtSecondStage(fixEvaluatedAddingVO);
             return ResponseResult.success();
-        }else {
+        }
+        else {
             return ResponseResult.error(CustomExceptionType.USER_INPUT_ERROR.getCode(), "该操作在当前环节无效!");
         }
 
     }
 
 
-
     @ApiOperation("导入评估矩阵")
     @RequestMapping(value = "/import/relationship",method = RequestMethod.POST)
     public ResponseResult addRelationship(@RequestParam("file") MultipartFile file){
+
+        Integer role = userService.findRole(AuthenticationUtil.getUserId());
+        if(!role.equals(Role.superAdmin.getCode())){
+            return ResponseResult.error(401,"编辑失败,您不具有该权限!");
+        }
 
         Integer newEnableProcess = evaluateService.findNewEnableProcess();
         if(newEnableProcess == null){

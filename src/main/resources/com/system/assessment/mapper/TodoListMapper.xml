@@ -288,7 +288,7 @@
         LEFT JOIN user AS e2 ON e2.id = tl.evaluator_id
         <where>
             <!--当前轮次， 分数被确认，操作为已完成评议-->
-            tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1 and u.is_delete = 0 and e2.is_delete = 0 and (u.id = #{id}
+            tl.epoch = #{epoch} and tl.enable = 1 and tl.operation = 1 and (u.id = #{id}
                                                 or (u.first_admin = #{id} or u.second_admin = #{id} or u.super_admin = #{id}))
             <if test="condition.name != null and condition.name != ''">
                 AND tl.evaluated_name like concat('%',#{condition.name},'%')

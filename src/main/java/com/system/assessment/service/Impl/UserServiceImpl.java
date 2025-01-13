@@ -1,10 +1,7 @@
 package com.system.assessment.service.Impl;
 
 import com.github.pagehelper.PageHelper;
-import com.system.assessment.constants.OperationType;
-import com.system.assessment.constants.ProcessType;
-import com.system.assessment.constants.RelationType;
-import com.system.assessment.constants.Role;
+import com.system.assessment.constants.*;
 import com.system.assessment.exception.CustomException;
 import com.system.assessment.exception.CustomExceptionType;
 import com.system.assessment.exception.ResponseResult;
@@ -12,8 +9,10 @@ import com.system.assessment.mapper.EvaluateMapper;
 import com.system.assessment.mapper.RelationshipMapper;
 import com.system.assessment.mapper.TodoListMapper;
 import com.system.assessment.mapper.UserMapper;
+import com.system.assessment.pojo.EvaluateRelationship;
 import com.system.assessment.pojo.User;
 import com.system.assessment.service.ExcelService;
+import com.system.assessment.service.RelationshipService;
 import com.system.assessment.service.UserService;
 import com.system.assessment.utils.AuthenticationUtil;
 import com.system.assessment.vo.*;
@@ -21,19 +20,31 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
+
+    @Value("${spring.profiles.active:dev}") // 默认环境为开发环境
+    private String activeProfile;
+
     @Autowired
     public UserMapper userMapper;
 
@@ -50,10 +61,145 @@ public class UserServiceImpl implements UserService {
     public EvaluateMapper evaluateMapper;
 
     @Autowired
+    public RelationshipService relationshipService;
+
+    @Autowired
     public TodoListMapper todoListMapper;
 
+    public Integer addFixedRelationshipById(Integer evaluatorId, Integer evaluatedId) {
+        Integer epoch = evaluateMapper.findNewEpoch();
+        if(epoch == null){
+            epoch = 1;
+        }
+        EvaluateRelationship evaluateRelationship = new EvaluateRelationship();
+        evaluateRelationship.setEnable(1);
+        evaluateRelationship.setEpoch(epoch);
+        evaluateRelationship.setEvaluateType(RelationType.fixed.getDescription());
+        evaluateRelationship.setEvaluator(evaluatorId);
+        evaluateRelationship.setEvaluatedUser(evaluatedId);
+        relationshipMapper.addRelationship(evaluateRelationship);
+        return 1;
+    }
+
+
     @Override
+    public void exportExcel(HttpServletResponse response) {
+
+        List<User> allUser = relationshipMapper.exportAllUser();
+
+        String savePath;
+        File destinationFile = null;
+
+        // 模板文件路径
+        if ("prd".equals(activeProfile)) {
+            savePath = PathConstants.EXCEL_FOLDER ; // 生产环境路径
+            destinationFile = new File(savePath,  "exportUser.xlsx");
+        } else {
+            ClassPathResource resource = new ClassPathResource("static/template");
+            File directory = null;
+            try {
+                directory = resource.getFile();
+                // 保存文件为 template.docx
+                destinationFile = new File(directory, "exportUser.xlsx");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(destinationFile);
+            Workbook workbook = new XSSFWorkbook(fis);
+            // 假设数据写入第一个 Sheet
+            Sheet sheet = workbook.getSheetAt(0);
+
+            int rowIndex = 1;
+            for (int i = 0; i < allUser.size(); i++) {
+                User user = allUser.get(i);
+                // 获取或创建行
+                Row row = sheet.getRow(rowIndex);
+                if (row == null) {
+                    row = sheet.createRow(rowIndex);
+                }
+
+                // 按表头顺序填写单元格并设置样式
+                row.createCell(0).setCellValue(user.getName());
+                row.createCell(1).setCellValue(user.getWorkNum());
+                row.createCell(2).setCellValue(user.getDepartment());
+                row.createCell(3).setCellValue(user.getSupervisorName1());
+                row.createCell(4).setCellValue(user.getSupervisorName2());
+                row.createCell(5).setCellValue(user.getSupervisorName3());
+                row.createCell(6).setCellValue(user.getHrName());
+                LocalDate hireDate = user.getHireDate();
+                if (hireDate != null) {
+                    CellStyle dateCellStyle = workbook.createCellStyle();
+                    CreationHelper creationHelper = workbook.getCreationHelper();
+                    dateCellStyle.setDataFormat(creationHelper.createDataFormat().getFormat("yyyy-MM-dd"));
+
+                    // 设置日期单元格并应用日期格式
+                    Cell cell = row.createCell(7);
+                    cell.setCellValue(java.sql.Date.valueOf(hireDate));
+                    cell.setCellStyle(dateCellStyle);  // 设置日期格式
+                }
+
+                row.createCell(8).setCellValue(user.getResidence());
+                row.createCell(9).setCellValue(user.getPhoneNumber());
+                row.createCell(10).setCellValue(user.getEmail());
+                row.createCell(11).setCellValue(user.getBusinessType());
+                row.createCell(12).setCellValue(user.getLxyz());
+
+                Integer role = user.getRole();
+                String roleName =  "";
+                if(role.equals(Role.superAdmin.getCode())){
+                    roleName = "超级管理员";
+                }else if(role.equals(Role.normal.getCode())){
+                    roleName = "普通用户";
+                }else if(role.equals(Role.firstAdmin.getCode())){
+                    roleName = "一级管理员";
+                }else {
+                    roleName = "二级管理员";
+                }
+                row.createCell(13).setCellValue(roleName);
+                row.createCell(14).setCellValue(user.getSuperAdminName());
+                row.createCell(15).setCellValue(user.getFirstAdminName());
+                row.createCell(16).setCellValue(user.getSecondAdminName());
+
+                // 下一行
+                rowIndex++;
+            }
+
+            // 设置文件下载响应头
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            String fileName = URLEncoder.encode("用户信息导出表格.xlsx", "UTF-8");
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+            // 写入数据到响应流
+            workbook.write(response.getOutputStream());
+            workbook.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    @Transactional
     public void updateNewUser(UserVO user) {
+
+        Integer newestEnableProcess = evaluateMapper.findNewestEnableProcess();
+        if(newestEnableProcess == null){
+            newestEnableProcess = 1;
+        }
+
+        Integer newEpoch = evaluateMapper.findNewEpoch();
+        if(newEpoch == null){
+            newEpoch = 1;
+        }
+
         user.preDo();
         String name = user.getName();
         if(name != null){
@@ -70,14 +216,24 @@ public class UserServiceImpl implements UserService {
 
         Integer superVisorNum = 0;
         if(user.getSupervisor1() != 0){
-            superVisorNum = superVisorNum + 1;
+            Integer isDelete = userMapper.judgeUserIsDelete(user.getSupervisor1());
+            if(isDelete != null && isDelete == 0){
+                superVisorNum = superVisorNum + 1;
+            }
         }
         if(user.getSupervisor2() != 0){
-            superVisorNum = superVisorNum + 1;
+            Integer isDelete = userMapper.judgeUserIsDelete(user.getSupervisor2());
+            if(isDelete != null && isDelete == 0){
+                superVisorNum = superVisorNum + 1;
+            }
         }
         if(user.getSupervisor3() != 0){
-            superVisorNum = superVisorNum + 1;
+            Integer isDelete = userMapper.judgeUserIsDelete(user.getSupervisor3());
+            if(isDelete != null && isDelete == 0){
+                superVisorNum = superVisorNum + 1;
+            }
         }
+
         Double weight;
         if(superVisorNum == 0){
             weight = 0.0;
@@ -109,6 +265,96 @@ public class UserServiceImpl implements UserService {
         user.setIsDelete(false);
 
         userMapper.addUserVO(user);
+        Integer id = user.getId();
+        if(user.getSupervisor1() != 0){
+            Integer evaluatorId = user.getSupervisor1();
+            Integer isDelete = userMapper.judgeUserIsDelete(evaluatorId);
+            //判断该主管是否仍有效（未被删除）
+            if(isDelete != null && isDelete == 0){
+                //第一,三，四阶段，只添加关系 ; 第二阶段，添加关系并新增任务
+                Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, id);
+                if(singleRelationship == null){
+                    //不存在，则建立固定关系
+                    addFixedRelationshipById(evaluatorId, id);
+                }
+                if(newestEnableProcess.equals(ProcessType.Evaluation.getCode())){
+                    //查看任务是否已存在
+                    TodoListVO todoListIsExist = todoListMapper.findTodoListIsExist(evaluatorId, id, newEpoch);
+                    //系统中找不到对应关系的[未完成]的任务，则添加新任务
+                    if(todoListIsExist == null){
+                        //添加新任务
+                        relationshipService.addNewTask(evaluatorId, id, newEpoch);
+                    }
+                }
+            }
+        }
+        if(user.getSupervisor2() != 0){
+            Integer evaluatorId = user.getSupervisor2();
+            Integer isDelete = userMapper.judgeUserIsDelete(evaluatorId);
+            //判断该主管是否仍有效（未被删除）
+            if(isDelete != null && isDelete == 0){
+                //第一,三，四阶段，只添加关系 ; 第二阶段，添加关系并新增任务
+                Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, id);
+                if(singleRelationship == null){
+                    //不存在，则建立固定关系
+                    addFixedRelationshipById(evaluatorId, id);
+                }
+                if(newestEnableProcess.equals(ProcessType.Evaluation.getCode())){
+                    //查看任务是否已存在
+                    TodoListVO todoListIsExist = todoListMapper.findTodoListIsExist(evaluatorId, id, newEpoch);
+                    //系统中找不到对应关系的[未完成]的任务，则添加新任务
+                    if(todoListIsExist == null){
+                        //添加新任务
+                        relationshipService.addNewTask(evaluatorId, id, newEpoch);
+                    }
+                }
+            }
+        }
+        if(user.getSupervisor3() != 0){
+            Integer evaluatorId = user.getSupervisor3();
+            Integer isDelete = userMapper.judgeUserIsDelete(evaluatorId);
+            //判断该主管是否仍有效（未被删除）
+            if(isDelete != null && isDelete == 0){
+                //第一,三，四阶段，只添加关系 ; 第二阶段，添加关系并新增任务
+                Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, id);
+                if(singleRelationship == null){
+                    //不存在，则建立固定关系
+                    addFixedRelationshipById(evaluatorId, id);
+                }
+                if(newestEnableProcess.equals(ProcessType.Evaluation.getCode())){
+                    //查看任务是否已存在
+                    TodoListVO todoListIsExist = todoListMapper.findTodoListIsExist(evaluatorId, id, newEpoch);
+                    //系统中找不到对应关系的[未完成]的任务，则添加新任务
+                    if(todoListIsExist == null){
+                        //添加新任务
+                        relationshipService.addNewTask(evaluatorId, id, newEpoch);
+                    }
+                }
+            }
+        }
+        if(user.getHr() != 0){
+            Integer evaluatorId = user.getHr();
+            Integer isDelete = userMapper.judgeUserIsDelete(evaluatorId);
+            //判断该主管是否仍有效（未被删除）
+            if(isDelete != null && isDelete == 0){
+                //第一,三，四阶段，只添加关系 ; 第二阶段，添加关系并新增任务
+                Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, id);
+                if(singleRelationship == null){
+                    //不存在，则建立固定关系
+                    addFixedRelationshipById(evaluatorId, id);
+                }
+                if(newestEnableProcess.equals(ProcessType.Evaluation.getCode())){
+                    //查看任务是否已存在
+                    TodoListVO todoListIsExist = todoListMapper.findTodoListIsExist(evaluatorId, id, newEpoch);
+                    //系统中找不到对应关系的[未完成]的任务，则添加新任务
+                    if(todoListIsExist == null){
+                        //添加新任务
+                        relationshipService.addNewTask(evaluatorId, id, newEpoch);
+                    }
+                }
+            }
+        }
+
     }
 
     @Override
@@ -182,12 +428,28 @@ public class UserServiceImpl implements UserService {
                 if (header.contains("\n")) {
                     // 使用 split 提取 \n 前的部分
                     String[] parts = header.split("\n");
-                    columnIndexMap.put(parts[0].trim(), cell.getColumnIndex());
+                    String part = parts[0];
+                    String property;
+                    if(part.contains("*")){
+                        property = part.replace("*", "");
+                    }
+                    else {
+                        property = part;
+                    }
+                    columnIndexMap.put(property.trim(), cell.getColumnIndex());
                 } else {
+                    String property;
+                    if(header.contains("*")){
+                        property = header.replace("*", "");
+                    }
+                    else {
+                        property = header;
+                    }
                     // 如果没有 \n，直接添加原字符串
-                    columnIndexMap.put(header, cell.getColumnIndex());
+                    columnIndexMap.put(property.trim(), cell.getColumnIndex());
                 }
             }
+
 
             //验证用户传入的表格是否符合用户导入的格式
             if(columnIndexMap.get("姓名") == null || columnIndexMap.get("系统角色") == null){
@@ -260,7 +522,6 @@ public class UserServiceImpl implements UserService {
             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "您暂无删除权限!");
         }
 
-        //1.将跟该用户有关的从关系矩阵中删除
         Integer newEnableProcess = evaluateMapper.findNewestEnableProcess();
         if(newEnableProcess == null){
             newEnableProcess = 1;
@@ -283,9 +544,12 @@ public class UserServiceImpl implements UserService {
             todoListMapper.setFinishedOperationToDeletedInUser(userId, OperationType.FINISHEDANDDELETED.getCode(),newEpoch);
             //对于还没有完成的任务，则直接delete删除
             todoListMapper.DeleteUnFinishedInUser(userId, OperationType.NOTFINISHED.getCode(),newEpoch);
-
         }
-        //位于第三阶段和第四阶段，则不准进行删除
+        //第四阶段，浅删除关系
+        else if(newEnableProcess.equals(ProcessType.ResultPublic.getCode())){
+            relationshipMapper.deleteRelationshipById(userId);
+        }
+        //位于第三阶段，则不准进行删除
         else{
             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "当前阶段无法进行用户删除!");
         }
@@ -398,6 +662,24 @@ public class UserServiceImpl implements UserService {
                 return Role.SecondAdmin.getDescription();
             default:
                 return Role.normal.getDescription();
+        }
+    }
+
+    private  void createCellWithStyle(Row row, int columnIndex, Object value, Cell styleCell, Workbook workbook) {
+        Cell cell = row.createCell(columnIndex);
+
+        // 设置单元格值
+        if (value instanceof Double) {
+            cell.setCellValue((Double) value);
+        } else if (value instanceof String) {
+            cell.setCellValue((String) value);
+        }
+
+        // 复制样式
+        if (styleCell != null) {
+            CellStyle newStyle = workbook.createCellStyle();
+            newStyle.cloneStyleFrom(styleCell.getCellStyle()); // 克隆样式
+            cell.setCellStyle(newStyle);
         }
     }
 

@@ -61,6 +61,31 @@
         <result column="evaluatorWorkNum" property="evaluatorWorkNum"></result>
     </resultMap>
 
+
+    <select id="exportAllUser" resultMap="User">
+        select  u.id, u.business_type, u.lxyz, u.department, u.name, u.work_num, u.department, u.hire_date,
+               u.residence, u.email, u.phone_number, u.role,
+        CONCAT(u1.name, '/', u1.work_num) as supervisor_name_1,
+        CONCAT(u2.name, '/', u2.work_num) as supervisor_name_2,
+        CONCAT(u3.name, '/', u3.work_num) as supervisor_name_3,
+        CONCAT(u4.name, '/', u4.work_num) as hrName,
+        CONCAT(u5.name, '/', u5.work_num) as first_admin_name,
+        CONCAT(u6.name, '/', u6.work_num) as second_admin_name,
+        CONCAT(u7.name, '/', u7.work_num) as super_admin_name
+        from user as u
+        left join user as u1 on u.supervisor_1 = u1.id
+        left join user as u2 on u.supervisor_2 = u2.id
+        left join user as u3 on u.supervisor_3 = u3.id
+        left join user as u4 on u.hr = u4.id
+        left join user as u5 on u.first_admin = u5.id
+        left join user as u6 on u.second_admin = u6.id
+        left join user as u7 on u.super_admin = u7.id
+        <where>
+            u.is_delete = 0
+        </where>
+    </select>
+
+
     <select id="findAllUser" resultMap="User">
         select  u.id, u.business_type, u.lxyz, u.department,
                 CONCAT(u.name, '/', u.work_num) as name,

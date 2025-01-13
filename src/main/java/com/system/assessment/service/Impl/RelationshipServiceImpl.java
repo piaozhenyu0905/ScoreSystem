@@ -467,6 +467,7 @@ public class RelationshipServiceImpl implements RelationshipService {
         return 1;
     }
 
+    @Override
     public Integer addNewTask(Integer evaluatorId, Integer evaluatedId, Integer epoch){
         TodoList todoList = new TodoList();
         todoList.setType(TaskType.SurroundingEvaluation.getDescription());
@@ -522,6 +523,11 @@ public class RelationshipServiceImpl implements RelationshipService {
     @Override
     public Integer deleteEvaluationMatrix(Integer userId, Integer evaluatorId) {
         return relationshipMapper.deleteEvaluation(userId, evaluatorId, RelationType.fixed.getCode());
+    }
+
+    @Override
+    public Integer updateEvaluationMatrixEnable(Integer userId, Integer evaluatorId) {
+        return  relationshipMapper.deleteEvaluationMatrix(userId, evaluatorId, RelationType.fixed.getCode());
     }
 
     @Override

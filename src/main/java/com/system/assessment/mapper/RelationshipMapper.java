@@ -59,5 +59,7 @@ public interface RelationshipMapper {
 
     public List<User> findAllUser(@Param("name") String name);
 
+    public List<User> exportAllUser();
+
     public Integer addRelationship(@Param("relationship") EvaluateRelationship evaluateRelationship);
 }

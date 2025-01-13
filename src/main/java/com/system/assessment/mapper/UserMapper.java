@@ -14,6 +14,9 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
+    @Select("select is_delete from user where id = #{id}")
+    public Integer judgeUserIsDelete(@Param("id")Integer id);
+
     public Integer setWeight1(@Param("id")Integer id, @Param("weight")Double weight);
 
     public Integer setWeight2(@Param("id")Integer id, @Param("weight")Double weight);

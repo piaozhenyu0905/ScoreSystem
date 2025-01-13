@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface RelationshipService {
+    public Integer addNewTask(Integer evaluatorId, Integer evaluatedId, Integer epoch);
+
     public List<AssessorVO> findAssessor(Integer userId);
 
     public List<RelatedPersonInfoVO> relatedPersonInfo(Integer userId);
@@ -36,6 +38,8 @@ public interface RelationshipService {
     public Integer addEvaluationMatrix(Integer userId,Integer evaluatorId);
 
     public Integer deleteEvaluationMatrix(Integer userId,Integer evaluatorId);
+
+    public Integer updateEvaluationMatrixEnable(Integer userId,Integer evaluatorId);
 
     public Integer deleteEvaluationMatrixAtSecondStage(Integer userId,Integer evaluatorId);
 
