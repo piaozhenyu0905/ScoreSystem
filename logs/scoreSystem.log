@@ -491,3 +491,12 @@
 2025-01-13 20:07:26.449 +0800	INFO	springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator	40	main	Generating unique operation named: exportExcelUsingGET_1
 2025-01-13 20:07:26.507 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 5.578 seconds (JVM running for 8.364)
 2025-01-13 20:07:26.767 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...
+2025-01-13 21:32:11.342 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 17080 (started by LENOVO in E:\ScoreSystem)
+2025-01-13 21:32:11.350 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-01-13 21:32:15.008 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-01-13 21:32:16.907 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-01-13 21:32:16.938 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-01-13 21:32:16.981 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-01-13 21:32:17.424 +0800	INFO	springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator	40	main	Generating unique operation named: exportExcelUsingGET_1
+2025-01-13 21:32:17.471 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 6.383 seconds (JVM running for 9.063)
+2025-01-13 21:32:18.002 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...
