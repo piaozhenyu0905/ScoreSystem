@@ -234,6 +234,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void updateNewUser(UserVO user) {
 
+        Integer idByNameAndWorkNum = userMapper.findIdByNameAndWorkNum(user.getName(), user.getWorkNum());
+        if(idByNameAndWorkNum != null && idByNameAndWorkNum != 0){
+            return;
+        }
+
         Integer newestEnableProcess = evaluateMapper.findNewestEnableProcess();
         if(newestEnableProcess == null){
             newestEnableProcess = 1;

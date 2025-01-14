@@ -453,6 +453,10 @@ public class RelationshipServiceImpl implements RelationshipService {
         Integer userId = fixEvaluatedAddingVO.getUserId();
         for (int index = 0; index < fixEvaluatedAddingVO.getEvaluatorIds().size(); index++){
             Integer evaluatorId = fixEvaluatedAddingVO.getEvaluatorIds().get(index);
+            Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, userId);
+            if(singleRelationship != null && singleRelationship != 0){
+                continue;
+            }
             //1.添加关系到矩阵
             addEvaluationMatrix(userId, evaluatorId);
             //2.添加新的打分任务
@@ -499,7 +503,10 @@ public class RelationshipServiceImpl implements RelationshipService {
         Integer userId = fixEvaluatedAddingVO.getUserId();
         for (int index = 0; index < fixEvaluatedAddingVO.getEvaluatorIds().size(); index++){
             Integer evaluatorId = fixEvaluatedAddingVO.getEvaluatorIds().get(index);
-            addEvaluationMatrix(userId, evaluatorId);
+            Integer singleRelationship = relationshipMapper.findSingleRelationship(evaluatorId, userId);
+            if(singleRelationship == null){
+                addEvaluationMatrix(userId, evaluatorId);
+            }
         }
         return 1;
     }
