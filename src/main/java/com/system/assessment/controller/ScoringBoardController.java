@@ -146,7 +146,7 @@ public class ScoringBoardController {
         return ResponseResult.success();
     }
 
-    @ApiOperation("得分看板-统计评估人本轮次平均打分")
+    @ApiOperation("得分看板-统计被评估人本轮次平均得分")
     @RequestMapping(value = "/getBoard",method = RequestMethod.POST)
     public ResponseResult getAverageScoreBoard(@RequestBody GetScoreConditionalVO getScoreConditionalVO){
         Integer newEnableProcess = evaluateService.findNewEnableProcess();

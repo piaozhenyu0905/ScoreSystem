@@ -70,6 +70,99 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         return  scoreList;
     };
 
+    //计算得分平均时，如果某一个维度平均分＞5，则变为5
+    public List<Double> sumGettingScoreLimitCell(List<SingleScoreWithSupervisor> singleScoreList){
+        List<Double> scoreList = new ArrayList<>(Collections.nCopies(Guideline.values().length, 0.0));
+        List<Double> scoreDenominator = new ArrayList<>(Collections.nCopies(Guideline.values().length, 0.0));
+        List<SpecialScoreVO> specialScoreList = new ArrayList<>();
+        Integer employeeCount = 0;
+        Integer supervisorCount = 0;
+
+        //1.先计算非使命必达维度的平均分
+        for(int idx = 0; idx < singleScoreList.size(); idx++){
+            SingleScoreWithSupervisor singleScore = singleScoreList.get(idx);
+            List<ScoreVO> scores = singleScore.getScores();
+            Double confidenceLevel = singleScore.getSingleConfidenceLevel();
+            //不等于-1证明评估人是被评估人的主管且权重有效
+            if(singleScore.getIsSupervisor() != -1.0){
+                supervisorCount++;
+            }else {
+                employeeCount++;
+            }
+            scores.forEach(score -> {
+                //不是使命必达的分按正常加权平均分算
+                if(score.getDimensionId() != Guideline.Execution.getCode()){
+                    Integer index = score.getDimensionId() - 1;
+                    Double rawScore = scoreList.get(index);
+                    Double newScore = rawScore + score.getScore() * confidenceLevel;
+                    scoreList.set(index, newScore);
+                    Double oldDenominator = scoreDenominator.get(index);
+                    Double newDenominator = oldDenominator + confidenceLevel;
+                    scoreDenominator.set(index, newDenominator);
+                }else {
+                    if(singleScore.getIsSupervisor() != -1.0){
+                        specialScoreList.add(new SpecialScoreVO(singleScore.getIsSupervisor(), score.getScore(), confidenceLevel));
+                    }
+                    else {
+                        specialScoreList.add(new SpecialScoreVO(-1.0, score.getScore(), confidenceLevel));
+                    }
+                }
+            });
+        }
+        for(int i = 0; i < scoreList.size(); i++){
+            //计算非使命必达的加权平均分
+            if(i != (Guideline.Execution.getCode() - 1)){
+                Double newScore = scoreList.get(i) / (scoreDenominator.get(i) + Double.MIN_VALUE);
+                if(newScore >  5.0){
+                    newScore = 5.0;
+                }
+                BigDecimal bd = BigDecimal.valueOf(newScore);
+                bd = bd.setScale(1, RoundingMode.HALF_UP); // 保留两位小数，四舍五入
+                Double newScoreScale = bd.doubleValue();
+                scoreList.set(i, newScoreScale);
+            }
+        }
+
+        //下面计算使命必达维度的平均分
+        // 确定基本权重
+        double employeeBasicWeight;
+
+        if (employeeCount > 0 && supervisorCount > 0) {
+            // 既有员工又有主管
+            employeeBasicWeight = 0.1 / employeeCount;
+        } else {
+            // 只有员工或只有主管
+            employeeBasicWeight = 1.0 / (employeeCount + supervisorCount);
+        }
+        // 遍历计算最终加权分数和总权重
+        double weightedSum = 0.0;
+        double totalWeight = 0.0;
+        for(SpecialScoreVO specialScore: specialScoreList){
+            Double isSupervisor = specialScore.getIsSupervisor();
+            double basicWeight;
+            if(isSupervisor == -1.0){
+                //普通员工
+                basicWeight = employeeBasicWeight;
+            }else {
+                //主管
+                basicWeight = isSupervisor;
+            }
+
+            double finalWeight = basicWeight * specialScore.getWeight();
+            weightedSum += specialScore.getScore() * finalWeight;
+            totalWeight += finalWeight;
+        }
+        Double specialTotalScore = totalWeight == 0 ? 0 : weightedSum / totalWeight;
+        if(specialTotalScore > 5.0){
+            specialTotalScore = 5.0;
+        }
+        specialTotalScore = MathUtils.transformer(specialTotalScore);
+        scoreList.set(Guideline.Execution.getCode() - 1,specialTotalScore);
+        return scoreList;
+    };
+
+
+
     public List<Double> sumGettingScore(List<SingleScoreWithSupervisor> singleScoreList){
         List<Double> scoreList = new ArrayList<>(Collections.nCopies(Guideline.values().length, 0.0));
         List<Double> scoreDenominator = new ArrayList<>(Collections.nCopies(Guideline.values().length, 0.0));
@@ -181,7 +274,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         averageGettingScoringVO.setBusiness(scoreDetailVO.getBusiness());
         averageGettingScoringVO.setUserId(scoreDetailVO.getEvaluatedId());
         List<SingleScoreWithSupervisor> singleScoreList = scoreDetailVO.getSingleScore();
-        averageGettingScoringVO.setScoreList(sumGettingScore(singleScoreList));
+        averageGettingScoringVO.setScoreList(sumGettingScoreLimitCell(singleScoreList));
         averageGettingScoringVO.setTotalScore(sumTotalScore(averageGettingScoringVO.getScoreList())); //计算所有维度平均分的总分
         return  averageGettingScoringVO;
     }
@@ -209,6 +302,43 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
 
         return postList;
     }
+
+    public List<AverageGettingScoringVO> sumGettingAverageWithEvaluatedConfidence(List<ScoreGettingDetailVO> rawList){
+        //计算每个被评估人的各维度平均得分以及总得分
+        ArrayList<AverageGettingScoringVO> postList = new ArrayList<>();
+        if(rawList == null || rawList.isEmpty()){
+            return null;
+        }
+        rawList.forEach(scoreDetailVO -> {
+            AverageGettingScoringVO averageGettingScoringVO = new AverageGettingScoringVO();
+            averageGettingScoringVO.setDepartment(scoreDetailVO.getDepartment());
+            averageGettingScoringVO.setLxyz(scoreDetailVO.getLxyz());
+            averageGettingScoringVO.setEvaluatedName(scoreDetailVO.getEvaluatedName());
+            averageGettingScoringVO.setBusiness(scoreDetailVO.getBusiness());
+            averageGettingScoringVO.setConfidence(scoreDetailVO.getConfidence());
+            averageGettingScoringVO.setUserId(scoreDetailVO.getEvaluatedId());
+            List<SingleScoreWithSupervisor> singleScoreList = scoreDetailVO.getSingleScore();
+            averageGettingScoringVO.setScoreList(sumGettingScore(singleScoreList));
+
+            List<Double> scoreList = averageGettingScoringVO.getScoreList();
+            for (int index = 0; index < scoreList.size(); index++){
+                Double score = scoreList.get(index);
+                Double result;
+                if(score * scoreDetailVO.getConfidence() > 5.0){
+                    result = 5.0;
+                }else {
+                    result = score * scoreDetailVO.getConfidence();
+                }
+                scoreList.set(index, result);
+            }
+
+            averageGettingScoringVO.setTotalScore(sumTotalScore(averageGettingScoringVO.getScoreList())); //计算所有维度平均分的总分
+            postList.add(averageGettingScoringVO);
+        });
+
+        return postList;
+    }
+
 
 
     public List<AverageScoringVO> sumAverage(List<ScoreDetailVO> rawList){
@@ -427,6 +557,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         for (int index = 0; index < scoreList.size(); index++){
             totalScore = totalScore + scoreList.get(index);
         }
+
         BigDecimal bd = BigDecimal.valueOf(totalScore);
         bd = bd.setScale(1, RoundingMode.HALF_UP); // 保留一位小数，四舍五入
         Double newTotalScore = bd.doubleValue();
@@ -602,16 +733,27 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         Double totalScore;
         List<Double> scoreList;
         AverageGettingScoringVO averageGettingScoringVO = sumSingleGettingAverage(singleGettingNewRound);
+
         if(averageGettingScoringVO == null){
             totalScore = 0.0;
             scoreList = new ArrayList<>(Collections.nCopies(Guideline.values().length, 0.0));
         }else {
-            totalScore =  averageGettingScoringVO.getTotalScore();
             scoreList = averageGettingScoringVO.getScoreList();
             Double confidence = singleGettingNewRound.getConfidence();
             //2.1 总分和各维度得分都要乘以置信度
-            totalScore = totalScore * confidence;
-            scoreList.replaceAll(n -> n * confidence);
+            Double all = 0.0;
+            for (int index = 0; index < scoreList.size(); index++){
+                Double score = scoreList.get(index);
+                Double add;
+                if(score * confidence > 5.0){
+                    add = 5.0;
+                }else {
+                    add = score * confidence;
+                }
+                scoreList.set(index,add);
+                all = all + add;
+            }
+            totalScore = all;
         }
 
         panelScoreBoardVO.setTotalScore(totalScore);
@@ -805,11 +947,16 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
 
              for(int idx = 0; idx < scoreSingleList.size(); idx++){
                  Double oldScore = resultList.get(idx);
-                 Double newScore = oldScore + scoreSingleList.get(idx) * confidence; //新得分 = 旧得分 + 分数 * 置信度
+                 Double addScore;
+                 if(scoreSingleList.get(idx) * confidence > 5.0){
+                     addScore = 5.0;
+                 }else {
+                     addScore = scoreSingleList.get(idx) * confidence;
+                 }
+                 Double newScore = oldScore + addScore; //新得分 = 旧得分 + 分数 * 置信度
                  resultList.set(idx, newScore);
              }
-             Double totalScoreSingle = averageGettingScoringVO.getTotalScore() * confidence;
-             totalScore = totalScoreSingle + totalScore;
+
          }
         //加权平均计算
         for(int index = 0; index < resultList.size(); index++){
@@ -818,7 +965,11 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             Double transformerScore = MathUtils.transformer(newAverage, 2);
             resultList.set(index, transformerScore);
         }
-        totalScore = totalScore / scoreList.size();
+
+        for (int i = 0; i < resultList.size(); i++){
+            totalScore = totalScore + resultList.get(i);
+        }
+
         totalScore =  MathUtils.transformer(totalScore);
         averageScoreByCondition.setScoreList(resultList);
         averageScoreByCondition.setTotalScore(totalScore);
@@ -848,7 +999,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             };
         }
         //2.计算平均值
-        List<AverageGettingScoringVO> averageScoringList = sumGettingAverage(averageGettingNewRound);
+        List<AverageGettingScoringVO> averageScoringList = sumGettingAverageWithEvaluatedConfidence(averageGettingNewRound);
         //3.判断是否需要根据某个指标进行排序
         List<AverageGettingScoringVO> orderedList = orderByAtGetting(averageScoringList, getScoreConditionalVO.getOrderAt());
         //4.进行分页
