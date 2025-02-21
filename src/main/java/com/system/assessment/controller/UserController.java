@@ -158,7 +158,7 @@ public class UserController {
         if(!user.getId().equals(AuthenticationUtil.getUserId())){
             //先判断自身是否是超级管理员
             Integer role = userService.findRole(AuthenticationUtil.getUserId());
-            if(!role.equals(Role.superAdmin.getCode())){
+            if(!role.equals(Role.superAdmin.getCode()) && !role.equals(Role.SecondAdmin.getCode())){
                 return ResponseResult.error(401,"编辑失败,您不具有该权限!");
             }
 

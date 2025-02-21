@@ -567,7 +567,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Integer deleteUser(Integer userId) {
         Integer role = findRole(AuthenticationUtil.getUserId());
-        if(!role.equals(Role.superAdmin.getCode())){
+        if(!role.equals(Role.superAdmin.getCode()) && !role.equals(Role.SecondAdmin.getCode())){
             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR, "您暂无删除权限!");
         }
 
