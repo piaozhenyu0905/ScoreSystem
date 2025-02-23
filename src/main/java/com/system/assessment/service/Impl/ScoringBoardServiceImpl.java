@@ -329,6 +329,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
                 }else {
                     result = score * scoreDetailVO.getConfidence();
                 }
+                result = MathUtils.transformer(result,1);
                 scoreList.set(index, result);
             }
 
@@ -750,6 +751,7 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
                 }else {
                     add = score * confidence;
                 }
+                add = MathUtils.transformer(add, 1);
                 scoreList.set(index,add);
                 all = all + add;
             }

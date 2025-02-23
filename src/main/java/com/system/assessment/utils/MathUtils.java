@@ -13,7 +13,7 @@ public class MathUtils {
 
     public static Double transformer(Double score, Integer scale){
         BigDecimal bd = BigDecimal.valueOf(score);
-        bd = bd.setScale(2, RoundingMode.HALF_UP); // 四舍五入
+        bd = bd.setScale(scale, RoundingMode.HALF_UP); // 四舍五入
         Double newScoreScale = bd.doubleValue();
         return newScoreScale;
     };
