@@ -141,7 +141,7 @@ public class RelationshipController {
     public ResponseResult addRelationship(@RequestParam("file") MultipartFile file){
 
         Integer role = userService.findRole(AuthenticationUtil.getUserId());
-        if(!role.equals(Role.superAdmin.getCode())){
+        if(!role.equals(Role.superAdmin.getCode()) && !role.equals(Role.SecondAdmin.getCode())){
             return ResponseResult.error(401,"编辑失败,您不具有该权限!");
         }
 

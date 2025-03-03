@@ -16,17 +16,32 @@ import com.system.assessment.service.TodoService;
 import com.system.assessment.utils.AuthenticationUtil;
 import com.system.assessment.utils.MathUtils;
 import com.system.assessment.vo.*;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ScoringBoardServiceImpl implements ScoringBoardService {
+
+    @Value("${spring.profiles.active:dev}") // 默认环境为开发环境
+    private String activeProfile;
+
 
     @Autowired
     public TodoListMapper todoListMapper;
@@ -455,6 +470,114 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
     };
 
     @Override
+    public void exportGetBoard(HttpServletResponse response) {
+
+        Integer newEpoch = evaluateMapper.findNewEpoch();
+        List<ScoreGettingDetailVO> averageGettingNewRound;
+        averageGettingNewRound = todoListMapper.exportGetBoardList(newEpoch);
+
+        List<AverageGettingScoringVO> orderedList;
+
+        if (averageGettingNewRound != null && averageGettingNewRound.size() != 0) {
+            for (int index = 0; index < averageGettingNewRound.size(); index++) {
+                ScoreGettingDetailVO scoreGettingDetailVO = averageGettingNewRound.get(index);
+                List<SingleScoreWithSupervisor> singleScoreList = scoreGettingDetailVO.getSingleScore();
+                for (int i = 0; i < singleScoreList.size(); i++) {
+                    SingleScoreWithSupervisor singleScore = singleScoreList.get(i);
+                    //根据评议任务id查找出对应的打分情况
+                    SingleScore SingleScoreDetail = todoListMapper.findSingleScoreByTodoId(singleScore.getTodoId());
+                    singleScore.setScores(SingleScoreDetail.getScores());
+                }
+                ;
+            }
+            //2.计算平均值
+            List<AverageGettingScoringVO> averageScoringList = sumGettingAverageWithEvaluatedConfidence(averageGettingNewRound);
+            //3.导出默认按总分排序
+            orderedList = orderByAtGetting(averageScoringList, 0);
+        }else {
+            orderedList = new ArrayList<>();
+        }
+
+
+        String savePath;
+        File destinationFile = null;
+
+        // 模板文件路径
+        if ("prd".equals(activeProfile)) {
+            savePath = PathConstants.EXCEL_FOLDER ; // 生产环境路径
+            destinationFile = new File(savePath,  "getBoard.xlsx");
+        } else {
+            ClassPathResource resource = new ClassPathResource("static/template");
+            File directory = null;
+            try {
+                directory = resource.getFile();
+                // 保存文件为 template.docx
+                destinationFile = new File(directory, "getBoard.xlsx");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(destinationFile);
+            Workbook workbook = new XSSFWorkbook(fis);
+            // 假设数据写入第一个 Sheet
+            Sheet sheet = workbook.getSheetAt(0);
+
+            // 获取第二行（索引为 3，因为行号从 0 开始）
+            Row styleRow = sheet.getRow(0);
+
+
+            int rowIndex = 1;
+            for (int i = 0; i < orderedList.size(); i++) {
+                AverageGettingScoringVO user = orderedList.get(i);
+                // 获取或创建行
+                Row row = sheet.getRow(rowIndex);
+                if (row == null) {
+                    row = sheet.createRow(rowIndex);
+                }
+
+                List<Double> scoreList = user.getScoreList();
+
+                // 按表头顺序填写单元格并设置样式
+                createCellWithStyle(row, 0, user.getEvaluatedName(), styleRow.getCell(0), workbook); // ID
+                createCellWithStyle(row, 1, user.getDepartment(), styleRow.getCell(1), workbook); // Name
+                createCellWithStyle(row, 2, user.getLxyz(), styleRow.getCell(2), workbook); // Department
+                createCellWithStyle(row, 3, user.getBusiness(), styleRow.getCell(3), workbook); //
+                createCellWithStyle(row, 4, user.getConfidence(), styleRow.getCell(4), workbook); //
+                createCellWithStyle(row, 5, user.getTotalScore(), styleRow.getCell(5), workbook); //
+                createCellWithStyle(row, 6, scoreList.get(0), styleRow.getCell(6), workbook); //
+                createCellWithStyle(row, 7, scoreList.get(1), styleRow.getCell(7), workbook); //
+                createCellWithStyle(row, 8, scoreList.get(2), styleRow.getCell(8), workbook); //
+                createCellWithStyle(row, 9, scoreList.get(3), styleRow.getCell(9), workbook); //
+                createCellWithStyle(row, 10, scoreList.get(4), styleRow.getCell(10), workbook); //
+                createCellWithStyle(row, 11, scoreList.get(5), styleRow.getCell(11), workbook); //
+                createCellWithStyle(row, 12, scoreList.get(6), styleRow.getCell(12), workbook); //
+                createCellWithStyle(row, 13, scoreList.get(7), styleRow.getCell(13), workbook); //
+                createCellWithStyle(row, 14, scoreList.get(8), styleRow.getCell(14), workbook); //
+                // 下一行
+                rowIndex++;
+            }
+
+            // 设置文件下载响应头
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            String fileName = URLEncoder.encode("得分看板导出表格.xlsx", "UTF-8");
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+            // 写入数据到响应流
+            workbook.write(response.getOutputStream());
+            workbook.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public GroupAverageVO getAverageScoreBoardAll(String condition) {
         GroupAverageVO groupAverage = new GroupAverageVO();
         ArrayList<AverageScoreByCondition> dataList = new ArrayList<>();
@@ -679,8 +802,33 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
         return 1;
     }
 
+    public void sortList(List<ScoreDetailIncludeEvaluated> averageScoringDetail, Integer condition, Integer orderBy){
+        // 创建Comparator来实现排序
+        Comparator<ScoreDetailIncludeEvaluated> comparator;
+
+        if (condition == null || condition == 0) {
+            // 按allScore排序
+            comparator = Comparator.comparing(ScoreDetailIncludeEvaluated::getAllScore);
+        } else if (condition >= 1 && condition <= 9) {
+            // 按scores中的某个元素排序
+            int index = condition - 1; // 因为condition从1到9，索引从0到8
+            comparator = Comparator.comparing(scoreDetail -> scoreDetail.getScores().get(index));
+        } else {
+            throw new IllegalArgumentException("不合法的排序: " + condition);
+        }
+
+        // 如果orderBy是1，则倒序（DESC），否则升序（ASC）
+        if (orderBy != null  && orderBy == 1) {
+            comparator = comparator.reversed();  // 反转排序方向，进行降序排列
+        }
+
+        // 排序
+        averageScoringDetail.sort(comparator);
+    }
+
+
     @Override
-    public List<ScoreDetailIncludeEvaluated> findAverageScoringDetail(Integer userId) {
+    public List<ScoreDetailIncludeEvaluated> findAverageScoringDetail(Integer userId, Integer condition, Integer orderBy) {
         Integer newEpoch = evaluateMapper.findNewEpoch();
         List<ScoreDetailIncludeEvaluated> averageScoringDetail = todoListMapper.findAverageScoringDetail(newEpoch, userId);
 
@@ -697,6 +845,9 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             Double newScoreScale = bd.doubleValue();
             singleScore.setAllScore(newScoreScale);
         });
+
+        //按condition 排序
+        sortList(averageScoringDetail,condition, orderBy);
 
         return averageScoringDetail;
     }
@@ -1034,4 +1185,35 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
 
         return new DataListResult<>(orderedList.size(), scoreResults);
     }
+
+    private  void createCellWithStyle(Row row, int columnIndex, Object value, Cell styleCell, Workbook workbook) {
+        Cell cell = row.createCell(columnIndex);
+
+        // 设置单元格值
+        if (value instanceof Double) {
+            cell.setCellValue((Double) value);
+        } else if (value instanceof String) {
+            cell.setCellValue((String) value);
+        }
+
+        // 创建新的单元格样式
+        CellStyle newStyle = workbook.createCellStyle();
+
+        // 复制原有样式（如果有）
+        if (styleCell != null) {
+            newStyle.cloneStyleFrom(styleCell.getCellStyle());
+        }
+
+        // 创建字体，并设置为 Times New Roman
+        Font font = workbook.createFont();
+        font.setFontName("Times New Roman");
+
+        // 将字体应用到单元格样式
+        newStyle.setFont(font);
+        cell.setCellStyle(newStyle);
+
+
+    }
+
+
 }

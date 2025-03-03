@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,9 +54,12 @@ public class ScoringBoardController {
 
     @ApiOperation("评分看板-查看某人打分的详情")
     @RequestMapping(value = "/average/score/detail",method = RequestMethod.GET)
-    public ResponseResult findAverageScoringDetail(@RequestParam("id") Integer userId){
+    public ResponseResult findAverageScoringDetail(@RequestParam("id") Integer userId,
+                                                   @RequestParam("condition") Integer condition,
+                                                   @RequestParam("orderBy")Integer orderBy){
 
-        List<ScoreDetailIncludeEvaluated>  averageScoringDetail = scoringBoardService.findAverageScoringDetail(userId);
+        // condition:0 代表总分， 1-9代表对应的维度
+        List<ScoreDetailIncludeEvaluated>  averageScoringDetail = scoringBoardService.findAverageScoringDetail(userId, condition, orderBy);
         return ResponseResult.success(averageScoringDetail);
     }
 
@@ -242,4 +246,22 @@ public class ScoringBoardController {
         List<ScoreGettingDetailIncludeEvaluated> averageGettingDetail = scoringBoardService.findAverageGettingDetail(userId);
         return ResponseResult.success(averageGettingDetail);
     }
+
+    @ApiOperation("导出得分看板")
+    @RequestMapping(value = "/export/getBoard",method = RequestMethod.GET)
+    public void exportGetBoard(HttpServletResponse response){
+        Integer newEnableProcess = evaluateService.findNewEnableProcess();
+        if(newEnableProcess == null){
+            newEnableProcess = 0;
+        }
+        //处于第三、四环节，且处于可见情况下才能导出得分看板
+        if(newEnableProcess.equals(ProcessType.ResultConsultation.getCode()) ||
+                newEnableProcess.equals(ProcessType.ResultPublic.getCode())){
+            if(isVisible()){
+                // 设置文件下载响应头
+                scoringBoardService.exportGetBoard(response);
+            }
+        }
+    }
+
 }

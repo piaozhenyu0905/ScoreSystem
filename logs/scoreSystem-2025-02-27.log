@@ -1,0 +1,76 @@
+2025-02-27 14:04:34.991 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 2684 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2025-02-27 14:04:35.008 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-02-27 14:04:40.693 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2025-02-27 14:04:40.694 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2025-02-27 14:04:40.695 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2025-02-27 14:04:40.696 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2025-02-27 14:04:40.697 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2025-02-27 14:04:40.697 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2025-02-27 14:04:40.884 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2025-02-27 14:04:41.000 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2025-02-27 14:04:42.322 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-02-27 14:04:43.092 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-02-27 14:04:43.109 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-02-27 14:04:43.134 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-02-27 14:04:43.387 +0800	INFO	springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator	40	main	Generating unique operation named: exportExcelUsingGET_1
+2025-02-27 14:04:43.434 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2025-02-27 14:04:43.470 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 9.135 seconds (JVM running for 13.522)
+2025-02-27 14:04:47.560 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-27 14:04:49.939 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-8	{dataSource-1} inited
+2025-02-27 14:05:30.508 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:05:30.510 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=2540760998@qq.com, subject=评估关系矩阵发布, retryCount=1
+2025-02-27 14:05:34.048 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:05:34.048 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=1
+2025-02-27 14:05:37.627 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:05:37.628 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=1
+2025-02-27 14:05:41.207 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:05:41.207 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=user10@example.com, subject=评估关系矩阵发布, retryCount=1
+2025-02-27 14:05:44.769 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:05:44.769 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=2540760998@qq.com, subject=评估关系矩阵发布, retryCount=2
+2025-02-27 14:05:50.307 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:05:50.313 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=2
+2025-02-27 14:05:54.887 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 550 auth frequency limit
+
+2025-02-27 14:05:54.888 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=2
+2025-02-27 14:06:00.409 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:06:00.410 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=user10@example.com, subject=评估关系矩阵发布, retryCount=2
+2025-02-27 14:06:05.981 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:06:05.982 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=2540760998@qq.com, subject=评估关系矩阵发布, retryCount=3
+2025-02-27 14:06:13.513 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:06:13.513 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=3
+2025-02-27 14:06:19.965 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 550 auth frequency limit
+
+2025-02-27 14:06:19.991 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=3
+2025-02-27 14:06:27.593 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:06:27.593 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-19	邮件发送失败，已重新加入队列: to=user10@example.com, subject=评估关系矩阵发布, retryCount=3
+2025-02-27 14:06:35.130 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:06:35.130 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-19	邮件发送失败，达到最大重试次数，放弃发送: to=2540760998@qq.com, subject=评估关系矩阵发布
+2025-02-27 14:06:36.643 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:06:36.644 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-19	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
+2025-02-27 14:06:38.189 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:06:38.189 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-19	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
+2025-02-27 14:06:39.750 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-19	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: authentication failed, system busy
+
+2025-02-27 14:06:39.750 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-19	邮件发送失败，达到最大重试次数，放弃发送: to=user10@example.com, subject=评估关系矩阵发布
+2025-02-27 16:24:27.492 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 12452 (started by LENOVO in E:\ScoreSystem)
+2025-02-27 16:24:27.503 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-02-27 16:24:34.961 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-02-27 16:24:37.289 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-02-27 16:24:37.319 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-02-27 16:24:37.363 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-02-27 16:24:37.794 +0800	INFO	springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator	40	main	Generating unique operation named: exportExcelUsingGET_1
+2025-02-27 16:24:37.834 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 10.73 seconds (JVM running for 18.288)
+2025-02-27 16:24:38.308 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...

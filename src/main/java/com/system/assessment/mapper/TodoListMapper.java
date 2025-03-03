@@ -13,6 +13,10 @@ import java.util.List;
 
 @Mapper
 public interface TodoListMapper {
+
+    public List<Double> findLastTick(@Param("epoch")Integer epoch,
+                                     @Param("id")Long taskId);
+
     public TaskEvaluateInfo findTaskEvaluateInfo(@Param("id")Long id);
 
     public Integer rejectSingle(@Param("reason")String reason,
@@ -94,6 +98,12 @@ public interface TodoListMapper {
     public  List<ScoreGettingDetailVO>  findAverageGettingNewRoundByAdmin(@Param("epoch") Integer epoch,
                                                                                @Param("condition") GetScoreConditionalVO getScoreConditionalVO,
                                                                                @Param("id")Integer id);
+
+    public  List<ScoreGettingDetailVO>  exportGetBoardList(@Param("epoch") Integer epoch);
+
+
+    public  List<ExportTickHistoryVO>  exportTickHistory(@Param("epoch") Integer epoch,
+                                                         @Param("evaluatorId")Integer evaluatorId);
 
 
 

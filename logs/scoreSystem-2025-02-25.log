@@ -1,0 +1,17 @@
+2025-02-25 22:52:39.108 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 2984 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2025-02-25 22:52:39.119 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-02-25 22:52:43.782 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2025-02-25 22:52:43.783 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2025-02-25 22:52:43.784 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2025-02-25 22:52:44.041 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2025-02-25 22:52:44.041 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2025-02-25 22:52:44.041 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2025-02-25 22:52:44.440 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2025-02-25 22:52:44.611 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2025-02-25 22:52:46.611 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-02-25 22:52:47.373 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-02-25 22:52:47.388 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-02-25 22:52:47.411 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-02-25 22:52:47.635 +0800	INFO	springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator	40	main	Generating unique operation named: exportExcelUsingGET_1
+2025-02-25 22:52:47.667 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2025-02-25 22:52:47.687 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 9.031 seconds (JVM running for 13.208)

@@ -13,9 +13,11 @@ import com.system.assessment.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -66,9 +68,9 @@ public class TodoController {
     @ApiOperation("查看某次打分结果")
     @RequestMapping(value = "/find/score",method = RequestMethod.GET)
     //已验证
-    public ResponseResult findScoreResult(@RequestParam("taskId") Long taksId){
+    public ResponseResult findScoreResult(@RequestParam("taskId") Long taskId){
 
-        ScoreResult scoreResult = todoService.findScoreResult(taksId);
+        ScoreResult scoreResult = todoService.findScoreResult(taskId);
         return ResponseResult.success(scoreResult);
     }
 
@@ -89,6 +91,15 @@ public class TodoController {
         return ResponseResult.success(historyDataList);
     }
 
+    @ApiOperation("根据问卷返回上一次打分情况")
+    @RequestMapping(value = "/find/lastTick",method = RequestMethod.GET)
+    public ResponseResult findLastTick(@RequestParam("taskId") Long taskId){
+
+        LastTickScoreList lastTickScoreList = todoService.findLastTick(taskId);
+        return ResponseResult.success(lastTickScoreList);
+    }
+
+
 
     @ApiOperation("个人代办-查看个人信息")
     @RequestMapping(value = "/todolist",method = RequestMethod.GET)
@@ -102,6 +113,21 @@ public class TodoController {
         long total = pageInfo.getTotal();
         DataListResult<TodoListVO> historyDataList = new DataListResult<>(total, todoList);
         return ResponseResult.success(historyDataList);
+    }
+
+    @ApiOperation("导出打分情况")
+    @RequestMapping(value = "/export/tick",method = RequestMethod.GET)
+    public void exportTick(HttpServletResponse response){
+
+        Integer newEnableProcess = evaluateService.findNewEnableProcess();
+        if(newEnableProcess == null){
+            newEnableProcess = 1;
+        }
+        if(!newEnableProcess.equals(ProcessType.BuildRelationships.getCode())){
+            // 设置文件下载响应头
+            todoService.exportTick(response);
+        }
+
     }
 
 }

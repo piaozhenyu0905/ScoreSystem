@@ -1,0 +1,6 @@
+2025-02-26 15:33:36.369 +0800	ERROR	com.system.assessment.service.Impl.ExcelServiceImpl	604	http-nio-80-exec-5	用户test4-012不存在!
+2025-02-26 15:33:36.518 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-5	test4/012导入失败!
+2025-02-26 15:33:36.598 +0800	ERROR	com.system.assessment.service.Impl.ExcelServiceImpl	604	http-nio-80-exec-5	用户test5-013不存在!
+2025-02-26 15:33:36.722 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-5	test5/013导入失败!
+2025-02-26 15:33:36.805 +0800	ERROR	com.system.assessment.service.Impl.ExcelServiceImpl	604	http-nio-80-exec-5	用户test6-014不存在!
+2025-02-26 15:33:36.938 +0800	ERROR	com.system.assessment.service.Impl.RelationshipServiceImpl	322	http-nio-80-exec-5	test6/014导入失败!

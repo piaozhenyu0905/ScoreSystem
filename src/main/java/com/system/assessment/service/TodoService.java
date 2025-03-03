@@ -2,13 +2,18 @@ package com.system.assessment.service;
 
 import com.system.assessment.pojo.TodoList;
 import com.system.assessment.vo.AssessmentHistoryVO;
+import com.system.assessment.vo.LastTickScoreList;
 import com.system.assessment.vo.ScoreResult;
 import com.system.assessment.vo.TodoListVO;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface TodoService {
+    public void exportTick(HttpServletResponse response);
+
+    public LastTickScoreList findLastTick(Long taskId);
 
     public void noticeAllNotCompleted();
 

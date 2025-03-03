@@ -4,9 +4,11 @@ import com.system.assessment.vo.*;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface ScoringBoardService {
+    public void  exportGetBoard(HttpServletResponse response);
 
     public GroupAverageVO getAverageScoreBoardAll(String condition);
 
@@ -38,7 +40,7 @@ public interface ScoringBoardService {
 
     public Integer confirmScoreSingle(Integer userId);
 
-    public List<ScoreDetailIncludeEvaluated> findAverageScoringDetail(Integer userId);
+    public List<ScoreDetailIncludeEvaluated> findAverageScoringDetail(Integer userId, Integer condition, Integer orderBy);
 
     public DataListResult findAverageScoring(AverageScoringConditionVO averageScoringConditionVO);
 }
