@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkscoring_system_front"]=self["webpackChunkscoring_system_front"]||[]).push([[182,436],{5939:function(t,e,n){n.r(e),n.d(e,{default:function(){return f}});var s=n(7616),r=n(3e3),u=n(8740),o={__name:"TodoListAd",setup(t){return(t,e)=>((0,s.uX)(),(0,s.Wv)((0,r.R1)(u["default"])))}};const c=o;var f=c}}]);
+//# sourceMappingURL=182.0c2c3974.js.map

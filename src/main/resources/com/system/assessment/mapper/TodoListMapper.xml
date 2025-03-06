@@ -366,7 +366,6 @@
     </select>
 
 
-
     <select id="findSingleGettingNewRound" resultMap="ScoreGettingDetail">
         SELECT tl.evaluated_name, tl.id, tl.evaluated_id as evaluatedId, tl.operation, u.weight,
         tl.enable, tl.confidence_level,
