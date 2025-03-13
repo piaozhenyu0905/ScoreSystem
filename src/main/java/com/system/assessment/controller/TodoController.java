@@ -130,4 +130,20 @@ public class TodoController {
 
     }
 
+    @ApiOperation("导出待评分列表")
+    @RequestMapping(value = "/export/evaluatedInfo",method = RequestMethod.GET)
+    public void exportEvaluatedInfo(HttpServletResponse response){
+
+        Integer newEnableProcess = evaluateService.findNewEnableProcess();
+        if(newEnableProcess == null){
+            newEnableProcess = 1;
+        }
+        if(!newEnableProcess.equals(ProcessType.BuildRelationships.getCode())){
+            // 设置文件下载响应头
+            todoService.exportEvaluatedInfo(response);
+        }
+
+    }
+
+
 }

@@ -5,6 +5,7 @@ import com.system.assessment.constants.Guideline;
 import com.system.assessment.constants.OperationType;
 import com.system.assessment.constants.PathConstants;
 import com.system.assessment.mapper.EvaluateMapper;
+import com.system.assessment.mapper.RelationshipMapper;
 import com.system.assessment.mapper.TodoListMapper;
 import com.system.assessment.mapper.UserMapper;
 import com.system.assessment.pojo.TodoList;
@@ -48,6 +49,9 @@ public class TodoServiceImpl implements TodoService {
 
     @Autowired
     public TodoListMapper todoListMapper;
+
+    @Autowired
+    public RelationshipMapper relationshipMapper;
 
     @Autowired
     public EmailService emailService;
@@ -108,6 +112,77 @@ public class TodoServiceImpl implements TodoService {
         Integer newEpoch = evaluateMapper.findNewEpoch();
         PageHelper.startPage(pageNum, pageSize);
         return todoListMapper.findTodoList(userId, newEpoch);
+    }
+
+    @Override
+    public void exportEvaluatedInfo(HttpServletResponse response) {
+        Integer userId = AuthenticationUtil.getUserId();
+
+        List<AssessorVO> evaluatedList = relationshipMapper.findEvaluatedById(userId);
+
+        if(evaluatedList == null){
+            evaluatedList = new ArrayList<>();
+        }
+
+        String savePath;
+        File destinationFile = null;
+
+        // 模板文件路径
+        if ("prd".equals(activeProfile)) {
+            savePath = PathConstants.EXCEL_FOLDER ; // 生产环境路径
+            destinationFile = new File(savePath,  "tick.xlsx");
+        } else {
+            ClassPathResource resource = new ClassPathResource("static/template");
+            File directory = null;
+            try {
+                directory = resource.getFile();
+                // 保存文件为 template.docx
+                destinationFile = new File(directory, "tick.xlsx");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(destinationFile);
+            Workbook workbook = new XSSFWorkbook(fis);
+            // 假设数据写入第一个 Sheet
+            Sheet sheet = workbook.getSheetAt(0);
+            Row styleRow = sheet.getRow(0);
+
+            int rowIndex = 1;
+            for (int i = 0; i < evaluatedList.size(); i++) {
+                AssessorVO assessorVO = evaluatedList.get(i);
+                // 获取或创建行
+                Row row = sheet.getRow(rowIndex);
+                if (row == null) {
+                    row = sheet.createRow(rowIndex);
+                }
+
+                // 按表头顺序填写单元格并设置样式
+                createCellWithStyle(row, 0, assessorVO.getUsername(), styleRow.getCell(0), workbook); // ID
+                createCellWithStyle(row, 1, assessorVO.getDepartment(), styleRow.getCell(1), workbook); // Name
+
+                // 下一行
+                rowIndex++;
+            }
+
+            // 设置文件下载响应头
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            String fileName = URLEncoder.encode("导出待评分列表.xlsx", "UTF-8");
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+            // 写入数据到响应流
+            workbook.write(response.getOutputStream());
+            workbook.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

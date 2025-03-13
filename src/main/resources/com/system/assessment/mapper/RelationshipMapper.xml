@@ -164,6 +164,15 @@
     </select>
 
 
+
+    <select id="findEvaluatedById" resultMap="Assessor">
+        select u.department,
+               CONCAT(u.name, '/', u.work_num) as username
+        from evaluate_relations as er
+                 left join user as u on u.id = er.evaluated_user
+        where  er.evaluator = #{id}  and er.enable = 1
+    </select>
+
     <select id="findAssessor" resultMap="Assessor">
         select u.department,
                CONCAT(u.name, '/', u.work_num) as username

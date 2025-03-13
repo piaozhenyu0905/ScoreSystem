@@ -17,6 +17,8 @@ import java.util.List;
 public interface RelationshipMapper {
     public List<AssessorVO> findAssessor(@Param("id")Integer id);
 
+    public List<AssessorVO> findEvaluatedById(@Param("id")Integer id);
+
     public List<RelatedPersonInfoVO> findRelatedPersonInfo(@Param("id")Integer userId);
 
     @Select("select id from user where name = #{name} and work_num = #{workNum} and is_delete = 0")

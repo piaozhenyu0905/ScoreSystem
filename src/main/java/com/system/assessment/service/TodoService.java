@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface TodoService {
+
+    public void exportEvaluatedInfo(HttpServletResponse response);
+
     public void exportTick(HttpServletResponse response);
 
     public LastTickScoreList findLastTick(Long taskId);
