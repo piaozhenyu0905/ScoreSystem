@@ -141,7 +141,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/favicon.ico",
                         "/css/**", "/js/**", "/img/**",
                         "/pdf/**",
-                        "/api/export/evaluatedInfo",
                         "/swagger-ui.html", "/webjars/**").permitAll()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated()

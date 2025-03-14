@@ -1,298 +1,72 @@
-2025-03-03 16:17:49.332 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:09:20.460 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:17:52.176 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:09:23.231 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:17:55.046 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:09:25.989 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:17:57.978 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:09:28.830 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:00.895 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:09:31.675 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:05.826 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:09:36.504 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:10.639 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:09:41.391 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:15.566 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:09:46.210 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:20.457 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:09:51.082 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:27.382 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:09:57.873 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:34.329 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:10:04.736 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:41.208 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:10:11.645 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:48.069 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:10:18.492 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:48.069 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-16	邮件发送失败，达到最大重试次数，放弃发送: to=2540760998@qq.com, subject=评估关系矩阵发布
-2025-03-03 16:18:48.925 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:10:18.492 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-35	邮件发送失败，达到最大重试次数，放弃发送: to=2540760998@qq.com, subject=评估关系矩阵发布
+2025-03-14 13:10:19.268 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:48.925 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-16	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
-2025-03-03 16:18:49.996 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:10:19.269 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-35	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
+2025-03-14 13:10:20.045 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:49.997 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-16	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
-2025-03-03 16:18:50.895 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-16	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:10:20.045 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-35	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
+2025-03-14 13:10:20.778 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:18:50.895 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-16	邮件发送失败，达到最大重试次数，放弃发送: to=user10@example.com, subject=评估关系矩阵发布
-2025-03-03 16:23:09.497 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 13:10:20.778 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-35	邮件发送失败，达到最大重试次数，放弃发送: to=user10@example.com, subject=评估关系矩阵发布
+2025-03-14 18:07:04.360 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:23:12.364 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:07:07.355 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:23:15.216 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:07:10.730 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:23:20.077 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:07:13.724 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:23:24.955 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:07:16.673 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:23:31.915 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:07:21.562 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:23:38.804 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:07:26.495 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:23:38.805 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-12	邮件发送失败，达到最大重试次数，放弃发送: to=2540760998@qq.com, subject=【驳回提醒】Webb/005的打分已被驳回!
-2025-03-03 16:23:39.740 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:07:31.485 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:23:39.740 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-12	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=成长评估打分驳回提醒!
-2025-03-03 16:26:13.986 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:07:36.374 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:26:16.859 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:07:43.379 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:26:19.763 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:07:50.277 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:26:24.651 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:07:57.117 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:26:29.493 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:08:04.001 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:26:36.407 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:08:04.002 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-18	邮件发送失败，达到最大重试次数，放弃发送: to=2540760998@qq.com, subject=评估关系矩阵发布
+2025-03-14 18:08:04.849 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:26:43.318 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:08:04.850 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-18	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
+2025-03-14 18:08:05.817 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:26:43.319 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-12	邮件发送失败，达到最大重试次数，放弃发送: to=2540760998@qq.com, subject=【驳回提醒】Webb/005的打分已被驳回!
-2025-03-03 16:26:44.181 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-12	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+2025-03-14 18:08:05.817 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-18	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
+2025-03-14 18:08:06.770 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
 
-2025-03-03 16:26:44.182 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-12	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=成长评估打分驳回提醒!
-2025-03-03 16:50:41.439 +0800	ERROR	com.system.assessment.exception.WebExceptionController	102	http-nio-80-exec-4	全局异常处理器将handleMissingServletRequestParameterException异常抛出,信息为com.system.assessment.exception.CustomException: 缺少请求参数
-2025-03-03 16:50:41.439 +0800	ERROR	com.system.assessment.exception.WebExceptionController	102	http-nio-80-exec-4	全局异常处理器将handleMissingServletRequestParameterException异常抛出,信息为com.system.assessment.exception.CustomException: 缺少请求参数
-2025-03-03 16:51:35.234 +0800	ERROR	com.system.assessment.exception.WebExceptionController	248	http-nio-80-exec-4	
-999 Unknown Error!
-请求方法：GET
-请求URL:http://localhost/api/average/score/detail
-异常信息：java.lang.IllegalArgumentException: 不合法的排序: 10
-	at com.system.assessment.service.Impl.ScoringBoardServiceImpl.sortList(ScoringBoardServiceImpl.java:694)
-	at com.system.assessment.service.Impl.ScoringBoardServiceImpl.findAverageScoringDetail(ScoringBoardServiceImpl.java:727)
-	at com.system.assessment.service.Impl.ScoringBoardServiceImpl$$FastClassBySpringCGLIB$$19970463.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:685)
-	at com.system.assessment.service.Impl.ScoringBoardServiceImpl$$EnhancerBySpringCGLIB$$f65c366.findAverageScoringDetail(<generated>)
-	at com.system.assessment.controller.ScoringBoardController.findAverageScoringDetail(ScoringBoardController.java:61)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
-	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
-	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.session.ConcurrentSessionFilter.doFilter(ConcurrentSessionFilter.java:152)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at com.system.assessment.filter.SessionIsValuedTokenFilter.doFilterInternal(SessionIsValuedTokenFilter.java:36)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1579)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:748)
-
----------------------------------------------------------------------------------------------------------
-
-2025-03-03 16:51:35.234 +0800	ERROR	com.system.assessment.exception.WebExceptionController	248	http-nio-80-exec-4	
-999 Unknown Error!
-请求方法：GET
-请求URL:http://localhost/api/average/score/detail
-异常信息：java.lang.IllegalArgumentException: 不合法的排序: 10
-	at com.system.assessment.service.Impl.ScoringBoardServiceImpl.sortList(ScoringBoardServiceImpl.java:694)
-	at com.system.assessment.service.Impl.ScoringBoardServiceImpl.findAverageScoringDetail(ScoringBoardServiceImpl.java:727)
-	at com.system.assessment.service.Impl.ScoringBoardServiceImpl$$FastClassBySpringCGLIB$$19970463.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:685)
-	at com.system.assessment.service.Impl.ScoringBoardServiceImpl$$EnhancerBySpringCGLIB$$f65c366.findAverageScoringDetail(<generated>)
-	at com.system.assessment.controller.ScoringBoardController.findAverageScoringDetail(ScoringBoardController.java:61)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
-	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
-	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.session.ConcurrentSessionFilter.doFilter(ConcurrentSessionFilter.java:152)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at com.system.assessment.filter.SessionIsValuedTokenFilter.doFilterInternal(SessionIsValuedTokenFilter.java:36)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1579)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:748)
-
----------------------------------------------------------------------------------------------------------
-
-2025-03-03 16:51:35.236 +0800	ERROR	com.system.assessment.exception.WebExceptionController	256	http-nio-80-exec-4	全局异常处理器将exception异常抛出,信息为com.system.assessment.exception.CustomException: 未知异常
-2025-03-03 16:51:35.236 +0800	ERROR	com.system.assessment.exception.WebExceptionController	256	http-nio-80-exec-4	全局异常处理器将exception异常抛出,信息为com.system.assessment.exception.CustomException: 未知异常
+2025-03-14 18:08:06.771 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-18	邮件发送失败，达到最大重试次数，放弃发送: to=user10@example.com, subject=评估关系矩阵发布
