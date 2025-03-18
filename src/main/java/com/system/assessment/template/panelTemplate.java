@@ -66,10 +66,24 @@ public class panelTemplate {
                         "<p><strong>尊敬的 %s:</strong></p>" +
                         "<p style=\"text-indent: 2em;\" >您好!</p>" +
                         "<p style=\"text-indent: 2em;\" >%s</p>" +
-                        "<p style=\"text-indent: 2em;\" ><strong>您本次评估平均得分为 %.1f，公司%s类型的平均得分为 %.1f，公司%s类型的平均得分为 %.1f</strong>，详细的得分情况，请前往"+"<a href=\"" + url + "\">成长评估系统</a>" +"查看</p>" +
+                        "<p style=\"text-indent: 2em;\" ><strong>您本次评估平均得分为 %.1f，本轮公司%s类型的平均得分为 %.1f，公司%s类型的平均得分为 %.1f</strong>，详细的得分情况，请前往"+"<a href=\"" + url + "\">成长评估系统</a>" +"查看</p>" +
                         "</body>" +
                         "</html>",
                 title, name, template, totalScore, lxyz, lxyzTotalScore, business, businessTotalScore);
+    }
+    //未参与者的模版
+    public static String htmlNotJoinTemplate(String title, String name, String template, String lxyz, Double lxyzTotalScore, String business, Double businessTotalScore){
+        return String.format(
+                "<html>" +
+                        "<body style=\"font-family: Arial, sans-serif;\">" +
+                        "<h2 style=\"color: #333; text-align: center;\">%s 个人成长报告</h2>" +
+                        "<p><strong>尊敬的 %s:</strong></p>" +
+                        "<p style=\"text-indent: 2em;\" >您好!</p>" +
+                        "<p style=\"text-indent: 2em;\" >%s</p>" +
+                        "<p style=\"text-indent: 2em;\" ><strong>您本轮未参与评估，本轮公司%s类型的平均得分为 %.1f，公司%s类型的平均得分为 %.1f</strong>，详细的得分情况，请前往"+"<a href=\"" + url + "\">成长评估系统</a>" +"查看</p>" +
+                        "</body>" +
+                        "</html>",
+                title, name, template, lxyz, lxyzTotalScore, business, businessTotalScore);
     }
 
 

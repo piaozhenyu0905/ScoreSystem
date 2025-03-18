@@ -86,7 +86,13 @@ public class AsyncTask  {
                     if(title == null || title.equals("")){
                         title = "个人成长报告";
                     }
-                    String content = panelTemplate.htmlTemplate(title, name, context, totalScore, lxyz, lxyzTotalScore, business, businessTotalScore);
+                    String content;
+                    if(totalScore != null && Double.compare(totalScore, 0.0) == 0){
+                        content = panelTemplate.htmlNotJoinTemplate(title, name, context, lxyz, lxyzTotalScore, business, businessTotalScore);
+                    }else {
+                        content = panelTemplate.htmlTemplate(title, name, context, totalScore, lxyz, lxyzTotalScore, business, businessTotalScore);
+                    }
+
                     String subject = "成长评估结果发布";
                     emailService.sendMessageHTML(email, subject, content);
 

@@ -1,0 +1,143 @@
+2025-03-14 13:07:53.815 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 23212 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2025-03-14 13:07:53.907 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-03-14 13:08:04.394 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2025-03-14 13:08:04.395 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2025-03-14 13:08:04.396 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2025-03-14 13:08:04.399 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2025-03-14 13:08:04.399 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2025-03-14 13:08:04.399 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2025-03-14 13:08:04.559 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2025-03-14 13:08:04.736 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2025-03-14 13:08:07.802 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-03-14 13:08:09.072 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-03-14 13:08:09.093 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-03-14 13:08:09.142 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-03-14 13:08:09.499 +0800	INFO	springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator	40	main	Generating unique operation named: exportExcelUsingGET_1
+2025-03-14 13:08:09.546 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2025-03-14 13:08:09.574 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 17.741 seconds (JVM running for 29.3)
+2025-03-14 13:08:31.900 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-14 13:08:35.290 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-8	{dataSource-1} inited
+2025-03-14 13:09:20.460 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:09:20.463 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=2540760998@qq.com, subject=评估关系矩阵发布, retryCount=1
+2025-03-14 13:09:23.231 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:09:23.232 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=1
+2025-03-14 13:09:25.989 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:09:25.990 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=1
+2025-03-14 13:09:28.830 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:09:28.831 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=user10@example.com, subject=评估关系矩阵发布, retryCount=1
+2025-03-14 13:09:31.675 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:09:31.675 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=2540760998@qq.com, subject=评估关系矩阵发布, retryCount=2
+2025-03-14 13:09:36.504 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:09:36.504 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=2
+2025-03-14 13:09:41.391 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:09:41.391 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=2
+2025-03-14 13:09:46.210 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:09:46.211 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=user10@example.com, subject=评估关系矩阵发布, retryCount=2
+2025-03-14 13:09:51.082 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:09:51.083 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=2540760998@qq.com, subject=评估关系矩阵发布, retryCount=3
+2025-03-14 13:09:57.873 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:09:57.873 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=3
+2025-03-14 13:10:04.736 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:10:04.736 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=3
+2025-03-14 13:10:11.645 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:10:11.645 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-35	邮件发送失败，已重新加入队列: to=user10@example.com, subject=评估关系矩阵发布, retryCount=3
+2025-03-14 13:10:18.492 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:10:18.492 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-35	邮件发送失败，达到最大重试次数，放弃发送: to=2540760998@qq.com, subject=评估关系矩阵发布
+2025-03-14 13:10:19.268 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:10:19.269 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-35	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
+2025-03-14 13:10:20.045 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:10:20.045 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-35	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
+2025-03-14 13:10:20.778 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-35	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 13:10:20.778 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-35	邮件发送失败，达到最大重试次数，放弃发送: to=user10@example.com, subject=评估关系矩阵发布
+2025-03-14 18:06:20.724 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplication on LAPTOP-HISRR710 with PID 3704 (E:\ScoreSystem\target\classes started by LENOVO in E:\ScoreSystem)
+2025-03-14 18:06:20.731 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-03-14 18:06:25.868 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing ProtocolHandler ["http-nio-80"]
+2025-03-14 18:06:25.869 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting service [Tomcat]
+2025-03-14 18:06:25.869 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting Servlet engine: [Apache Tomcat/9.0.27]
+2025-03-14 18:06:25.871 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Loaded APR based Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+2025-03-14 18:06:25.871 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2025-03-14 18:06:25.871 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2025-03-14 18:06:26.066 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+2025-03-14 18:06:26.198 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Initializing Spring embedded WebApplicationContext
+2025-03-14 18:06:27.440 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-03-14 18:06:28.065 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-03-14 18:06:28.080 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-03-14 18:06:28.104 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-03-14 18:06:28.319 +0800	INFO	springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator	40	main	Generating unique operation named: exportExcelUsingGET_1
+2025-03-14 18:06:28.352 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	main	Starting ProtocolHandler ["http-nio-80"]
+2025-03-14 18:06:28.369 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplication in 8.237 seconds (JVM running for 11.976)
+2025-03-14 18:06:30.710 +0800	INFO	org.apache.juli.logging.DirectJDKLog	173	http-nio-80-exec-1	Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-14 18:06:32.488 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	985	http-nio-80-exec-8	{dataSource-1} inited
+2025-03-14 18:07:04.360 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:04.378 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=2540760998@qq.com, subject=评估关系矩阵发布, retryCount=1
+2025-03-14 18:07:07.355 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:07.356 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=1
+2025-03-14 18:07:10.730 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:10.730 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=1
+2025-03-14 18:07:13.724 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:13.724 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=user10@example.com, subject=评估关系矩阵发布, retryCount=1
+2025-03-14 18:07:16.673 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:16.673 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=2540760998@qq.com, subject=评估关系矩阵发布, retryCount=2
+2025-03-14 18:07:21.562 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:21.563 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=2
+2025-03-14 18:07:26.495 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:26.495 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=2
+2025-03-14 18:07:31.485 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:31.486 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=user10@example.com, subject=评估关系矩阵发布, retryCount=2
+2025-03-14 18:07:36.374 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:36.375 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=2540760998@qq.com, subject=评估关系矩阵发布, retryCount=3
+2025-03-14 18:07:43.379 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:43.379 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=3
+2025-03-14 18:07:50.277 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:50.277 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=2339134840@qq.com, subject=评估关系矩阵发布, retryCount=3
+2025-03-14 18:07:57.117 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:07:57.118 +0800	INFO	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	129	Thread-18	邮件发送失败，已重新加入队列: to=user10@example.com, subject=评估关系矩阵发布, retryCount=3
+2025-03-14 18:08:04.001 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:08:04.002 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-18	邮件发送失败，达到最大重试次数，放弃发送: to=2540760998@qq.com, subject=评估关系矩阵发布
+2025-03-14 18:08:04.849 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:08:04.850 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-18	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
+2025-03-14 18:08:05.817 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:08:05.817 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-18	邮件发送失败，达到最大重试次数，放弃发送: to=2339134840@qq.com, subject=评估关系矩阵发布
+2025-03-14 18:08:06.770 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	176	Thread-18	发送邮件时发生未知错误: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Login Fail. Please enter your authorization code to login. More information in https://service.mail.qq.com/detail/0/53
+
+2025-03-14 18:08:06.771 +0800	ERROR	com.system.assessment.service.Impl.AsyncEmailServiceImpl$EmailProcessor	134	Thread-18	邮件发送失败，达到最大重试次数，放弃发送: to=user10@example.com, subject=评估关系矩阵发布
+2025-03-14 18:09:29.545 +0800	INFO	org.springframework.boot.StartupInfoLogger	55	main	Starting ScoreApplicationTests on LAPTOP-HISRR710 with PID 28564 (started by LENOVO in E:\ScoreSystem)
+2025-03-14 18:09:29.553 +0800	INFO	org.springframework.boot.SpringApplication	655	main	The following profiles are active: dev
+2025-03-14 18:09:33.078 +0800	INFO	springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping	69	main	Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2025-03-14 18:09:34.579 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	160	main	Context refreshed
+2025-03-14 18:09:34.605 +0800	INFO	springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper	163	main	Found 1 custom documentation plugin(s)
+2025-03-14 18:09:34.631 +0800	INFO	springfox.documentation.spring.web.scanners.ApiListingReferenceScanner	41	main	Scanning for api listing references
+2025-03-14 18:09:35.049 +0800	INFO	springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator	40	main	Generating unique operation named: exportExcelUsingGET_1
+2025-03-14 18:09:35.103 +0800	INFO	org.springframework.boot.StartupInfoLogger	61	main	Started ScoreApplicationTests in 5.884 seconds (JVM running for 9.157)
+2025-03-14 18:09:35.585 +0800	INFO	com.alibaba.druid.pool.DruidDataSource	2032	SpringContextShutdownHook	{dataSource-0} closing ...

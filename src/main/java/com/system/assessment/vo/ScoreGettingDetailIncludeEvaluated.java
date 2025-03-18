@@ -20,6 +20,8 @@ public class ScoreGettingDetailIncludeEvaluated {
     @JsonIgnore
     private List<ScoreVO> singleScore; //单次打分
 
+    private Double confidenceLevel; //评估者对被评估者的打分置信度
+
     private Double allScore; //总分
 
     public void postHandle(){

@@ -63,6 +63,7 @@
     <resultMap id="ScoreGettingDetailCheck" type="com.system.assessment.vo.ScoreGettingDetailIncludeEvaluated">
         <result property="evaluatorName" column="evaluator_name"/>
         <result property="department" column="department"/>
+        <result property="confidenceLevel" column="confidence_level"/>
         <result property="type" column="evaluate_type" typeHandler="com.system.assessment.constants.handler.RelationTypeHandler"/>
         <collection property="singleScore" ofType="com.system.assessment.vo.ScoreVO">
             <result column="dimension_id" property="dimensionId"/>
@@ -457,7 +458,7 @@
     <select id="findAverageGettingScoringDetail" resultMap="ScoreGettingDetailCheck">
         SELECT
                CONCAT(u.name, '/', u.work_num) as evaluator_name,
-               s.dimension_id, s.score, er.evaluate_type
+               s.dimension_id, s.score, er.evaluate_type, tl.confidence_level
         FROM todo_list as tl
                  left join user as u on u.id = tl.evaluator_id
                  left join scores as s on s.todo_id = tl.id

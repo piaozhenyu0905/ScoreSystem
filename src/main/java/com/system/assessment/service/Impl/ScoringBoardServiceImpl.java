@@ -909,6 +909,8 @@ public class ScoringBoardServiceImpl implements ScoringBoardService {
             totalScore = all;
         }
 
+        totalScore = MathUtils.transformer(totalScore, 1);
+
         panelScoreBoardVO.setTotalScore(totalScore);
         panelScoreBoardVO.setSelfList(scoreList);
 
